@@ -1,6 +1,9 @@
 import axios from 'axios';
+import { useNavigate, Link } from 'react-router-dom';
+
 
 function Login() {
+    const navigate = useNavigate();
 
     async function authenticateUser(identifier, password) {
         const response = await axios.post('http://localhost:5050/authenticate', {
@@ -18,6 +21,8 @@ function Login() {
         if (await verifyIfAlreadyExist(identifier)) {
             let token = await authenticateUser(identifier, password); //set the token for the user
             localStorage.setItem("token", token.token);
+
+            navigate('/')
         }
     }
 
@@ -36,6 +41,7 @@ function Login() {
             <input type="text" placeholder="Entrez votre mail/username.." className="user-inputs" id="identifier"></input>
             <input type="password" placeholder="Entrez votre mot de passe.." className="user-inputs" id="password"></input>
             <button onClick={loginUser} style={{ backgroundColor: 'white' }}>Connexion</button>
+            <p style={{ color: 'white' }}>Pas encore de compte ? S'inscire <Link style={{ color: 'blue' }} to='/inscription'>ici</Link></p>
         </div>
     );
 }
