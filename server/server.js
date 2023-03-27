@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const mongoString = process.env.DATABASE_URL;
 const User = require('./models/user');
+const bcrypt = require('bcrypt');
 
 
 mongoose.connect(mongoString, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -34,7 +35,9 @@ app.get('/users', async (req, res) => {
 
 app.post('/users', async (req, res) => {
     try {
-        const { email, username, password } = req.body;
+        let saltRounds = 10;
+        let { email, username, password } = req.body;
+        password = bcrypt.hashSync(password, saltRounds);
         const user = new User({ email, username, password });
         await user.save();
         res.status(201).json(user);
