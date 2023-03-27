@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 function Register() {
@@ -66,6 +67,7 @@ function Register() {
             <input type="password" id="password" className="user-inputs" placeholder="Entrez votre mot de passe.."></input>
             <input type="password" id="confirm-password" className="user-inputs" placeholder="Confirmer votre mot de passe.."></input>
             <button onClick={validRegister} style={{ backgroundColor: 'white' }}>Valider</button>
+            <p style={{ color: 'white' }}>Déjà un compte ? Se connecter <Link style={{ color: 'blue' }} to='/connexion'>ici</Link></p>
         </div>
     );
 }
