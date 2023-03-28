@@ -2,7 +2,8 @@ import './App.css';
 import React, {useState} from 'react';
 import { Canvas, useLoader, useFrame } from "react-three-fiber";
 import { OrbitControls, PerspectiveCamera, Plane} from "@react-three/drei";
-import { InView } from 'react-intersection-observer';
+import { InView } from 'react-intersection-observer'; // For Occlusion Testing
+
 import img from './wall.jpg';
 import * as THREE from 'three';
 import Kick from './3dcomponent/Kick.js';
@@ -19,7 +20,6 @@ function InfiniteGround() {
     </Plane>
   );
 }
-
 
 
 //TODO 1 -Thomas - 2021-03-28 - Add LOD (Level Of Detail) - Display the appropriate level of detail based on the distance between the camera and the model to reduce the GPU workload.
