@@ -26,7 +26,5 @@ function AudioComp(camera) {
             audioSource.setPosition(camera.position.x, camera.position.y, camera.position.z);
         }
     }, [currentCamera]);
-
-    // ...rest of the component code
 };
 export default AudioComp;

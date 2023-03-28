@@ -4,7 +4,7 @@ import AudioComp from '../../components/audio-component/audio-component';
 function Audio() {
     return (
         <Canvas>
-            <AudioComp />
+            <AudioComp camera={{ /* camera here */ }} />
         </Canvas>
     );
 }
