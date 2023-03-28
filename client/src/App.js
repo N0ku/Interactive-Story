@@ -1,16 +1,34 @@
 import logo from './logo.svg';
 import './App.css';
-import download from './img/download.png'
+import download from './img/dl.png';
+
+import insta from './img/insta2.png';
+import twitter from './img/twitter.png';
+import github from './img/git3.png';
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <button type="button" class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">JOUER</button>
-        <button type="button" class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Paramètres</button>
-        <button type="button" class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Connexion</button>
-        <img src={download} alt="Logo Téléchargement"></img>
-      </header>
+      <body>
+
+        <div className="Buttons">
+          <button class="neon-box-1">JOUER</button>
+          <button class="neon-box-1">PARAMETRES</button>
+          <button class="neon-box-1">CONNEXION</button>
+        </div>
+        
+        <div className="Button-dl">
+           <img className="Logo-dl" src={download} alt="Logo Téléchargement"></img>
+        </div>
+
+        <div className="Buttons-social-network">
+          <a href="https://trello.com/invite/b/Z5Uj1Wo2/ATTI86f7a114fc65e46f804484c4a18b71a57255ED39/interactive-story" target="_blank" rel="noreferrer"><img className="Logo-twitter" src={twitter} alt="Logo Twitter"></img></a>
+          <a href="https://github.com/N0ku/Interactive-Story" target="_blank" rel="noreferrer"><img className="Logo-git" src={github} alt="Logo GitHub"></img></a>
+          <a href="https://google.com" target="_blank" rel="noreferrer"><img className="Logo-insta" src={insta} alt="Logo Instagram"></img></a> 
+        </div>
+      </body>
+      
     </div>
   );
 }
