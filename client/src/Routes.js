@@ -5,22 +5,24 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Example from "./pages/example/Example";
 import Game from "./pages/game/GamePlay";
+import Audio from "./pages/test-audio/Audio";
 import PrivatesRoutes from "./utils/PrivatesRoutes";
 function RoutesProvider() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/connexion" element={<Login />} />
-        <Route path="/inscription" element={<Register />} />
-        <Route path="/exemple" element={<Example />} />
-        <Route path="/game" element={<Game />} />
-        {/* EXAMPLES */}
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/connexion" element={<Login />} />
+                <Route path="/inscription" element={<Register />} />
+                <Route path="/exemple" element={<Example />} />
+                <Route path="/audio" element={<Audio />} />
+                <Route path="/game" element={<Game />} />
+                {/* EXAMPLES */}
 
-        <Route element={<PrivatesRoutes />}></Route>
-      </Routes>
-    </BrowserRouter>
-  );
+                <Route element={<PrivatesRoutes />}></Route>
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default RoutesProvider;
