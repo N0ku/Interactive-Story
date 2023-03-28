@@ -4,8 +4,8 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Example from "./pages/example/Example";
-import Game from "./pages/GamePlay";
-
+import Game from "./pages/game/GamePlay";
+import PrivatesRoutes from "./utils/PrivatesRoutes";
 function RoutesProvider() {
   return (
     <BrowserRouter>
@@ -17,7 +17,7 @@ function RoutesProvider() {
         <Route path="/game" element={<Game />} />
         {/* EXAMPLES */}
 
-        <Route element={<PrivateRoutes />}></Route>
+        <Route element={<PrivatesRoutes />}></Route>
       </Routes>
     </BrowserRouter>
   );
