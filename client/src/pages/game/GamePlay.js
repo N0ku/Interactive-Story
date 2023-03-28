@@ -4,6 +4,10 @@ import { OrbitControls, PerspectiveCamera, Plane } from "@react-three/drei";
 import * as THREE from "three";
 import Kick from "../../3dcomponent/Kick.js";
 import InfiniteGround from "../../components/InfiniteGround";
+import Led from "../../3dcomponent/Led.js";
+import Chair from "../../3dcomponent/Chair.js";
+import Baseball from "../../3dcomponent/Baseball.js";
+import ModelLoader from "../../classLoader/ModelLoader";
 
 //TODO 1 -Thomas - 2021-03-28 - Add LOD (Level Of Detail) - Display the appropriate level of detail based on the distance between the camera and the model to reduce the GPU workload.
 //TODO 2 -Thomas - 2021-03-28 - Add Occlusion Frustum - Display the occlusion frustum based on the view camera versus the world, remove if camera don't see him.
@@ -21,13 +25,14 @@ function GamePlay() {
     <div className="App">
       <div className="canvas-container">
         <Canvas
-          antialias={false}
           style={{ width: "100%", height: "100%" }}
-          onCreated={({ gl, scene }) => {
-            scene.fog = new THREE.Fog(fogColor, fogNear, fogFar);
-            gl.setClearColor(scene.fog.color);
-          }}
+          // onCreated={({ gl, scene }) => {
+          //   scene.fog = new THREE.Fog(fogColor, fogNear, fogFar);
+          //   gl.setClearColor(scene.fog.color);
+          // }}
         >
+          <axesHelper scale={[2, 2, 2]} position={[0, 0, 0]} />
+
           <PerspectiveCamera
             makeDefault
             aspect={window.innerWidth / window.innerHeight}
@@ -38,6 +43,14 @@ function GamePlay() {
           <ambientLight intensity={0.5} />
           <directionalLight intensity={0.5} />
           <InfiniteGround />
+          <Chair />
+          <Led />
+          <ModelLoader
+            path="/low_poly_baseball_bat.glb"
+            position={[0, -1, 1]}
+            rotation={[0, Math.PI / 2, 0]}
+            scale={0.001}
+          />
           <Kick />
           <OrbitControls
             enableDamping
