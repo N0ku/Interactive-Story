@@ -8,8 +8,8 @@ import DialogueBox from "../../components/DialogueBoxV2";
 import KickAnim from "../../3dcomponent/Kick_anim.js";
 import RockyGround from "../../3dcomponent/Rocky_ground";
 import Buildings from "../../3dcomponent/Game_ready_city_buildings";
-import Wall from "../../3dcomponent/Wall"
-import Kick from "../../components/Kick"
+import Wall from "../../3dcomponent/Wall";
+
 function GamePlay() {
   const [lerping, setLerping] = useState(false)
   const [refObj, setRefObj] = useState(null)
@@ -79,6 +79,7 @@ function GamePlay() {
           {/* ENVIRONNMENT - END */}
 
         </Canvas>
+        <DialogueBox text="Salut toi ! Comment ça va ? Sartek ton dev brrroo, Askip t'as eu v'la des merdes mais la sa marche :3" speed={25} />
       </div>
     </div>
   );
