@@ -6,8 +6,6 @@ function Home() {
     const token = localStorage.getItem('token');
     const navigate = useNavigate();
 
-    console.log(token);
-
     useEffect(() => {
         if (token) {
             setConnected(true);
