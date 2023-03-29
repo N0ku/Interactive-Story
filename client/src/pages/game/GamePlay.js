@@ -4,11 +4,8 @@ import { OrbitControls, PerspectiveCamera, Plane } from "@react-three/drei";
 import * as THREE from "three";
 import Kick from "../../3dcomponent/Kick.js";
 import InfiniteGround from "../../components/InfiniteGround";
-
-//TODO 1 -Thomas - 2021-03-28 - Add LOD (Level Of Detail) - Display the appropriate level of detail based on the distance between the camera and the model to reduce the GPU workload.
-//TODO 2 -Thomas - 2021-03-28 - Add Occlusion Frustum - Display the occlusion frustum based on the view camera versus the world, remove if camera don't see him.
-//TODO 3 -Thomas - 2021-03-28 - Modify pixel ratio. Gain 10 fps when using low resolution.
-//TODO 4 -Thomas - 2021-03-28 - Desactivate AntiAliasing. Hard graphic downgrade. gain 20/30 fps when using low resolution.
+import { Sky } from "@react-three/drei";
+import Apocalyptic from "../../components/Apocalyptic.jsx";
 
 function GamePlay() {
   // const [inView, setInView] = useState(false); // Set State false to disable inView.
@@ -28,6 +25,15 @@ function GamePlay() {
             gl.setClearColor(scene.fog.color);
           }}
         >
+          {/* <Sky
+            distance={450000}
+            sunPosition={[5, 1, 8]}
+            inclination={0}
+            azimuth={0.25}
+        
+          /> */}
+          <axesHelper scale={[2, 2, 2]} position={[0, 0, 0]} />
+
           <PerspectiveCamera
             makeDefault
             aspect={window.innerWidth / window.innerHeight}
@@ -37,8 +43,13 @@ function GamePlay() {
           />
           <ambientLight intensity={0.5} />
           <directionalLight intensity={0.5} />
+          <group position={[0, -5, 0]}>
+            <Apocalyptic />
+          </group>
+          <group scale={20}>
+            <Kick />
+          </group>
           <InfiniteGround />
-          <Kick />
           <OrbitControls
             enableDamping
             dampingFactor={0.1}
