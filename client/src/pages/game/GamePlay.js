@@ -4,6 +4,7 @@ import { OrbitControls, PerspectiveCamera, Plane } from "@react-three/drei";
 import * as THREE from "three";
 import Kick from "../../components/Kick.js";
 import InfiniteGround from "../../components/InfiniteGround";
+import BaseballBat from "../../components/BaseballBat.js";
 import { Sky } from "@react-three/drei";
 import Apocalyptic from "../../components/Apocalyptic.js";
 
@@ -42,6 +43,7 @@ function GamePlay() {
           <group scale={20}>
             <Kick />
           </group>
+          <BaseballBat scale={200} position={[619, 10, -800]} rotation={[90 * Math.PI / 180, 340 * Math.PI / 180, 70 * Math.PI / 180]} />
           <OrbitControls
             enableDamping
             dampingFactor={0.1}
