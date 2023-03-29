@@ -20,10 +20,10 @@ function GamePlay() {
         <Canvas
           antialias={false}
           style={{ width: "100%", height: "100%" }}
-          onCreated={({ gl, scene }) => {
-            scene.fog = new THREE.Fog(fogColor, fogNear, fogFar);
-            gl.setClearColor(scene.fog.color);
-          }}
+          // onCreated={({ gl, scene }) => {
+          //   scene.fog = new THREE.Fog(fogColor, fogNear, fogFar);
+          //   gl.setClearColor(scene.fog.color);
+          // }}
         >
           {/* <Sky
             distance={450000}
