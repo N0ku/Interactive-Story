@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { Canvas } from "react-three-fiber";
 import { OrbitControls, PerspectiveCamera, Plane } from "@react-three/drei";
 import * as THREE from "three";
-import Kick from "../../3dcomponent/Kick.js";
+import Kick from "../../components/Kick.js";
 import InfiniteGround from "../../components/InfiniteGround";
 import { Sky } from "@react-three/drei";
-import Apocalyptic from "../../components/Apocalyptic.jsx";
+import Apocalyptic from "../../components/Apocalyptic.js";
 
 function GamePlay() {
   // const [inView, setInView] = useState(false); // Set State false to disable inView.
