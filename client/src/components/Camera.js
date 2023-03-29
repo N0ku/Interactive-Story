@@ -1,31 +1,30 @@
-import { OrbitControls, PerspectiveCamera, Plane } from "@react-three/drei";
-import { ReactDOM, useEffect } from "react";
-import React, { useState, Component, useRef } from "react";
+import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
+import React, { useState, useRef } from "react";
 import { useFrame } from "react-three-fiber";
-import { Vector3 } from "three";
+import { Vector3, Quaternion } from "three";
 import { useControls, button } from 'leva'
-import annotations from './annotations.json'
+import cameras from './camera.json'
 
 
-export default function Camera({ lerping, setLerping, path }) {
+export default function Camera({ lerping, setLerping }) {
     const camera = useRef();
     const orbit = useRef();
-    const [advance, setAdvance] = useState(true);
-    const [lastPosition, setLastPosition] = useState(null);
     const [to, setTo] = useState(new Vector3(10, 10, 10));
     const [target, setTarget] = useState(new Vector3(0, 1, 0));
+    const [ifFixed, setFixed] = useState(true);
 
     useControls('Camera', () => {
         console.log('creating buttons')
 
         // using reduce
-        const _buttons = annotations.reduce(
+        const _buttons = cameras.reduce(
             (acc, a) =>
                 Object.assign(acc, {
                     [a.title]: button(() => {
                         setTo(a.position)
                         setTarget(a.lookAt)
                         setLerping(true)
+                        setFixed(a.fixed)
                     })
                 }),
             {}
@@ -33,41 +32,38 @@ export default function Camera({ lerping, setLerping, path }) {
         return _buttons
     })
 
+    let rotationDuration = 4; // adjust this to control the duration of rotation in seconds
+    let rotationTimer = 0;
+    let rotationSpeed = (2 * Math.PI) / rotationDuration;
+
     useFrame(({ camera }, delta) => {
-        if (lerping) {
+        if (lerping && ifFixed) {
             camera.position.lerp(to, delta)
             orbit.current.target.lerp(target, delta)
         }
-    })
-
-    /*     useFrame((state, delta) => {
-            setLastPosition(path.getPointAt(1));
-            if (advance) {
-                const time = state.clock.getElapsedTime();
-                const position = path.getPointAt((time % path.getLength()) / path.getLength());
-                console.log('x: ', position.x)
-                console.log('y: ', position.y)
-                console.log('z: ', Math.trunc(position.z))
-                const tangent = path.getTangentAt((time % path.getLength()) / path.getLength());
-    
-                camera.current.position.set(position.x, position.y, position.z);
-                camera.current.lookAt(new Vector3(position.x + tangent.x, position.y + tangent.y, position.z + tangent.z));
-                if (lastPosition != null) {
-                    if (lastPosition.z == Math.trunc(position.z)) {
-                        setAdvance(false)
-                        orbit.current.target.set(lastPosition.x, 0, lastPosition.z - 2);
-                        orbit.current.update();
-                    }
-                }
-    
+        //add for follow camera
+        else if (!ifFixed) {
+            const angle = Math.PI * 2 * (rotationTimer / rotationDuration);
+            const newPosition = new Vector3().copy(target);
+            const q = new Quaternion();
+            q.setFromAxisAngle(new Vector3(0, 1, 0), angle);
+            newPosition.sub(camera.position);
+            newPosition.applyQuaternion(q);
+            newPosition.add(target);
+            camera.position.copy(newPosition);
+            orbit.current.target.copy(target);
+            orbit.current.setAzimuthalAngle(rotationTimer);
+            rotationTimer += delta * rotationSpeed;
+            if (rotationTimer >= rotationDuration) {
+                rotationTimer -= rotationDuration;
             }
-    
-        }); */
+        }
+    })
     return (
         <>
             <PerspectiveCamera
                 makeDefault
-                ref={camera} {...path}
+                ref={camera}
                 aspect={window.innerWidth / window.innerHeight}
                 far={500}
                 fov={50}

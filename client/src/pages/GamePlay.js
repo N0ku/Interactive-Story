@@ -78,7 +78,7 @@ scene.add(circle); */
           <InfiniteGround />
           <Kick position={[0, 0, 0]} />
           <group position={[0, 0, 10]}>
-            <Ring></Ring>
+            {/* <Ring></Ring> */}
           </group>
           <Kick position={[0, 0, 10]} />
 

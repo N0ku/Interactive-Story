@@ -10,7 +10,8 @@
       "x": 0,
       "y": 0,
       "z": 10
-    }
+    },
+    "fixed": true
   },
   {
     "title": "3eme personne",
@@ -23,7 +24,8 @@
       "x": 0,
       "y": 0,
       "z": 10
-    }
+    },
+    "fixed": true
   },
   {
     "title": "Vue du dessus",
@@ -36,6 +38,22 @@
       "x": 0,
       "y": 0,
       "z": 10
-    }
+    },
+    "fixed": true
+  },
+  {
+    "title": "Camera rotative",
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 6
+    },
+    "lookAt": {
+      "x": 0,
+      "y": 0,
+      "z": 10
+    },
+    "fixed": false,
+    "type": "rotate"
   }
 ]
