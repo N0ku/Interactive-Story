@@ -6,6 +6,8 @@ import * as THREE from "three";
 import Kick from "../3dcomponent/Kick.js";
 import InfiniteGround from "../components/InfiniteGround";
 import SmokeParticles from '../particles/Smoke';
+import DialogueBox from '../components/DialogueBoxV2';
+
 
 //TODO 1 -Thomas - 2021-03-28 - Add LOD (Level Of Detail) - Display the appropriate level of detail based on the distance between the camera and the model to reduce the GPU workload.
 //TODO 2 -Thomas - 2021-03-28 - Add Occlusion Frustum - Display the occlusion frustum based on the view camera versus the world, remove if camera don't see him.
@@ -50,8 +52,10 @@ import SmokeParticles from '../particles/Smoke';
           />
           <ambientLight intensity={0.5} />
           <pointLight position={[10, 10, 10]} />
-          <SmokeParticles position={[20, 20, 20]} color="#ffffff" numParticles={100} />
+          
         </Canvas>
+            <DialogueBox text="Salut toi ! Comment ça va ? Sartek ton dev brrroo, Askip t'as eu v'la des merdes mais la sa marche :3" speed={25} />
+        
       </div>
     </div>
   );
