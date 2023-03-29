@@ -1,10 +1,12 @@
 import { useFrame } from 'react-three-fiber';
-import { PositionalAudio, Vector3 } from 'three';
-import { useState, useEffect } from 'react';
+import { PositionalAudio, Vector3, Raycaster } from 'three';
+import { useState, useEffect, useRef } from 'react';
 
-function AudioComp(camera) {
+function AudioComp({ target, currentCamera }) {
     const [audioSource, setAudioSource] = useState(null);
-    const [currentCamera, setCurrentCamera] = useState(camera);
+    const audioRef = useRef(null);
+    const raycaster = new Raycaster();
+    const { camera } = currentCamera;
 
     useEffect(() => {
         const loadAudio = async () => {
@@ -18,13 +20,34 @@ function AudioComp(camera) {
             setAudioSource(source);
         };
         loadAudio();
+    }, []);
+
+    useFrame(() => {
+        if (audioSource && audioRef.current) {
+            raycaster.setFromCamera(new Vector3(0, 0, 0), camera);
+            const intersects = raycaster.intersectObject(target, true);
+
+            if (intersects.length > 0) {
+                // Set audio position and direction based on target mesh position and camera direction
+                audioSource.setDirection(camera.getWorldDirection(new Vector3()));
+                audioSource.setPosition(target.position.x, target.position.y, target.position.z);
+                audioRef.current.play();
+            } else {
+                audioRef.current.pause();
+            }
+        }
     });
 
-    useFrame(({ camera }) => {
-        if (audioSource && camera === currentCamera) {
-            audioSource.setDirection(camera.getWorldDirection(new Vector3()));
-            audioSource.setPosition(camera.position.x, camera.position.y, camera.position.z);
-        }
-    }, [currentCamera]);
-};
+    return (
+        <>
+            {audioSource && (
+                <group>
+                    <mesh ref={target} />
+                    <primitive object={audioSource} ref={audioRef} />
+                </group>
+            )}
+        </>
+    );
+}
+
 export default AudioComp;
