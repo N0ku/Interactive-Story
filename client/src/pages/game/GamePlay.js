@@ -4,6 +4,7 @@ import { OrbitControls, PerspectiveCamera, Plane } from "@react-three/drei";
 import * as THREE from "three";
 import Kick from "../../3dcomponent/Kick.js";
 import InfiniteGround from "../../components/InfiniteGround";
+import DialogueBox from "../../components/DialogueBoxV2";
 
 //TODO 1 -Thomas - 2021-03-28 - Add LOD (Level Of Detail) - Display the appropriate level of detail based on the distance between the camera and the model to reduce the GPU workload.
 //TODO 2 -Thomas - 2021-03-28 - Add Occlusion Frustum - Display the occlusion frustum based on the view camera versus the world, remove if camera don't see him.
@@ -47,6 +48,7 @@ function GamePlay() {
             maxPolarAngle={Math.PI / 2} // Limit angle in up direction
           />
         </Canvas>
+        <DialogueBox text="Salut toi ! Comment ça va ? Sartek ton dev brrroo, Askip t'as eu v'la des merdes mais la sa marche :3" speed={25} />
       </div>
     </div>
   );
