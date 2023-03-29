@@ -5,6 +5,7 @@ import * as THREE from "three";
 import Kick from "../../3dcomponent/Kick.js";
 import InfiniteGround from "../../components/InfiniteGround";
 import DialogueBox from "../../components/DialogueBoxV2";
+import DirectionalLight from "../../3dcomponent/lightning/DirectionalLight";
 
 //TODO 1 -Thomas - 2021-03-28 - Add LOD (Level Of Detail) - Display the appropriate level of detail based on the distance between the camera and the model to reduce the GPU workload.
 //TODO 2 -Thomas - 2021-03-28 - Add Occlusion Frustum - Display the occlusion frustum based on the view camera versus the world, remove if camera don't see him.
@@ -15,8 +16,8 @@ function GamePlay() {
   // const [inView, setInView] = useState(false); // Set State false to disable inView.
   //Fog settings
   const fogColor = 0xffffff;
-  const fogNear = 5; // Dist to start fog
-  const fogFar = 25; // Dist to end fog
+  const fogNear = 0; // Dist to start fog
+  const fogFar = 2000; // Dist to end fog
 
   return (
     <div className="App">
@@ -36,8 +37,7 @@ function GamePlay() {
             position={[0, 0, 5]}
             fov={50}
           />
-          <ambientLight intensity={0.5} />
-          <directionalLight intensity={0.5} />
+          <DirectionalLight color={0xf0ffff} intensity={-1} position={{x: 5, y: 5, z: 1}} />
           <InfiniteGround />
           <Kick />
           <OrbitControls
