@@ -20,24 +20,17 @@ function GamePlay() {
         <Canvas
           antialias={false}
           style={{ width: "100%", height: "100%" }}
-          // onCreated={({ gl, scene }) => {
-          //   scene.fog = new THREE.Fog(fogColor, fogNear, fogFar);
-          //   gl.setClearColor(scene.fog.color);
-          // }}
+        // onCreated={({ gl, scene }) => {
+        //   scene.fog = new THREE.Fog(fogColor, fogNear, fogFar);
+        //   gl.setClearColor(scene.fog.color);
+        // }}
         >
-          {/* <Sky
-            distance={450000}
-            sunPosition={[5, 1, 8]}
-            inclination={0}
-            azimuth={0.25}
-        
-          /> */}
           <axesHelper scale={[2, 2, 2]} position={[0, 0, 0]} />
 
           <PerspectiveCamera
             makeDefault
             aspect={window.innerWidth / window.innerHeight}
-            far={500}
+            far={10000}
             position={[0, 0, 5]}
             fov={50}
           />
@@ -49,13 +42,18 @@ function GamePlay() {
           <group scale={20}>
             <Kick />
           </group>
-          <InfiniteGround />
           <OrbitControls
             enableDamping
             dampingFactor={0.1}
             rotateSpeed={0.5} // Speed Rotation
             minPolarAngle={Math.PI / 6} // Limit angle in down direction
             maxPolarAngle={Math.PI / 2} // Limit angle in up direction
+          />
+          <Sky
+            distance={35000}
+            sunPosition={[5, 1, 8]}
+            inclination={0}
+            azimuth={0.25}
           />
         </Canvas>
       </div>
