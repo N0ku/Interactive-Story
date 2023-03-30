@@ -9,13 +9,11 @@ import {  Plane } from "@react-three/drei";
   texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
   texture.repeat.set(1000, 1000);
   return (
-    <Plane
-      args={[1000, 1000]}
-      rotation={[-Math.PI / 2, 0, 0]}
-      position={[0, -1, 0]}
-    >
-      <meshStandardMaterial map={texture} />
-    </Plane>
+    <mesh receiveShadow rotation={[-Math.PI / 2, 0, 0]} position={[0, -1, 0]}>
+      <planeBufferGeometry attach="geometry" args={[1000, 1000]} />
+      <shadowMaterial attach="material" transparent opacity={0.3}  />
+        <meshStandardMaterial map={texture} />
+    </mesh>
   );
 }
 

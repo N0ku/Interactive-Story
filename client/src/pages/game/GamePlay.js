@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Canvas } from "react-three-fiber";
-import { OrbitControls, PerspectiveCamera, Plane, SpotLight } from "@react-three/drei";
+import {
+  OrbitControls,
+  PerspectiveCamera,
+  SpotLight,
+} from "@react-three/drei";
 import * as THREE from "three";
 import Kick from "../../3dcomponent/Kick.js";
 import InfiniteGround from "../../components/InfiniteGround";
 import DialogueBox from "../../components/DialogueBoxV2";
 
-//TODO 1 -Thomas - 2021-03-28 - Add LOD (Level Of Detail) - Display the appropriate level of detail based on the distance between the camera and the model to reduce the GPU workload.
-//TODO 2 -Thomas - 2021-03-28 - Add Occlusion Frustum - Display the occlusion frustum based on the view camera versus the world, remove if camera don't see him.
-//TODO 3 -Thomas - 2021-03-28 - Modify pixel ratio. Gain 10 fps when using low resolution.
-//TODO 4 -Thomas - 2021-03-28 - Desactivate AntiAliasing. Hard graphic downgrade. gain 20/30 fps when using low resolution.
 
 function GamePlay() {
   // const [inView, setInView] = useState(false); // Set State false to disable inView.
@@ -18,10 +18,15 @@ function GamePlay() {
   const fogNear = 0; // Dist to start fog
   const fogFar = 2000; // Dist to end fog
 
+
+
   return (
     <div className="App">
       <div className="canvas-container">
         <Canvas
+          shadows
+          shadowMapWidth={1024}
+          shadowMapHeight={1024}
           antialias={false}
           style={{ width: "100%", height: "100%" }}
           onCreated={({ gl, scene }) => {
@@ -36,10 +41,19 @@ function GamePlay() {
             position={[0, 0, 5]}
             fov={50}
           />
-          <directionalLight intensity={20} position={[0, 0, 5]} color="red" />
-          <SpotLight intensity={1} position={[2, 2, 0]} color={0xf0ffff} />
+          <directionalLight castShadow position={[0, 5, 2]} intensity={0.5} />
+          {/* <SpotLight
+            intensity={20}
+            position={[0, 2, 0]}
+            color={0xf0ffff}
+            castShadow
+            shadow-mapSize-width={1024}
+            shadow-mapSize-height={1024}
+            shadow-bias={-0.001}
+          /> */}
           <InfiniteGround />
           <Kick />
+
           <OrbitControls
             enableDamping
             dampingFactor={0.1}
@@ -48,7 +62,13 @@ function GamePlay() {
             maxPolarAngle={Math.PI / 2} // Limit angle in up direction
           />
         </Canvas>
-        <DialogueBox text="Salut toi ! Comment ça va ? Sartek ton dev brrroo, Askip t'as eu v'la des merdes mais la sa marche :3" speed={25} />
+        <DialogueBox
+          text="Salut toi ! Comment ça va ? Sartek ton dev brrroo, Askip t'as eu v'la des merdes mais la sa marche :3"
+          speed={25}
+          delay={2000}
+          onComplete={() => console.log("Dialogue terminé !")}
+          className="custom-dialogue-box"
+        />
       </div>
     </div>
   );
