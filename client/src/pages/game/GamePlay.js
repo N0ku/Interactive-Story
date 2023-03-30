@@ -34,7 +34,6 @@ function GamePlay() {
         >
           <axesHelper scale={[2, 2, 2]} position={[0, 0, 0]} />
 
-          <Camera lerping={lerping} setLerping={setLerping}></Camera>
           <ambientLight intensity={0.5} />
           <directionalLight intensity={0.5} />
           <group position={[0, -5, 0]}>
@@ -44,6 +43,7 @@ function GamePlay() {
             <Kick />
           </group>
           <BaseballBat scale={200} position={[619, 10, -800]} rotation={[90 * Math.PI / 180, 340 * Math.PI / 180, 70 * Math.PI / 180]} />
+          <Camera lerping={lerping} setLerping={setLerping}></Camera>
           <OrbitControls
             enableDamping
             dampingFactor={0.1}

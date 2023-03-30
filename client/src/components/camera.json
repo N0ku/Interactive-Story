@@ -42,6 +42,20 @@
     "fixed": true
   },
   {
+    "title": "Test Camera Scene",
+    "position": {
+      "x": 400,
+      "y": 15,
+      "z": -800
+    },
+    "lookAt": {
+      "x": 619,
+      "y": 10,
+      "z": -800
+    },
+    "fixed": true
+  },
+  {
     "title": "Camera rotative",
     "position": {
       "x": 0,

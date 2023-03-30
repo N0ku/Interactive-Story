@@ -6,11 +6,11 @@ import { useControls, button } from 'leva'
 import cameras from './camera.json'
 
 
-export default function Camera({ lerping, setLerping }) {
+export default function Camera({ lerping, setLerping, targetObject }) {
     const camera = useRef();
     const orbit = useRef();
     const [to, setTo] = useState(new Vector3(10, 10, 10));
-    const [target, setTarget] = useState(new Vector3(0, 1, 0));
+    const [target, setTarget] = useState(targetObject);
     const [ifFixed, setFixed] = useState(true);
 
     useControls('Camera', () => {
@@ -35,28 +35,35 @@ export default function Camera({ lerping, setLerping }) {
     let rotationDuration = 4; // adjust this to control the duration of rotation in seconds
     let rotationTimer = 0;
     let rotationSpeed = (2 * Math.PI) / rotationDuration;
+    /* 
+        useFrame(({ camera }, delta) => {
+            if (lerping && ifFixed) {
+                camera.position.lerp(to, delta)
+                orbit.current.target.lerp(target, delta)
+            }
+            //add for follow camera
+            else if (!ifFixed) {
+                const angle = Math.PI * 2 * (rotationTimer / rotationDuration);
+                const newPosition = new Vector3().copy(target);
+                const q = new Quaternion();
+                q.setFromAxisAngle(new Vector3(0, 1, 0), angle);
+                newPosition.sub(camera.position);
+                newPosition.applyQuaternion(q);
+                newPosition.add(target);
+                camera.position.copy(newPosition);
+                orbit.current.target.copy(target);
+                orbit.current.setAzimuthalAngle(rotationTimer);
+                rotationTimer += delta * rotationSpeed;
+                if (rotationTimer >= rotationDuration) {
+                    rotationTimer -= rotationDuration;
+                }
+            }
+        }) */
 
     useFrame(({ camera }, delta) => {
-        if (lerping && ifFixed) {
+        if (lerping) {
             camera.position.lerp(to, delta)
             orbit.current.target.lerp(target, delta)
-        }
-        //add for follow camera
-        else if (!ifFixed) {
-            const angle = Math.PI * 2 * (rotationTimer / rotationDuration);
-            const newPosition = new Vector3().copy(target);
-            const q = new Quaternion();
-            q.setFromAxisAngle(new Vector3(0, 1, 0), angle);
-            newPosition.sub(camera.position);
-            newPosition.applyQuaternion(q);
-            newPosition.add(target);
-            camera.position.copy(newPosition);
-            orbit.current.target.copy(target);
-            orbit.current.setAzimuthalAngle(rotationTimer);
-            rotationTimer += delta * rotationSpeed;
-            if (rotationTimer >= rotationDuration) {
-                rotationTimer -= rotationDuration;
-            }
         }
     })
     return (
@@ -65,7 +72,7 @@ export default function Camera({ lerping, setLerping }) {
                 makeDefault
                 ref={camera}
                 aspect={window.innerWidth / window.innerHeight}
-                far={500}
+                far={1000}
                 fov={50}
             />
 
