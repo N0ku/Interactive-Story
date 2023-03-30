@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const ChoiceBox = ({ choices, onChoiceSelected }) => {
   const [selectedChoice, setSelectedChoice] = useState(null);
@@ -9,22 +9,22 @@ const ChoiceBox = ({ choices, onChoiceSelected }) => {
   };
 
   return (
-    <div
-      style={{ display: "flex", justifyContent: "center", marginTop: "10px" }}
-    >
+    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px',position: "fixed",
+    bottom: "20px",
+    left:" 80%" }}>
       {choices.map((choice) => (
         <button
           key={choice.id}
           onClick={() => handleChoiceClick(choice)}
           disabled={selectedChoice !== null}
           style={{
-            padding: "10px",
-            margin: "5px",
-            backgroundColor: "#333",
-            color: "white",
-            borderRadius: "5px",
-            border: "none",
-            cursor: "pointer",
+            padding: '10px',
+            margin: '5px',
+            backgroundColor: '#333',
+            color: 'white',
+            borderRadius: '5px',
+            border: 'none',
+            cursor: 'pointer',
           }}
         >
           {choice.text}

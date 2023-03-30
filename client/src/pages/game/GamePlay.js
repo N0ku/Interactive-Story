@@ -1,15 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Canvas } from "react-three-fiber";
-import {
-  OrbitControls,
-  PerspectiveCamera,
-  SpotLight,
-} from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera, SpotLight } from "@react-three/drei";
 import * as THREE from "three";
 import Kick from "../../3dcomponent/Kick.js";
 import InfiniteGround from "../../components/InfiniteGround";
 import DialogueBox from "../../components/DialogueBoxV2";
-
+import Rain from "../../components/Rain.js";
+import ChoiceBox from "../../components/ChoiceBox.js";
 
 function GamePlay() {
   // const [inView, setInView] = useState(false); // Set State false to disable inView.
@@ -18,7 +15,11 @@ function GamePlay() {
   const fogNear = 0; // Dist to start fog
   const fogFar = 2000; // Dist to end fog
 
-
+  const choices = [
+    { id: 1, text: "Faire le T" },
+    { id: 2, text: "Courir" },
+    { id: 3, text: "Mourir" },
+  ];
 
   return (
     <div className="App">
@@ -53,7 +54,7 @@ function GamePlay() {
           /> */}
           <InfiniteGround />
           <Kick />
-
+          <Rain particleCount={50000} />
           <OrbitControls
             enableDamping
             dampingFactor={0.1}
@@ -68,6 +69,10 @@ function GamePlay() {
           delay={2000}
           onComplete={() => console.log("Dialogue terminé !")}
           className="custom-dialogue-box"
+        />
+        <ChoiceBox
+          choices={choices}
+          onChoiceSelected={(choice) => console.log(choice)}
         />
       </div>
     </div>

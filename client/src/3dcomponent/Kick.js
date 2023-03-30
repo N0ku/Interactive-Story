@@ -8,7 +8,7 @@ export default function Model(props) {
   const modelHeight = -1; // Substract the height of the model from the floor
 
   return (
-    <group position={[0, modelHeight, 0]} castShadow receiveShadow>
+    <group position={[0, modelHeight, 0]} castShadow>
       <group ref={group} {...props} dispose={null}>
         <group name="Scene">
           <group
@@ -16,7 +16,6 @@ export default function Model(props) {
             rotation={[Math.PI / 2, 0, 0]}
             scale={0.01}
             castShadow
-            receiveShadow
           >
             <primitive object={nodes.mixamorigHips} />
             <skinnedMesh
@@ -25,7 +24,6 @@ export default function Model(props) {
               material={materials.Ch03_Body}
               skeleton={nodes.Ch03.skeleton}
               castShadow
-              receiveShadow
             />
           </group>
         </group>
