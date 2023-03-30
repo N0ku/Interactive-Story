@@ -5,10 +5,15 @@ import * as THREE from "three";
 import Kick from "../../components/Kick.js";
 import InfiniteGround from "../../components/InfiniteGround";
 import BaseballBat from "../../components/BaseballBat.js";
+import Camera from "../../components/Camera"
 import { Sky } from "@react-three/drei";
 import Apocalyptic from "../../components/Apocalyptic.js";
+import { useRef } from "react";
+
 
 function GamePlay() {
+  const ref = useRef(null);
+  const [lerping, setLerping] = useState(false)
   // const [inView, setInView] = useState(false); // Set State false to disable inView.
   //Fog settings
 
@@ -21,20 +26,6 @@ function GamePlay() {
 
 scene.add(circle); */
 
-
-  const path = new THREE.CatmullRomCurve3([
-
-    new THREE.Vector3(0, 0, 22),
-    new THREE.Vector3(0, 0, 12),
-    new THREE.Vector3(0, 2, 11),
-
-
-
-
-
-
-
-  ]);
   return (
     <div className="App">
       <div className="canvas-container">
@@ -48,7 +39,7 @@ scene.add(circle); */
         >
           <axesHelper scale={[2, 2, 2]} position={[0, 0, 0]} />
 
-          <Camera path={path} lerping={lerping} setLerping={setLerping}></Camera>
+          <Camera lerping={lerping} setLerping={setLerping}></Camera>
           <ambientLight intensity={0.5} />
           <directionalLight intensity={0.5} />
           <group position={[0, -5, 0]}>
