@@ -1,0 +1,73 @@
+{
+    "uri": "chara_move.glb",
+    "mimeType": "model/gltf-binary",
+    "validatorVersion": "2.0.0-dev.3.8",
+    "validatedAt": "2023-03-29T20:34:23.986Z",
+    "issues": {
+        "numErrors": 0,
+        "numWarnings": 2,
+        "numInfos": 3,
+        "numHints": 0,
+        "messages": [
+            {
+                "code": "UNUSED_OBJECT",
+                "message": "This object may be unused.",
+                "severity": 2,
+                "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+            },
+            {
+                "code": "UNUSED_OBJECT",
+                "message": "This object may be unused.",
+                "severity": 2,
+                "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+            },
+            {
+                "code": "UNUSED_OBJECT",
+                "message": "This object may be unused.",
+                "severity": 2,
+                "pointer": "/meshes/2/primitives/0/attributes/TEXCOORD_0"
+            },
+            {
+                "code": "NODE_SKINNED_MESH_NON_ROOT",
+                "message": "Node with a skinned mesh is not root. Parent transforms will not affect a skinned mesh.",
+                "severity": 1,
+                "pointer": "/nodes/66"
+            },
+            {
+                "code": "NODE_SKINNED_MESH_NON_ROOT",
+                "message": "Node with a skinned mesh is not root. Parent transforms will not affect a skinned mesh.",
+                "severity": 1,
+                "pointer": "/nodes/67"
+            }
+        ],
+        "truncated": false
+    },
+    "info": {
+        "version": "2.0",
+        "generator": "Khronos glTF Blender I/O v3.4.50",
+        "extensionsUsed": [
+            "KHR_materials_specular",
+            "KHR_materials_ior"
+        ],
+        "resources": [
+            {
+                "pointer": "/buffers/0",
+                "mimeType": "application/gltf-buffer",
+                "storage": "glb",
+                "byteLength": 1835012
+            }
+        ],
+        "animationCount": 1,
+        "materialCount": 3,
+        "hasMorphTargets": false,
+        "hasSkins": true,
+        "hasTextures": false,
+        "hasDefaultScene": true,
+        "drawCallCount": 3,
+        "totalVertexCount": 28398,
+        "totalTriangleCount": 49124,
+        "maxUVs": 1,
+        "maxInfluences": 4,
+        "maxAttributes": 5
+    }
+}
