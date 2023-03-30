@@ -61,13 +61,13 @@ function Register() {
 
 
     return (
-        <div>
+        <div className='register-form'>
             <input type="mail" id="email" className="user-inputs" placeholder="Entrez votre adresse mail.."></input>
             <input type="text" id="username" className="user-inputs" placeholder="Entrez votre pseudo.."></input>
             <input type="password" id="password" className="user-inputs" placeholder="Entrez votre mot de passe.."></input>
             <input type="password" id="confirm-password" className="user-inputs" placeholder="Confirmer votre mot de passe.."></input>
-            <button onClick={validRegister} style={{ backgroundColor: 'white' }}>Valider</button>
-            <p style={{ color: 'white' }}>Déjà un compte ? Se connecter <Link style={{ color: 'blue' }} to='/connexion'>ici</Link></p>
+            <button className="valid-register-button" onClick={validRegister}>Valider</button>
+            <p className='register-link'>Déjà un compte ? <Link style={{ color: 'pink' }} to='/connexion'> Se connecter ici</Link></p>
         </div>
     );
 }

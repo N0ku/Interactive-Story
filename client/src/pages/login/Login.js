@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 
 
+
 function Login() {
     const navigate = useNavigate();
 
@@ -37,12 +38,14 @@ function Login() {
     }
 
     return (
-        <div>
+        
+        <div className='login-form'>
             <input type="text" placeholder="Entrez votre mail/username.." className="user-inputs" id="identifier"></input>
             <input type="password" placeholder="Entrez votre mot de passe.." className="user-inputs" id="password"></input>
-            <button onClick={loginUser} style={{ backgroundColor: 'white' }}>Connexion</button>
-            <p style={{ color: 'white' }}>Pas encore de compte ? S'inscire <Link style={{ color: 'blue' }} to='/inscription'>ici</Link></p>
+            <button className="login-connect-button" onClick={loginUser} >Connexion</button>
+            <p className='login-link'>Pas encore de compte ?<Link style={{ color: 'pink' }} to='/inscription'> S'inscrire ICI</Link></p>
         </div>
+    
     );
 }
 

@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
+import './Home.css';
+
 
 function Home() {
     const [connected, setConnected] = useState(false);
@@ -18,13 +20,18 @@ function Home() {
     }
 
     return (
-        <div>
-            <h1>Home page</h1>
-            {connected ?
-                <button className="disconnect-button" style={{ backgroundColor: 'white' }} onClick={disconnect}>Déconnexion</button>
-                :
-                <button className="connect-button" style={{ backgroundColor: 'white' }} onClick={() => navigate('/connexion')}>Connexion</button>
-            }
+        <div className="Home">
+            <body>
+                <div className="Buttons">
+                    <button className="neon-box-1">JOUER</button>
+                    <button className="neon-box-1">PARAMETRES</button>
+                    {connected ?
+                    <button className="disconnect-button"  onClick={disconnect}>Déconnexion</button>
+                    :
+                    <button className="connect-button" onClick={() => navigate('/connexion')}>Connexion</button>
+                    }
+                </div>
+            </body>
         </div>
     )
 }
