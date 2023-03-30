@@ -17,6 +17,12 @@ function GamePlay() {
   const fogColor = 0xffffff;
   const fogNear = 0; // Dist to start fog
   const fogFar = 2000; // Dist to end fog
+  const [showElement, ShowElementAction] = useState(false);
+
+  const handleClick = () => {
+    ShowElementAction(!showElement);
+    console.log("Ntm");
+  };
 
   return (
     <div className="App">
@@ -37,9 +43,9 @@ function GamePlay() {
             fov={50}
           />
           <directionalLight intensity={20} position={[0, 0, 5]} color="red" />
-          <SpotLight intensity={1} position={[2, 2, 0]} color={0xf0ffff} />
+          <ambientLight intensity={1} position={[2, 2, 0]} color={0xf0ffff} />
           <InfiniteGround />
-          <Kick />
+          <Kick onClick={handleClick} position={[5,0,5]}/>
           <OrbitControls
             enableDamping
             dampingFactor={0.1}
