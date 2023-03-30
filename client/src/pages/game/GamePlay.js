@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Canvas } from "react-three-fiber";
-import { OrbitControls, PerspectiveCamera, Plane } from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera, Plane, SpotLight } from "@react-three/drei";
 import * as THREE from "three";
 import Kick from "../../3dcomponent/Kick.js";
 import InfiniteGround from "../../components/InfiniteGround";
 import DialogueBox from "../../components/DialogueBoxV2";
-import DirectionalLight from "../../3dcomponent/lightning/DirectionalLight";
 
 //TODO 1 -Thomas - 2021-03-28 - Add LOD (Level Of Detail) - Display the appropriate level of detail based on the distance between the camera and the model to reduce the GPU workload.
 //TODO 2 -Thomas - 2021-03-28 - Add Occlusion Frustum - Display the occlusion frustum based on the view camera versus the world, remove if camera don't see him.
@@ -37,7 +36,8 @@ function GamePlay() {
             position={[0, 0, 5]}
             fov={50}
           />
-          <DirectionalLight color={0xf0ffff} intensity={-1} position={{x: 5, y: 5, z: 1}} />
+          <directionalLight intensity={20} position={[0, 0, 5]} color="red" />
+          <SpotLight intensity={1} position={[2, 2, 0]} color={0xf0ffff} />
           <InfiniteGround />
           <Kick />
           <OrbitControls
