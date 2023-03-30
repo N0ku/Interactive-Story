@@ -13,6 +13,7 @@ import DialogueBox from "../../components/DialogueBoxV2";
 
 
 function GamePlay() {
+  const batRef = useRef();
   const [lerping, setLerping] = useState(false)
   // const [inView, setInView] = useState(false); // Set State false to disable inView.
   //Fog settings
@@ -20,6 +21,10 @@ function GamePlay() {
   const fogColor = 0xffffff;
   const fogNear = 0; // Dist to start fog
   const fogFar = 2000; // Dist to end fog
+
+  useFrame(() => {
+    const batPosition = batRef.current.position;
+  })
 
   return (
     <div className="App">
