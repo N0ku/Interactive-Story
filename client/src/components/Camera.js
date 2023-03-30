@@ -4,18 +4,21 @@ import { useFrame } from "react-three-fiber";
 import { Vector3, Quaternion } from "three";
 import { useControls, button } from 'leva'
 import cameras from './camera.json'
+import * as THREE from "three";
 
 
-export default function Camera({ lerping, setLerping }) {
+
+export default function Camera({ lerping, setLerping, refTargetObject }) {
     const camera = useRef();
     const orbit = useRef();
     const [to, setTo] = useState(new Vector3(10, 10, 10));
     const [target, setTarget] = useState(new Vector3(0, 1, 0));
     const [ifFixed, setFixed] = useState(true);
+    const [targetObject, setTargetObject] = useState(null)
 
     useControls('Camera', () => {
         console.log('creating buttons')
-
+        
         // using reduce
         const _buttons = cameras.reduce(
             (acc, a) =>
@@ -36,10 +39,37 @@ export default function Camera({ lerping, setLerping }) {
     let rotationTimer = 0;
     let rotationSpeed = (2 * Math.PI) / rotationDuration;
 
-    useFrame(({ camera }, delta) => {
-        if (lerping && ifFixed) {
-            camera.position.lerp(to, delta)
-            orbit.current.target.lerp(target, delta)
+    useFrame(({camera},delta )=> {
+        if(targetObject == null){
+            setTargetObject(refTargetObject)
+            return
+        }
+      
+        console.log(refTargetObject)
+       console.log(targetObject)
+        if ( ifFixed && refTargetObject.current.position != undefined) {
+         var posTarget =  new THREE.Vector3(refTargetObject.current.position.x, refTargetObject.current.position.y + 9, refTargetObject.current.position.z - 35 );
+         var posCamera = camera.position
+        const direction = new THREE.Vector3().subVectors(
+            posTarget,
+            posCamera
+          );
+
+    const distance = direction.length();
+    const speed = 45;
+      const unitDirection = direction.normalize();
+      const movement = unitDirection.multiplyScalar(distance * speed * delta);
+      camera.position.add(movement);
+      camera.lookAt(posTarget); 
+
+         /*   camera.position.copy(refTargetObject.current.position);  */
+        // Adjust the camera offset to frame the target nicely
+       
+        /* camera.lookAt(pos);  */
+        //camera.position.lerp(posTarget, delta)
+        //camera.position.add(new THREE.Vector3(0, 3, -10));
+        //camera.lookAt(refTargetObject.current.position)
+         //orbit.current.target.lerp(refTargetObject.current.position, delta)
         }
         //add for follow camera
         else if (!ifFixed) {
@@ -64,21 +94,11 @@ export default function Camera({ lerping, setLerping }) {
             <PerspectiveCamera
                 makeDefault
                 ref={camera}
-                aspect={window.innerWidth / window.innerHeight}
                 far={500}
-                fov={50}
+                fov={100}
+               
             />
 
-            <OrbitControls
-                ref={orbit}
-                enableDamping
-                dampingFactor={0.1}
-                rotateSpeed={0.5} // Speed Rotation
-                minPolarAngle={Math.PI / 6} // Limit angle in down direction
-                maxPolarAngle={Math.PI / 2}
-
-            // Limit angle in up direction
-            />
 
         </>
 

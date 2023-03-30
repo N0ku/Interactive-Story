@@ -14,8 +14,25 @@ import { useRef } from "react";
 function GamePlay() {
   const ref = useRef(null);
   const [lerping, setLerping] = useState(false)
+  const [refObj, setRefObj] = useState(null)
   // const [inView, setInView] = useState(false); // Set State false to disable inView.
   //Fog settings
+
+
+  const [message, setMessage] = useState('');
+ 
+
+  const handleMessage = (messageFromChild) => {
+    setMessage(messageFromChild);
+    console.log(message)
+    if(message != null){
+        setRefObj(message); 
+        console.log(refObj)
+
+    }
+
+  };  
+
 
   const fogColor = 0xffffff;
   const fogNear = 5; // Dist to start fog
@@ -37,25 +54,18 @@ scene.add(circle); */
         //   gl.setClearColor(scene.fog.color);
         // }}
         >
-          <axesHelper scale={[2, 2, 2]} position={[0, 0, 0]} />
-
-          <Camera lerping={lerping} setLerping={setLerping}></Camera>
+          <axesHelper scale={[2, 2, 2]} position={[0, 0, 0]} /> 
+          <Camera lerping={lerping} setLerping={setLerping} refTargetObject={refObj} position={[0,2,-5]} ></Camera>
           <ambientLight intensity={0.5} />
           <directionalLight intensity={0.5} />
           <group position={[0, -5, 0]}>
             <Apocalyptic />
           </group>
           <group scale={20}>
-            <Kick />
+            <Kick ref={ref} onSend={handleMessage} />
           </group>
           <BaseballBat scale={200} position={[619, 10, -800]} rotation={[90 * Math.PI / 180, 340 * Math.PI / 180, 70 * Math.PI / 180]} />
-          <OrbitControls
-            enableDamping
-            dampingFactor={0.1}
-            rotateSpeed={0.5} // Speed Rotation
-            minPolarAngle={Math.PI / 6} // Limit angle in down direction
-            maxPolarAngle={Math.PI / 2} // Limit angle in up direction
-          />
+         
           <Sky
             distance={35000}
             sunPosition={[5, 1, 8]}
