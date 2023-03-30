@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Canvas, useFrame } from "react-three-fiber";
-import { Circle, OrbitControls, PerspectiveCamera, Plane } from "@react-three/drei";
+import { OrbitControls, PerspectiveCamera, Plane, SpotLight } from "@react-three/drei";
 import * as THREE from "three";
 import Kick from "../../components/Kick.js";
 import InfiniteGround from "../../components/InfiniteGround";
@@ -9,22 +9,17 @@ import Camera from "../../components/Camera"
 import { Sky } from "@react-three/drei";
 import Apocalyptic from "../../components/Apocalyptic.js";
 import { useRef } from "react";
+import DialogueBox from "../../components/DialogueBoxV2";
 
 
 function GamePlay() {
-  const ref = useRef(null);
   const [lerping, setLerping] = useState(false)
   // const [inView, setInView] = useState(false); // Set State false to disable inView.
   //Fog settings
 
   const fogColor = 0xffffff;
-  const fogNear = 5; // Dist to start fog
-  const fogFar = 25; // Dist to end fog
-  /* const geometry = new THREE.CircleGeometry(1, 32);
-  const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
-  const circle = new THREE.Mesh(geometry, material);
-
-scene.add(circle); */
+  const fogNear = 0; // Dist to start fog
+  const fogFar = 2000; // Dist to end fog
 
   return (
     <div className="App">
@@ -63,6 +58,7 @@ scene.add(circle); */
             azimuth={0.25}
           />
         </Canvas>
+        <DialogueBox text="Salut toi ! Comment ça va ? Sartek ton dev brrroo, Askip t'as eu v'la des merdes mais la sa marche :3" speed={25} />
       </div>
     </div>
   );
