@@ -60,15 +60,15 @@ function GamePlay() {
           <group position={[0, -5, 0]}>
             <Apocalyptic />
           </group>
-          {/*    <group>
-            <StoreAbandonned scale={30} position={[310, 50, -630]} rotation={[90 * Math.PI / 180, 0, 300 * Math.PI / 180]} />
-          </group> */}
           <BaseballBat scale={200} position={[619, 10, -800]} rotation={[90 * Math.PI / 180, 340 * Math.PI / 180, 70 * Math.PI / 180]} />
           <Wall scale={7} rotation={[0, -90 * Math.PI / 180, 0]} position={[135, -20, -850]} />
           <RockyGround scale={10} position={[-200, -20, -300]} />
           <RockyGround scale={10} position={[1200, -20, -300]} />
           <group scale={250} position={[100, 125, -100]}>
             <Buildings />
+          </group>
+          <group scale={20}>
+            <KickAnim animationIndex={currentAnimationIndex} />
           </group>
           <OrbitControls
             enableDamping

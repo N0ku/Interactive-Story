@@ -6,6 +6,8 @@ import github from './../../assets/img/git3.png';
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
+import './Home.scss'
+
 function Home() {
     const [connected, setConnected] = useState(false);
     const token = localStorage.getItem('token');
@@ -26,8 +28,8 @@ function Home() {
         <div>
 
             <div className="Buttons">
-                <button class="neon-box-1" onClick={() => navigate('/game')}>JOUER</button>
-                <button class="neon-box-1">PARAMETRES</button>
+                <button className="neon-box-1" onClick={() => navigate('/game')}>JOUER</button>
+                <button className="neon-box-1">PARAMETRES</button>
                 {connected ?
                     <button className="neon-box-1" onClick={disconnect}>DECONNEXION</button>
                     :
