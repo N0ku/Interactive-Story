@@ -8,11 +8,11 @@ import * as THREE from "three";
 
 
 
-export default function Camera({ lerping, setLerping, refTargetObject }) {
+export default function Camera({ lerping, setLerping,refTargetObject }) {
     const camera = useRef();
     const orbit = useRef();
     const [to, setTo] = useState(new Vector3(10, 10, 10));
-    const [target, setTarget] = useState(new Vector3(0, 1, 0));
+    const [target, setTarget] = useState(targetObject);
     const [ifFixed, setFixed] = useState(true);
     const [targetObject, setTargetObject] = useState(null)
 
@@ -38,7 +38,6 @@ export default function Camera({ lerping, setLerping, refTargetObject }) {
     let rotationDuration = 4; // adjust this to control the duration of rotation in seconds
     let rotationTimer = 0;
     let rotationSpeed = (2 * Math.PI) / rotationDuration;
-
     useFrame(({camera},delta )=> {
         if(targetObject == null){
             setTargetObject(refTargetObject)
@@ -87,22 +86,33 @@ export default function Camera({ lerping, setLerping, refTargetObject }) {
             if (rotationTimer >= rotationDuration) {
                 rotationTimer -= rotationDuration;
             }
-        }
-    })
+        }})
+
     return (
         <>
             <PerspectiveCamera
                 makeDefault
                 ref={camera}
+                aspect={window.innerWidth / window.innerHeight}
                 far={500}
                 fov={100}
-               
+            />
+
+            <OrbitControls
+                ref={orbit}
+                enableDamping
+                dampingFactor={0.1}
+                rotateSpeed={0.5} // Speed Rotation
+                minPolarAngle={Math.PI / 6} // Limit angle in down direction
+                maxPolarAngle={Math.PI / 2}
+
+            // Limit angle in up direction
             />
 
 
         </>
 
     )
-        ;
+;
 
 }

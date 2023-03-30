@@ -1,8 +1,10 @@
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { useFrame } from 'react-three-fiber';
 
 export function BaseballBat(props) {
-  const { nodes, materials } = useGLTF('/lucille_3d_model.glb')
+  const { nodes, materials } = useGLTF('/lucille_3d_model.glb');
+
   return (
     <group {...props} dispose={null}>
       <group scale={0.01}>
