@@ -27,9 +27,10 @@ function App() {
           <a href="https://github.com/N0ku/Interactive-Story" target="_blank" rel="noreferrer"><img className="Logo-git" src={github} alt="Logo GitHub"></img></a>
           <a href="https://google.com" target="_blank" rel="noreferrer"><img className="Logo-insta" src={insta} alt="Logo Instagram"></img></a> 
         </div>
+        
+           <RoutesProvider />
       </body>
-      
-    </div>
+    </>
   );
 }
 
