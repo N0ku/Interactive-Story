@@ -12,6 +12,7 @@ import DialogueBox from "../../components/DialogueBoxV2";
 import Facade from "../../3dcomponent/Strossmayerova_facade.js";
 import StoreAbandonned from "../../3dcomponent/Abandoned_storefront.js";
 import KickAnim from "../../3dcomponent/Kick_anim.js";
+import Kick from "../../components/Kick";
 
 function GamePlay() {
   const [lerping, setLerping] = useState(false)
@@ -56,14 +57,8 @@ function GamePlay() {
         >
           <axesHelper scale={[2, 2, 2]} position={[0, 0, 0]} />
 
-          <PerspectiveCamera
-            makeDefault
-            aspect={window.innerWidth / window.innerHeight}
-            far={10000}
-            position={[0, 0, 5]}
-            fov={50}
-          />
-          <Camera lerping={lerping} setLerping={setLerping}></Camera>
+         
+          <Camera lerping={lerping} setLerping={setLerping} refTargetObject={refObj}></Camera>
           <ambientLight intensity={0.5} />
           <directionalLight intensity={0.5} />
           <group position={[0, -5, 0]}>
@@ -72,9 +67,9 @@ function GamePlay() {
           {/*    <group>
             <StoreAbandonned scale={30} position={[0, 0, 0]} rotation={[140 * Math.PI / 180, 0, 0]} />
           </group> */}
-          <group scale={20}>
-          <Kick ref={ref} onSend={handleMessage} />
-          <KickAnim animationIndex={currentAnimationIndex} />
+       
+          <group scale={20}> 
+          <Kick onSend={handleMessage} />  
           </group>
           <BaseballBat scale={200} position={[619, 10, -800]} rotation={[90 * Math.PI / 180, 340 * Math.PI / 180, 70 * Math.PI / 180]} />
          

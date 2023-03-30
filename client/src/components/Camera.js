@@ -12,7 +12,7 @@ export default function Camera({ lerping, setLerping,refTargetObject }) {
     const camera = useRef();
     const orbit = useRef();
     const [to, setTo] = useState(new Vector3(10, 10, 10));
-    const [target, setTarget] = useState(targetObject);
+    const [target, setTarget] = useState();
     const [ifFixed, setFixed] = useState(true);
     const [targetObject, setTargetObject] = useState(null)
 
@@ -44,8 +44,6 @@ export default function Camera({ lerping, setLerping,refTargetObject }) {
             return
         }
       
-        console.log(refTargetObject)
-       console.log(targetObject)
         if ( ifFixed && refTargetObject.current.position != undefined) {
          var posTarget =  new THREE.Vector3(refTargetObject.current.position.x, refTargetObject.current.position.y + 9, refTargetObject.current.position.z - 35 );
          var posCamera = camera.position
@@ -55,7 +53,7 @@ export default function Camera({ lerping, setLerping,refTargetObject }) {
           );
 
     const distance = direction.length();
-    const speed = 45;
+    const speed = 15;
       const unitDirection = direction.normalize();
       const movement = unitDirection.multiplyScalar(distance * speed * delta);
       camera.position.add(movement);
