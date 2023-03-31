@@ -5,6 +5,7 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Example from "./pages/example/Example";
 import Game from "./pages/game/GamePlay";
+import Settings from "./pages/settings/Settings";
 import PrivatesRoutes from "./utils/PrivatesRoutes";
 function RoutesProvider() {
     return (
@@ -15,6 +16,7 @@ function RoutesProvider() {
                 <Route path="/inscription" element={<Register />} />
                 <Route path="/exemple" element={<Example />} />
                 <Route path="/game" element={<Game />} />
+                <Route path="/parametres" element={<Settings />} />
                 {/* EXAMPLES */}
 
                 <Route element={<PrivatesRoutes />}></Route>
