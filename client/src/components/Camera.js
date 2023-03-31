@@ -16,6 +16,7 @@ export default function Camera({ lerping, setLerping,refTargetObject }) {
     const [ifFixed, setFixed] = useState(true);
     const [targetObject, setTargetObject] = useState(null)
     const [positionObj, setPositionObj] = useState([0, 4, -15])
+    
 
     var scene = useThree()
 
@@ -64,9 +65,14 @@ export default function Camera({ lerping, setLerping,refTargetObject }) {
             //camera.position.copy(posObj);
             camera.lookAt(posTarget); */
 
+            console.log(refTargetObject.current)
 
 
+            const thirdPersonPosition = {x : 1, y: 2, z : -2}
+            const thirdPersonTarget = {x : 1, y: 2, z : 2}
 
+            const firstPersonPosition = {x:1, y: 1, z: 1}
+            const firstPersonTaget = {x:1, y: 1, z: 1}
 
 
 
@@ -86,11 +92,11 @@ export default function Camera({ lerping, setLerping,refTargetObject }) {
             wDir.normalize()
             let cameraPos = position.clone().add(
                 wDir.clone().multiplyScalar(-1).add(
-                    new THREE.Vector3(0,45,-35)
+                    new THREE.Vector3(0,40,-40)
                 )
             ) 
             camera.position.copy(cameraPos)
-            camera.lookAt(new THREE.Vector3(position.x, position.y + 20, position.z+10))
+            camera.lookAt(new THREE.Vector3(position.x, position.y + 20, position.z))
          /*   camera.position.copy(refTargetObject.current.position);  */
         // Adjust the camera offset to frame the target nicely
        
