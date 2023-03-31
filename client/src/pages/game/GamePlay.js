@@ -9,6 +9,7 @@ import KickAnim from "../../3dcomponent/Kick_anim.js";
 import RockyGround from "../../3dcomponent/Rocky_ground";
 import Buildings from "../../3dcomponent/Game_ready_city_buildings";
 import Wall from "../../3dcomponent/Wall";
+import InteractionChoices from "../../components/InteractionChoice";
 
 //TODO 1 -Thomas - 2021-03-28 - Add LOD (Level Of Detail) - Display the appropriate level of detail based on the distance between the camera and the model to reduce the GPU workload.
 //TODO 2 -Thomas - 2021-03-28 - Add Occlusion Frustum - Display the occlusion frustum based on the view camera versus the world, remove if camera don't see him.
@@ -39,7 +40,7 @@ function GamePlay() {
 
   const handleClick = () => {
     ShowElementAction(!showElement);
-    console.log("Ntm");
+    console.log(showElement);
   };
 
   return (
@@ -90,6 +91,11 @@ function GamePlay() {
           {/* ENVIRONNMENT - END */}
 
         </Canvas>
+        {showElement && (
+          <div className="losange-choices-container">
+            <InteractionChoices />
+          </div>
+        )}
         <DialogueBox text="Salut toi ! Comment ça va ? Sartek ton dev brrroo, Askip t'as eu v'la des merdes mais la sa marche :3" speed={25} />
       </div>
     </div>
