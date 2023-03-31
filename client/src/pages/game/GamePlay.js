@@ -9,6 +9,12 @@ import KickAnim from "../../3dcomponent/Kick_anim.js";
 import RockyGround from "../../3dcomponent/Rocky_ground";
 import Buildings from "../../3dcomponent/Game_ready_city_buildings";
 import Wall from "../../3dcomponent/Wall";
+import DirectionalLight from "../../3dcomponent/lightning/DirectionalLight";
+
+//TODO 1 -Thomas - 2021-03-28 - Add LOD (Level Of Detail) - Display the appropriate level of detail based on the distance between the camera and the model to reduce the GPU workload.
+//TODO 2 -Thomas - 2021-03-28 - Add Occlusion Frustum - Display the occlusion frustum based on the view camera versus the world, remove if camera don't see him.
+//TODO 3 -Thomas - 2021-03-28 - Modify pixel ratio. Gain 10 fps when using low resolution.
+//TODO 4 -Thomas - 2021-03-28 - Desactivate AntiAliasing. Hard graphic downgrade. gain 20/30 fps when using low resolution.
 
 function GamePlay() {
   const [lerping, setLerping] = useState(false)
