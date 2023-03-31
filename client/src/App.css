@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 html,
 body,
 #root,
@@ -13,6 +14,11 @@ body,
 canvas {
   display: block;
 }
+=======
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+>>>>>>> 4190355 (#6 feature/homepage/front add button and dl)
 
 .App {
   text-align: center;
