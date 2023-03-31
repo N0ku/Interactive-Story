@@ -25,7 +25,7 @@ function Home() {
     }
 
     return (
-        <div>
+        <div className='BackgroundHome'>
 
             <div className="Buttons">
                 <button className="neon-box-1" onClick={() => navigate('/game')}>JOUER</button>

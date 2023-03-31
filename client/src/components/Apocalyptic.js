@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import { useGLTF } from '@react-three/drei'
 
  function Apocalyptic(props) {
@@ -118,5 +118,5 @@ import { useGLTF } from '@react-three/drei'
     </group>
   );
 }
-export default Apocalyptic;
 useGLTF.preload('/apocalyptic_city.glb')
+export default Apocalyptic;
