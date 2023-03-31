@@ -1,74 +1,99 @@
-# Getting Started with Create React App
+# Project Title
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
+![Threejs](https://img.shields.io/badge/threejs-black?style=for-the-badge&logo=three.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+This is a post-apocalyptic interactive story built with [React Three Fiber](https://github.com/pmndrs/react-three-fiber). The story is set in a world where a deadly virus has wiped out most of humanity and you must make choices that will determine your survival. The game features stunning 3D graphics, an engaging storyline, and multiple endings based on your decisions.
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Client
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To install and run the project locally, follow these steps:
 
-### `npm test`
+1. Clone this repository
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```sh
+   git clone https://github.com/N0ku/Interactive-Story.git
+```
 
-### `npm run build`
+2. Enter in the Client folder
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```sh
+    cd Client
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. Install the dependencies
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```sh
+   yarn install OR npm install
+```
 
-### `npm run eject`
+4. Run the development server
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```sh
+   yarn start OR npm start
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+5. Open http://localhost:3000 in your browser to see the app running.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Server
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Enter in the Server folder
 
-### (cd client)`yarn gltfjsx 'absolute-path'`
+```sh
+    cd Server
+```
 
-Convert the gltf en jsx.
+2. Install the dependencies
 
-## Learn More
+```sh
+   yarn install OR npm install
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. Run the development server
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```sh
+   yarn start OR npm start
+```
 
-### Code Splitting
+4. Now you have the server running on the 5050 port !
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+##### To import a 3d model into react three fiber, use the command:
 
-### Analyzing the Bundle Size
+```sh
+yarn gltfjsx absolute-path OR yarn gltfjsx absolute-path
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Features
 
-### Making a Progressive Web App
+- Choose your own adventure gameplay
+- Stunning 3D graphics and immersive environments
+- Multiple endings based on your choices
+- Engaging storyline with post-apocalyptic themes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Technologies
 
-### Advanced Configuration
+- [React](https://reactjs.org/)
+- [React Three Fiber](https://github.com/pmndrs/react-three-fiber)
+- [JavaScript](https://www.javascript.com/)
+- [HTML](https://html.com/)
+- [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+- [Express JS](http://expressjs.com)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Contributors
 
-### Deployment
+- [N0ku](https://github.com/N0ku)
+- [Thomlam](https://github.com/Thomlam)
+- [elimf](https://github.com/elimf)
+- [EddyMuzaffar](https://github.com/EddyMuzaffar)
+- [chalbrecht](https://github.com/chalbrecht)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## License
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Coming...
