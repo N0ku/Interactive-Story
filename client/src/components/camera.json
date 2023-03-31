@@ -1,0 +1,73 @@
+[
+  {
+    "title": "1ere personne",
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 10
+    },
+    "lookAt": {
+      "x": 0,
+      "y": 0,
+      "z": 10
+    },
+    "fixed": true
+  },
+  {
+    "title": "3eme personne",
+    "position": {
+      "x": 0,
+      "y": 1,
+      "z": 6
+    },
+    "lookAt": {
+      "x": 0,
+      "y": 0,
+      "z": 10
+    },
+    "fixed": true
+  },
+  {
+    "title": "Vue du dessus",
+    "position": {
+      "x": 0,
+      "y": 15,
+      "z": 10
+    },
+    "lookAt": {
+      "x": 0,
+      "y": 0,
+      "z": 10
+    },
+    "fixed": true
+  },
+  {
+    "title": "Test Camera Scene",
+    "position": {
+      "x": 400,
+      "y": 15,
+      "z": -800
+    },
+    "lookAt": {
+      "x": 619,
+      "y": 10,
+      "z": -800
+    },
+    "fixed": true
+  },
+  {
+    "title": "Camera rotative",
+    "position": {
+      "x": 0,
+      "y": 0,
+      "z": 6
+    },
+    "lookAt": {
+      "x": 0,
+      "y": 0,
+      "z": 10
+    },
+    "fixed": false,
+    "type": "rotate"
+  }
+]
