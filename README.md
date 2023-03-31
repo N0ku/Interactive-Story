@@ -1,6 +1,11 @@
 # Project Title
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+[SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white)
+![Threejs](https://img.shields.io/badge/threejs-black?style=for-the-badge&logo=three.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 
 ## Description
 
@@ -8,12 +13,42 @@ This is a post-apocalyptic interactive story built with [React Three Fiber](http
 
 ## Installation
 
+### Client
+
 To install and run the project locally, follow these steps:
 
 1. Clone this repository
 
 ```sh
-   git clone https://github.com/your-username/your-project.git
+   git clone https://github.com/N0ku/Interactive-Story.git
+```
+
+2. Enter in the Client folder
+
+```sh
+    cd Client
+```
+
+3. Install the dependencies
+
+```sh
+   yarn install OR npm install
+```
+
+4. Run the development server
+
+```sh
+   yarn start OR npm start
+```
+
+5. Open http://localhost:3000 in your browser to see the app running.
+
+### Server
+
+1. Enter in the Server folder
+
+```sh
+    cd Server
 ```
 
 2. Install the dependencies
@@ -28,7 +63,7 @@ To install and run the project locally, follow these steps:
    yarn start OR npm start
 ```
 
-4. Open http://localhost:3000 in your browser to see the app running.
+4. Now you have the server running on the 5050 port !
 
 ##### To import a 3d model into react three fiber, use the command:
 
