@@ -30,6 +30,7 @@ function Home() {
             <div className="Buttons">
                 <button className="neon-box-1" onClick={() => navigate('/game')}>JOUER</button>
                 <button className="neon-box-1">PARAMETRES</button>
+
                 {connected ?
                     <button className="neon-box-1" onClick={disconnect}>DECONNEXION</button>
                     :

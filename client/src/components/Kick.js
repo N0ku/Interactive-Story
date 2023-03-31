@@ -7,12 +7,19 @@ function Kick(props) {
   const group = useRef();
   const { nodes, materials } = useGLTF("/kick.glb");
 
+  
+
   var advance = true
 
   const [positionObj, setPositionObj] = useState([0, -0.01, -2])
   const path = new THREE.CatmullRomCurve3([
     new THREE.Vector3(0, -0.01, -2),
-    new THREE.Vector3(0, -0.01, 11)
+    new THREE.Vector3(0, -0.01, 2),
+
+
+    new THREE.Vector3(4, -0.01, 5),
+
+    new THREE.Vector3(7, -0.01, 11)
 
 
   ]);
