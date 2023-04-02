@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Canvas } from "react-three-fiber";
 import BaseballBat from "../../components/BaseballBat.js";
 import Camera from "../../components/Camera"
-import { Sky } from "@react-three/drei";
+import { Sky,Loader } from "@react-three/drei";
 import Apocalyptic from "../../components/Apocalyptic.js";
 import DialogueBox from "../../components/DialogueBoxV2";
 import KickAnim from "../../3dcomponent/Kick_anim.js";
@@ -43,6 +43,10 @@ function GamePlay() {
   const handleClick = () => {
     ShowElementAction(!showElement);
     console.log(showElement);
+  };
+
+  const handleReturnClick = (value) => {
+     ShowElementAction(value);
   };
 
   return (
@@ -95,9 +99,10 @@ function GamePlay() {
         </Canvas>
         {showElement && (
           <div className="losange-choices-container">
-            <InteractionChoices />
+            <InteractionChoices  onReturnClick={handleReturnClick} />
           </div>
         )}
+        <Loader/>
         <DialogueBox text="ParoleDescriptif" speed={10} />
         <InfoBox text="InfoBox" speed={10} />
       </div>

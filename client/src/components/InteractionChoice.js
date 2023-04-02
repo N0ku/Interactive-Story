@@ -7,9 +7,7 @@ import observerImg from '../assets/observer.png';
 import interragirImg from '../assets/interragir.png';
 import retourImg from '../assets/retour.png';
 
-
-
-const InteractionChoices = () => {
+const InteractionChoices = ({ onReturnClick }) => {
   const handleClick = (value) => {
     console.log(value);
   };
@@ -28,7 +26,7 @@ const InteractionChoices = () => {
         <img src={interragirImg} alt="circle" className="circle-image" />
         <span>Interragir</span>
       </div>
-      <div className="corner bottom-right" onClick={() => handleClick('d')}>
+      <div className="corner bottom-right" onClick={() => onReturnClick(false)}>
         <img src={retourImg} alt="circle" className="circle-image" />
         <span>Retour</span>
       </div>
