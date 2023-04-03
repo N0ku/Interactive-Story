@@ -28,13 +28,9 @@ function Kick(props) {
     new THREE.Vector3(16, 1, 12),
     new THREE.Vector3(45, 1, 12),
 
-
-
-
-   
   ]);
  
-  const modelHeight = -1; // Substract the height of the model from the floor
+  const modelHeight = -1; 
 
   useFrame((state, delta) => {
     setLastPosition(path.getPointAt(1));
@@ -49,18 +45,15 @@ function Kick(props) {
   
        
  
-         setPositionObj([position.x, position.y, position.z])
-         const tangent = path.getTangentAt(((time) % path.getLength()) / path.getLength());
-          const nextPosition = path.getPoint((time /2 + 0.01)  % path.getLength());
-          const nPosition = path.getPointAt(((time +0.01) % path.getLength()) / path.getLength()); // get the next point along the path
-         const angleY = Math.atan2(nPosition.x - position.x,nPosition.z - position.z);
-    // Set the Y-axis rotation based on the angle of rotation
+    setPositionObj([position.x, position.y, position.z])
+    const nPosition = path.getPointAt(((time +0.01) % path.getLength()) / path.getLength()); 
+    const angleY = Math.atan2(nPosition.x - position.x,nPosition.z - position.z);
        
     setRotation([0, angleY, 0 ] ) 
     props.onSend(group);
-         if(lastPosition != null){
+      if(lastPosition != null){
          
-     }
+      }
   }
  
  }); 

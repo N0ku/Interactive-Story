@@ -20,31 +20,9 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
 
     var scene = useThree()
 
-    useControls('Camera', () => {
-        console.log('creating buttons')
-        
-        // using reduce
-        const _buttons = cameras.reduce(
-            (acc, a) =>
-                Object.assign(acc, {
-                    [a.title]: button(() => {
-                        setTo(a.position)
-                        setTarget(a.lookAt)
-                        setFixed(a.fixed)
-                    })
-                }),
-            {}
-        )
-        return _buttons
-    })
     const onAxeMove = (position) =>{
-        var y = position; // make sure that position is defined or passed as an argument
-
+        var y = position; 
         var dir = '';
-        
-       console.log(y)
-        
-        // Check if the model is moving along the X-axis or Z-axis
         if (y > -0.75 && y <= 0.75) {
           dir = 'devant';
         } else if (y > 0.75 && y <= 1.75) {
@@ -53,50 +31,12 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
           dir = 'derriere';
         }else if (y > -2.75 && y<= -0.75) {
             dir = 'droite';
-          }else{
+        }else{
             dir = 'devant';
-          }
-        
-        // make sure that you are calling the correct variable name for the direction
-      
-
-
-
-
-
-
-    /*   if (y >= -0.75 && y <= 0,75) {
-        
-        console.log('Model is moving along the X-axis');
-        if (x > prevPosition.current[2]) {
-          
-          dir = 'droite'
-        } else if (x < prevPosition.current[2]) {
-          dir = 'gauche'
-  
-        } else {
-  dir = 'none'
         }
-      } else if (z != prevPosition.current[2]) {
-        console.log('Model is moving along the Z-axis');
-        if (z > prevPosition.current[2]) {
-  dir = 'devant'
-        } else if (z < prevPosition.current[2]) {
-          dir = 'derriere'
-        } else {
-  dir = 'none'      }    }
-  
-  console.log(dir)
-    
-      prevPosition.current = [x, y, z]; */
-      console.log(dir)
       return dir;
     }
   
-
-    let rotationDuration = 4; // adjust this to control the duration of rotation in seconds
-    let rotationTimer = 0;
-    let rotationSpeed = (2 * Math.PI) / rotationDuration;
     useFrame(({camera},delta )=> {
         var modeCamera;
         if(mode == undefined){
@@ -105,19 +45,13 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
             modeCamera = mode
         }
         var a = 1
-
         switch(modeCamera){
             case 'followObjectAbsolu':
                 if(targetObject == null){
                     setTargetObject(refTargetObject)
                     return
-                }
-                
-                    
-               
-              
+                }                 
                 if ( ifFixed && refTargetObject.current.position != undefined) {
-                    //var az = [0,2,-5]
                     var thirdPersonPosition = [];
                     thirdPersonPosition.concat(posRelative)
                     var bodyAnim = refTargetObject.current.children[0].children[0].children[0]
@@ -152,8 +86,6 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
                         thirdPersonPosition[2] = posRelative[0]
                         a = -1
                     }
-                    console.log(thirdPersonPosition)
-                    console.log(posRelative)
                     let wDir =new THREE.Vector3(0,0,0)
                     wDir.applyQuaternion(quaternion)
                     wDir.normalize()
@@ -176,7 +108,7 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
     
                 if ( ifFixed && refTargetObject.current.position != undefined) {
                     const thirdPersonPosition = posRelative
-                   
+    
                     let position = new THREE.Vector3(0,0,0);
                     position.setFromMatrixPosition(refTargetObject.current.matrixWorld)
         
@@ -199,28 +131,19 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
                 break;
             case 'fixeCamera':
                 let positionFixe = new THREE.Vector3(0,0,0);
-                
-                
-
                 camera.position.copy(posRelative)
                 camera.lookAt(new THREE.Vector3(positionFixe.x, positionFixe.y, positionFixe.z))
-
                 break;
-
             case 'fixeCameraFollowObject':
-                    let positionFixed = new THREE.Vector3(0,0,0);
-                    if(refTargetObject != null){
-                        positionFixed.setFromMatrixPosition(refTargetObject.current.matrixWorld)
-                    }else{
-                        positionFixed.set(new THREE.Vector3(0,0,0))
-                    }
-    
-                    camera.position.copy(posRelative)
-                    camera.lookAt(new THREE.Vector3(positionFixed.x, positionFixed.y, positionFixed.z))
-    
-                    break;
-
-
+                let positionFixed = new THREE.Vector3(0,0,0);
+                if(refTargetObject != null){
+                    positionFixed.setFromMatrixPosition(refTargetObject.current.matrixWorld)
+                }else{
+                    positionFixed.set(new THREE.Vector3(0,0,0))
+                }
+                camera.position.copy(posRelative)
+                camera.lookAt(new THREE.Vector3(positionFixed.x, positionFixed.y, positionFixed.z))
+                break;
 
         }
 
@@ -235,18 +158,8 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
                 aspect={scene.innerWidth /scene.innerHeight}
                 fov={50}
                 far={500}
-                zoom={zoom}
-               
-            >
-                
+                zoom={zoom}     
+            > 
             </PerspectiveCamera>
-
-            
-
-
         </>
-
-    )
-;
-
-}
+    );}
