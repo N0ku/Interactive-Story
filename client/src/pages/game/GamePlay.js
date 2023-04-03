@@ -43,14 +43,11 @@ function GamePlay() {
       questionCurrentScene = "Aller à la scene 1";
       break;
     case "Scene1":
-      sceneToRender = <Scene1 />;
+      sceneToRender = <Scene1 onSceneComplete={handleIntroFinish} />;
       choiceCurrentScene = choices;
       questionCurrentScene = "Aller à l'intro";
       break;
     default:
-      sceneToRender = <Intro onSceneComplete={handleIntroFinish} />;
-      choiceCurrentScene = choicesIntro;
-      questionCurrentScene = "Aller à la scene 1";
   }
 
   // Afficher le bouton seulement lorsque la scène est terminée
