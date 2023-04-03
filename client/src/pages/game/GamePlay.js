@@ -6,7 +6,7 @@ import Scene1 from "../../components/scene/Scene1";
 import DialogueBox from "../../components/DialogueBoxV2";
 import InteractionChoices from "../../components/InteractionChoice";
 import InfoBox from '../../components/InfoBox';
-import { Physics, Debug, RigidBody } from "@react-three/rapier";
+import { Physics} from "@react-three/rapier";
 import { KeyboardControls } from "@react-three/drei";
 import OptionTextBox from "../../components/DialogueInteractionChoice";
 
@@ -80,11 +80,26 @@ function GamePlay() {
   return (
     <div className="App">
       <div className="canvas-container">
-        <Canvas style={{ width: "100%", height: "100%" }} onClick={handleClick}>
-          {sceneToRender}
-        </Canvas>
+        <KeyboardControls
+          map={[
+            { name: "forward", keys: ["KeyW"] },
+            { name: "backward", keys: ["KeyS"] },
+            { name: "left", keys: ["KeyA"] },
+            { name: "right", keys: ["KeyD"] },
+          ]}
+        >
+          <Canvas style={{ width: "100%", height: "100%" }} onClick={handleClick}>
+            <Physics
+              gravity={[0, -9.82, 0]}
+            // timeStep={1 / 60}
+            //
+            >
+              {sceneToRender}
+            </Physics>
+          </Canvas>
+        </KeyboardControls>
         {/* HTML ELEMENT FOR INTERACTION - START */}
-        {showElement && (
+       {/*  {showElement && (
           <div className="losange-choices-container">
             <InteractionChoices onReturnClick={handleReturnClick} />
           </div>
@@ -95,10 +110,10 @@ function GamePlay() {
             console.log(`Le bouton ${buttonIndex + 1} a été cliqué`);
           }}
           speed={5}
-        />
+        /> */}
         <Loader />
-        <DialogueBox text="ParoleDescriptif" speed={10} />
-        <InfoBox text="InfoBox" speed={10} />
+      {/*   <DialogueBox text="ParoleDescriptif" speed={10} />
+        <InfoBox text="InfoBox" speed={10} /> */}
         {nextButton}
         {/* HTML ELEMENT FOR INTERACTION - END */}
       </div>

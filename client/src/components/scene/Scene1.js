@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Camera from "../../components/Camera";
+import { OrbitControls } from "@react-three/drei";
 import { Sky } from "@react-three/drei";
 import KickAnim from "../../3dcomponent/Kick_anim.js";
 import RockyGround from "../../3dcomponent/Rocky_ground";
 import Buildings from "../../3dcomponent/Game_ready_city_buildings";
 import Wall from "../../3dcomponent/Wall";
+import Apocalyptic from "../../components/Apocalyptic.js";
 import * as THREE from "three";
+import { Debug } from "@react-three/rapier";
 
 function Scene1({ onSceneComplete }) {
   const [lerping, setLerping] = useState(false);
@@ -42,11 +45,19 @@ function Scene1({ onSceneComplete }) {
 
   return (
     <>
-      <Camera
+      {/*       <Camera
         lerping={lerping}
         setLerping={setLerping}
         refTargetObject={refObj}
-      ></Camera>
+      ></Camera> */}
+
+      <OrbitControls
+        enableDamping
+        dampingFactor={0.1}
+        rotateSpeed={0.5} // Speed Rotation
+        minPolarAngle={Math.PI / 6} // Limit angle in down direction
+        maxPolarAngle={Math.PI / 2}
+      />
       <ambientLight intensity={0.5} />
       <directionalLight intensity={0.5} />
 
@@ -54,15 +65,19 @@ function Scene1({ onSceneComplete }) {
       <group scale={250} position={[100, 125, -100]}>
         <Buildings />
       </group>
+      <Debug />
       <Wall
         scale={7}
         rotation={[0, (-90 * Math.PI) / 180, 0]}
         position={[135, -20, -850]}
       />
+      <group position={[0, -5, 0]}>
+        <Apocalyptic />
+      </group>
       {/* MAP ELEMENTS - END */}
 
       {/* MAIN CHARACTER */}
-      <group scale={20}>
+      <group position={[0, 10, 0]}>
         <KickAnim
           path={path}
           animationIndex={currentAnimationIndex}
