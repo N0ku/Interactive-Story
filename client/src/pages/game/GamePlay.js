@@ -11,6 +11,8 @@ import Buildings from "../../3dcomponent/Game_ready_city_buildings";
 import Wall from "../../3dcomponent/Wall";
 import InteractionChoices from "../../components/InteractionChoice";
 import InfoBox from '../../components/InfoBox';
+import OptionTextBox from "../../components/DialogueInteractionChoice";
+
 
 
 //TODO 1 -Thomas - 2021-03-28 - Add LOD (Level Of Detail) - Display the appropriate level of detail based on the distance between the camera and the model to reduce the GPU workload.
@@ -88,7 +90,6 @@ function GamePlay() {
     <div className="App">
       <div className="canvas-container">
         <Canvas
-          antialias={false}
           style={{ width: "100%", height: "100%" }}
           onClick={handleClick}
         // onCreated={({ gl, scene }) => {
@@ -134,14 +135,25 @@ function GamePlay() {
           {/* ENVIRONNMENT - END */}
 
         </Canvas>
+           {/* HTML ELEMENT FOR INTERACTION - START */}
         {showElement && (
           <div className="losange-choices-container">
-            <InteractionChoices  onReturnClick={handleReturnClick} />
+            <InteractionChoices onReturnClick={handleReturnClick} />
+            
           </div>
+          
         )}
+        <OptionTextBox
+              buttonTexts={['Banane sa mere', 'Bouton 2', 'Bouton 3', 'Bouton 4']}
+              onButtonClick={(buttonIndex) => {
+                console.log(`Le bouton ${buttonIndex + 1} a été cliqué`);
+              }}
+              speed={5}
+            />
         <Loader/>
         <DialogueBox text="ParoleDescriptif" speed={10} />
         <InfoBox text="InfoBox" speed={10} />
+          {/* HTML ELEMENT FOR INTERACTION - END */}
       </div>
     </div>
   );

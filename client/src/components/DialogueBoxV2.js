@@ -28,7 +28,7 @@ const DialogueBox = ({ text, speed, }) => {
         left: '50%', 
         transform: 'translateX(-50%)', 
         padding: '10px',
-        backgroundColor: 'rgba(0, 0, 0, 0.3)',
+        backgroundColor: 'rgba(0, 0, 0, 0.05)',
         borderRadius: '10px',
         color: 'white',
         fontFamily: 'Arial, sans-serif',
