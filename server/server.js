@@ -62,6 +62,23 @@ app.post("/authenticate", async (req, res) => {
   res.send({ token });
 });
 
+app.get("/check-auth", async (req, res) => {
+  try {
+    const token = req.headers.authorization.split(" ")[1]; // Get token from Authorization header
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET); // Verify token using secret key
+
+    const user = await User.findById(decodedToken.userId); // Find user with corresponding ID in database
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    res.status(200).json({ message: "Authenticated", user });
+  } catch (error) {
+    res.status(401).json({ message: "Unauthorized" });
+  }
+});
+
 app.get("/protected-resource", async (req, res) => {
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(" ")[1];
