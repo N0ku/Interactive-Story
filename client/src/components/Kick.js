@@ -21,7 +21,7 @@ function Kick(props) {
   const path = new THREE.CatmullRomCurve3([
     new THREE.Vector3(0, -0.01, -2),
     new THREE.Vector3(0, 0, 12),
-    new THREE.Vector3(0, 0, 12),
+    new THREE.Vector3(5, 0, 12),
 
    
   ]);
@@ -73,6 +73,7 @@ console.log(dir)
       setRotation([-Math.PI / 2, 0, 0])
       dirOff = Math.PI //    
     } else if (dir = 'gauche') {
+      console.log('rotate gauche')
       setRotation([Math.PI / 2, 0, -Math.PI] )   
     } else if (dir = 'droite') {
       setRotation([Math.PI / 2, 0, Math.PI] ) 
@@ -90,9 +91,11 @@ console.log(dir)
     setLastPosition(path.getPointAt(1));
      if (advance) {
      
-     
+         
       const time = state.clock.elapsedTime % path.getLength();
       const position = path.getPoint(time/12);
+      var dir = onAxeMove(position);
+      directionOffset(dir)  
       /* const time = state.clock.getElapsedTime();
       const position = path.getPointAt(((time) % path.getLength()) / path.getLength()); */
   
@@ -120,10 +123,10 @@ console.log(dir)
   };
 
   return (
-    <group ref={group}  onChange={handleChange}   position={positionObj}  >
+    <group ref={group}  onChange={handleChange}   rotation={rotation} position={positionObj}  >
       <group  {...props} dispose={null}  >
         <group name="Scene">
-          <group name="Armature" rotation={rotation} scale={0.01} >
+          <group name="Armature"  scale={0.01} >
             <primitive object={nodes.mixamorigHips} />
             <skinnedMesh
               name="Ch03"
