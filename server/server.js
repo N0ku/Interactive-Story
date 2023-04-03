@@ -112,6 +112,33 @@ app.post("/users", async (req, res) => {
   }
 });
 
+// Route pour ajouter un nouveau score pour un utilisateur
+app.post('/users/:username/scores', (req, res) => {
+  const username = req.params.username;
+  const newScore = req.body;
+
+  User.updateOne({ username: username }, { $push: { scores: newScore } })
+    .then(() => {
+      res.status(200).json({ message: 'Score ajouté avec succès' });
+    })
+    .catch((error) => {
+      res.status(400).json({ error: 'Erreur lors de l\'ajout du score' });
+    });
+});
+
+// Route pour récupérer tous les scores d'un utilisateur
+app.get('/users/:username/scores', (req, res) => {
+  const username = req.params.username;
+
+  User.findOne({ username: username })
+    .then((user) => {
+      res.status(200).json(user.scores);
+    })
+    .catch((error) => {
+      res.status(400).json({ error: 'Erreur lors de la récupération des scores' });
+    });
+});
+
 app.listen(5050, () => {
   console.log(`Server Started at ${5050}`);
 });

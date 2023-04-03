@@ -33,17 +33,21 @@ function Register() {
     event.preventDefault();
 
     if (!email || !username || !password || !confirmPassword) {
-      alert("Merci de remplir tous les champs !!");
+       toast.error("Merci de remplir tous les champs !!");
       return;
     }
 
     if (!email.match(validRegex)) {
-      alert("Merci de saisir une adresse mail valide.");
+       toast.error("Merci de saisir une adresse mail valide.");
       return;
     }
-
+    
+    if (password.length < 6) {
+       toast.error("Le mot de passe doit contenir au moins 6 caractères.");
+      return;
+    }
     if (password !== confirmPassword) {
-      alert("Les deux mots de passe ne sont pas identiques.");
+       toast.error("Les deux mots de passe ne sont pas identiques.");
       return;
     }
 
