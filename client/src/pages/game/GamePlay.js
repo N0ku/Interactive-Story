@@ -3,6 +3,7 @@ import Intro from "../../components/scene/Intro";
 import Scene1 from "../../components/scene/Scene1";
 import { Canvas } from "react-three-fiber";
 
+
 function GamePlay() {
   const [currentScene, setCurrentScene] = useState("Intro");
   const [sceneFinished, setSceneFinished] = useState(false);
@@ -39,17 +40,7 @@ function GamePlay() {
       questionCurrentScene = "Aller à la scene 1";
   }
 
-  // Afficher le bouton seulement lorsque la scène est terminée
-  const nextButton = sceneFinished && (
-    <div className="boxButton">
-      {questionCurrentScene}
-      {choiceCurrentScene.map((choice) => (
-        <button
-          key={choice.id}
-          className="buttonChoice"
-          onClick={() => {
-            handleSceneChange(choice.scene);
-          }}
+
         >
           {choice.label}
         </button>
@@ -57,10 +48,7 @@ function GamePlay() {
     </div>
   );
 
-  return (
-    <div className="canvas-container">
-      <Canvas style={{ width: "100%", height: "100%" }}>{sceneToRender}</Canvas>
-      {nextButton}
+
     </div>
   );
 }
