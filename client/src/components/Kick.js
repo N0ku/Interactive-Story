@@ -21,9 +21,14 @@ function Kick(props) {
   const path = new THREE.CatmullRomCurve3([
     new THREE.Vector3(0, 1, 0),
     new THREE.Vector3(0, 1, 12),
-    new THREE.Vector3(5, 1, 12),
-    new THREE.Vector3(5, 1, 0),
-    new THREE.Vector3(0, 1, 0),
+    new THREE.Vector3(10, 1, 12),
+    new THREE.Vector3(10, 1, 0),
+    new THREE.Vector3(10, 1, -30),
+    new THREE.Vector3(16, 1, -30),
+    new THREE.Vector3(16, 1, 12),
+    new THREE.Vector3(45, 1, 12),
+
+
 
 
    
@@ -40,14 +45,14 @@ function Kick(props) {
       const position = path.getPoint(time/12); */
      
       const time = state.clock.getElapsedTime();
-      const position = path.getPointAt(((time) /2   % path.getLength()) / path.getLength());
+      const position = path.getPointAt(((time) % path.getLength()) / path.getLength());
   
        
  
          setPositionObj([position.x, position.y, position.z])
          const tangent = path.getTangentAt(((time) % path.getLength()) / path.getLength());
           const nextPosition = path.getPoint((time /2 + 0.01)  % path.getLength());
-          const nPosition = path.getPointAt(((time +0.01) /2   % path.getLength()) / path.getLength()); // get the next point along the path
+          const nPosition = path.getPointAt(((time +0.01) % path.getLength()) / path.getLength()); // get the next point along the path
          const angleY = Math.atan2(nPosition.x - position.x,nPosition.z - position.z);
     // Set the Y-axis rotation based on the angle of rotation
        

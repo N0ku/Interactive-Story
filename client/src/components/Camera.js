@@ -233,10 +233,10 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
                 makeDefault
                 ref={camera}
                 aspect={scene.innerWidth /scene.innerHeight}
-                fov={60}
-                far={800}
+                fov={50}
+                far={500}
                 zoom={zoom}
-                rotation={[Math.PI / 2, 0, 2]}
+               
             >
                 
             </PerspectiveCamera>
