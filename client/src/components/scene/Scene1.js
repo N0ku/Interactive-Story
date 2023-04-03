@@ -77,7 +77,7 @@ function Scene1({ onSceneComplete }) {
       {/* MAP ELEMENTS - END */}
 
       {/* MAIN CHARACTER */}
-      <group position={[0, 10, 0]}>
+      <group position={[0, 20, 0]} scale={20}>
         <KickAnim
           path={path}
           animationIndex={currentAnimationIndex}

@@ -85,7 +85,6 @@ function Kick(props) {
       }
 
       if (backward) {
-        console.log("S");
         let pos = body.current.translation();
         let ang = body.current.rotation();
         pos.z += impulseStrength;
@@ -97,7 +96,6 @@ function Kick(props) {
       }
 
       if (right) {
-        console.log("D");
         let pos = body.current.translation();
         let ang = body.current.rotation();
         pos.x += impulseStrength;
@@ -123,12 +121,12 @@ function Kick(props) {
   });
 
   return (
-    <RigidBody ref={body}
-      colliders="trimesh"
+     <RigidBody ref={body}
+      colliders="cuboid"
       restitution={0.2}
       friction={1}
       linearDamping={0.5}
-      angularDamping={0.5}>
+      angularDamping={0.5}> 
       <group ref={group} position={positionObj}  >
         <group  {...props} dispose={null}  >
           {boxHelper && (
@@ -140,7 +138,7 @@ function Kick(props) {
             />
           )}
           <group name="Scene">
-            <group name="Armature" rotation={[Math.PI / 2, 0, 0]}>
+          <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
               <primitive object={nodes.mixamorigHips} />
               <skinnedMesh
                 name="Ch03"
@@ -152,7 +150,7 @@ function Kick(props) {
           </group>
         </group>
       </group>
-    </RigidBody>
+     </RigidBody> 
   );
 }
 export default Kick;
