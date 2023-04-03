@@ -38,18 +38,34 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
         return _buttons
     })
     const onAxeMove = (position) =>{
-        var dir= ''
-      const x = Math.round(position.x * 100) / 100 ;
-      console.log(position)
-      const y = Math.round(position.y * 100) / 100;
+        var y = position; // make sure that position is defined or passed as an argument
+
+        var dir = '';
+        
+       console.log(y)
+        
+        // Check if the model is moving along the X-axis or Z-axis
+        if (y > -0.75 && y <= 0.75) {
+          dir = 'devant';
+        } else if (y > 0.75 && y <= 1.75) {
+          dir = 'gauche';
+        } else if ((y > 1.75 && y <= 4) || y <= -2.75) {
+          dir = 'derriere';
+        }else if (y > -2.75 && y<= -0.75) {
+            dir = 'droite';
+          }else{
+            dir = 'devant';
+          }
+        
+        // make sure that you are calling the correct variable name for the direction
       
-      const z = Math.round(position.z * 100) / 100;
-      console.log('x', x)
-      console.log('y',y)
-        console.log('z', z)
-        console.log(prevPosition.current[0])
-      // Check if the model is moving along the X-axis or Z-axis
-      if (x != prevPosition.current[0]) {
+
+
+
+
+
+
+    /*   if (y >= -0.75 && y <= 0,75) {
         
         console.log('Model is moving along the X-axis');
         if (x > prevPosition.current[2]) {
@@ -71,8 +87,9 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
   dir = 'none'      }    }
   
   console.log(dir)
-      // Update the previous position of the model
-      prevPosition.current = [x, y, z];
+    
+      prevPosition.current = [x, y, z]; */
+      console.log(dir)
       return dir;
     }
   
@@ -100,8 +117,11 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
                
               
                 if ( ifFixed && refTargetObject.current.position != undefined) {
-
-                    var thirdPersonPosition = posRelative
+                    //var az = [0,2,-5]
+                    var thirdPersonPosition = [];
+                    thirdPersonPosition.concat(posRelative)
+                    var bodyAnim = refTargetObject.current.children[0].children[0].children[0]
+                    var posY = bodyAnim.rotation.y
                     
 
                     let position = new THREE.Vector3(0,0,0);
@@ -110,36 +130,41 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
                     let quaternion = new THREE.Quaternion(0,0,0,0)
                     quaternion.setFromRotationMatrix(refTargetObject.current.matrixWorld)
         
-                    var dir = onAxeMove(position)
-                   var  mirPos = thirdPersonPosition
+                    var dir = onAxeMove(posY)
                     if(dir == 'devant'){
-                        thirdPersonPosition.x = posRelative.x
-                        thirdPersonPosition.z = posRelative.z
-                            a = 1
-                    }else if(dir =='derriere'){
-                        thirdPersonPosition.x = posRelative.x
-                        thirdPersonPosition.z = posRelative.z
-                            a = -1
-                    }else if(dir == 'gauche'){
-                        thirdPersonPosition.x = mirPos.z
-                        thirdPersonPosition.z = mirPos.x
-                        a = -1
-                    }else{
-                        thirdPersonPosition.x = mirPos.z
-                        thirdPersonPosition.z = mirPos.x
+                        thirdPersonPosition[0] = posRelative[0]
+                        thirdPersonPosition[1] = posRelative[1]
+                        thirdPersonPosition[2] = posRelative[2]
                         a = 1
+                    }else if(dir =='derriere'){
+                        thirdPersonPosition[0] = posRelative[0]
+                        thirdPersonPosition[1] = posRelative[1]
+                        thirdPersonPosition[2] = posRelative[2]
+                        a = -1
+                    }else if(dir == 'gauche'){
+                        thirdPersonPosition[0] = posRelative[2]
+                        thirdPersonPosition[1] = posRelative[1]
+                        thirdPersonPosition[2] = posRelative[0]
+                        a = 1
+                    }else if(dir == 'droite'){
+                        thirdPersonPosition[0] = posRelative[2]
+                        thirdPersonPosition[1] = posRelative[1]
+                        thirdPersonPosition[2] = posRelative[0]
+                        a = -1
                     }
-                    let wDir =new THREE.Vector3(0,0,-1)
+                    console.log(thirdPersonPosition)
+                    console.log(posRelative)
+                    let wDir =new THREE.Vector3(0,0,0)
                     wDir.applyQuaternion(quaternion)
                     wDir.normalize()
                     let cameraPos = position.clone().add(
                         wDir.clone().multiplyScalar(-1).add(
-                            new THREE.Vector3((refTargetObject.current.parent.scale.x * thirdPersonPosition.x) *a,refTargetObject.current.parent.scale.y * thirdPersonPosition.y, (refTargetObject.current.parent.scale.z * thirdPersonPosition.z) * a)
+                            new THREE.Vector3((refTargetObject.current.parent.scale.x * thirdPersonPosition[0]) *a,refTargetObject.current.parent.scale.y * thirdPersonPosition[1], (refTargetObject.current.parent.scale.z * thirdPersonPosition[2]) * a)
                         )
                     ) 
                     wDir.add(new Vector3(0, 0.2, 0));
                     camera.position.copy(cameraPos)
-                    camera.lookAt(new THREE.Vector3(position.x, position.y + (refTargetObject.current.parent.scale.y / 2), position.z))
+                    camera.lookAt(new THREE.Vector3(position.x, position.y + (refTargetObject.current.parent.scale.y /2) , position.z))
                 
                 }
                 break;
@@ -148,13 +173,10 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
                     setTargetObject(refTargetObject)
                     return
                 }
-                    
-               
-              
+    
                 if ( ifFixed && refTargetObject.current.position != undefined) {
                     const thirdPersonPosition = posRelative
                    
-
                     let position = new THREE.Vector3(0,0,0);
                     position.setFromMatrixPosition(refTargetObject.current.matrixWorld)
         

@@ -19,7 +19,7 @@ function GamePlay() {
   //Fog settings
   const [refObj, setRefObj] = useState(null)
   const [currentAnimationIndex, setCurrentAnimationIndex] = useState(6);
-  var posC = [{mode : 'followObject', pos : new THREE.Vector3(0, 2, 4), zoom: 2}, {mode : 'followObject',pos : new THREE.Vector3(0, 2, -6), zoom : null},  {mode : 'followObjectAbsolu',pos : new THREE.Vector3(0, 2, -2), zoom : 1},{mode : 'fixeCamera', pos : new THREE.Vector3(160, 225, 70), zoom : 2},{mode : 'fixeCameraFollowObject', pos : new THREE.Vector3(160, 225, 70), zoom : 2}]
+  var posC = [{mode : 'followObject', pos : new THREE.Vector3(0, 2, 4), zoom: 2}, {mode : 'followObject',pos : new THREE.Vector3(0, 2, 0), zoom : 1},  {mode : 'followObjectAbsolu',pos : [0,2,2], zoom : 1},{mode : 'fixeCamera', pos : new THREE.Vector3(160, 225, 70), zoom : 2},{mode : 'fixeCameraFollowObject', pos : new THREE.Vector3(160, 225, 70), zoom : 2}]
  
   const[increment, setIncrement] = useState(0)
   const [posCameraRelative, setPosCameraRelative] = useState(posC[increment].pos);
