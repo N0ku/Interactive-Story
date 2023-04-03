@@ -12,7 +12,7 @@ function GamePlay() {
     setSceneFinished(false); // Remettre la valeur de la state à false lorsque vous changez de scène
   }
 
-  function handleIntroFinish() {
+  function handleSceneFinish() {
     setSceneFinished(true); // Mettre la valeur de la state à true lorsque la scène est terminée
   }
 
@@ -24,17 +24,17 @@ function GamePlay() {
   let questionCurrentScene;
   switch (currentScene) {
     case "Intro":
-      sceneToRender = <Intro onSceneComplete={handleIntroFinish} />;
+      sceneToRender = <Intro onSceneComplete={handleSceneFinish} />;
       choiceCurrentScene = choicesIntro;
       questionCurrentScene = "Aller à la scene 1";
       break;
     case "Scene1":
-      sceneToRender = <Scene1 />;
+      sceneToRender = <Scene1 onSceneComplete={handleSceneFinish}/>;
       choiceCurrentScene = choices;
       questionCurrentScene = "Aller à l'intro";
       break;
     default:
-      sceneToRender = <Intro onSceneComplete={handleIntroFinish} />;
+      sceneToRender = <Intro onSceneComplete={handleSceneFinish} />;
       choiceCurrentScene = choicesIntro;
       questionCurrentScene = "Aller à la scene 1";
   }
