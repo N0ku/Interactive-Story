@@ -8,18 +8,17 @@ import { folder, useControls } from "leva";
 function Kick(props) {
   const group = useRef();
   const body = useRef();
-  const { nodes, materials, animations } = useGLTF("/kick_anim.glb");
+  const { nodes, materials, animations } = useGLTF("/kick_anim3.glb");
   const { actions, names } = useAnimations(animations, group)
   const [boxHelper, setBoxHelper] = useState(null);
   const [hovered, hoverAction] = useState(false);
   const [subscribeKeys, getKeys] = useKeyboardControls(); // see: https://github.com/pmndrs/drei#keyboardcontrols
   const modelHeight = -1; // Substract the height of the model from the floor
 
-
   useEffect(() => {
     actions[names[props.animationIndex]].reset().fadeIn(0.25).play();
     if (group.current) {
-      const box = new THREE.Box3().setFromObject(nodes.Ch03); // Calcal the hard box of model based on skeleton. 
+      const box = new THREE.Box3().setFromObject(nodes.Ch03); // Calcal the hard box of model based on skeleton.
       const center = box.getCenter(new THREE.Vector3());
       const size = box.getSize(new THREE.Vector3());
       const hitbox = new THREE.Mesh( // Create the hitbox
@@ -70,50 +69,38 @@ function Kick(props) {
     } */
     const { left, right, forward, backward } = getKeys();
 
-    const impulseStrength = 0.6 * delta;
+    const impulseStrength = 30 * delta;
     const torqueStrength = 0.2 * delta;
 
     if (body.current) {
       if (forward) {
         let pos = body.current.translation();
-        let ang = body.current.rotation();
         pos.z -= impulseStrength;
-        ang.x -= torqueStrength;
 
         body.current.setTranslation(pos, true);
-        body.current.setRotation(ang, true);
       }
 
       if (backward) {
         let pos = body.current.translation();
-        let ang = body.current.rotation();
         pos.z += impulseStrength;
-        ang.x += torqueStrength;
 
         body.current.setTranslation(pos, true);
-        body.current.setRotation(ang, true);
 
       }
 
       if (right) {
         let pos = body.current.translation();
-        let ang = body.current.rotation();
         pos.x += impulseStrength;
-        ang.z -= torqueStrength;
 
         body.current.setTranslation(pos, true);
-        body.current.setRotation(ang, true);
 
       }
 
       if (left) {
         let pos = body.current.translation();
-        let ang = body.current.rotation();
         pos.x -= impulseStrength;
-        ang.z += torqueStrength;
 
         body.current.setTranslation(pos, true);
-        body.current.setRotation(ang, true);
 
       }
     }
@@ -155,4 +142,4 @@ function Kick(props) {
 }
 export default Kick;
 
-useGLTF.preload("/kick_anim.glb");
+useGLTF.preload("/kick_anim3.glb");

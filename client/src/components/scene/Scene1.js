@@ -13,7 +13,7 @@ import { Debug } from "@react-three/rapier";
 function Scene1({ onSceneComplete }) {
   const [lerping, setLerping] = useState(false);
   const [refObj, setRefObj] = useState(null);
-  const [currentAnimationIndex, setCurrentAnimationIndex] = useState(11);
+  const [currentAnimationIndex, setCurrentAnimationIndex] = useState(20);
   const [message, setMessage] = useState("");
   const [isSceneComplete, setIsSceneComplete] = useState(false);
   // const [inView, setInView] = useState(false); // Set State false to disable inView.
