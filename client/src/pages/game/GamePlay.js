@@ -19,17 +19,52 @@ import InfoBox from '../../components/InfoBox';
 //TODO 4 -Thomas - 2021-03-28 - Desactivate AntiAliasing. Hard graphic downgrade. gain 20/30 fps when using low resolution.
 
 function GamePlay() {
-  const [lerping, setLerping] = useState(false)
-  const [refObj, setRefObj] = useState(null)
-  const [currentAnimationIndex, setCurrentAnimationIndex] = useState(11);
-  const [message, setMessage] = useState('');
   // const [inView, setInView] = useState(false); // Set State false to disable inView.
+  //Fog settings
+  const [refObj, setRefObj] = useState(null)
+  const [currentAnimationIndex, setCurrentAnimationIndex] = useState(6);
+  var posC = [{mode : 'followObject', pos : new THREE.Vector3(0, 2, 4), zoom: 2}, {mode : 'followObject',pos : new THREE.Vector3(0, 2, 0), zoom : 1},  {mode : 'followObjectAbsolu',pos : [0,2,-6], zoom : 1},{mode : 'fixeCamera', pos : new THREE.Vector3(160, 225, 70), zoom : 2},{mode : 'fixeCameraFollowObject', pos : new THREE.Vector3(160, 225, 70), zoom : 2}]
+ 
+  const[increment, setIncrement] = useState(0)
+  const [posCameraRelative, setPosCameraRelative] = useState(posC[increment].pos);
+  const[zoom, setZoom] = useState(posC[increment].zoom)
+  const[mode, setMode] = useState(posC[increment].mode)
 
+  const [message, setMessage] = useState('');
+
+  function handleClick() {
+    
+    if(increment < posC.length - 1){
+      
+        setIncrement(increment +1)
+        console.log(increment)
+        
+    }else{
+        setIncrement(0)
+      
+
+        console.log(increment)
+
+    }
+
+
+    setPosCameraRelative(posC[increment].pos)
+    setZoom(posC[increment].zoom)
+    setMode(posC[increment].mode)
+   
+    
+    
+
+    
+  }
 
   const handleMessage = (messageFromChild) => {
     setMessage(messageFromChild);
-    if (message != null) {
-      setRefObj(message);
+   
+    if(message != null){
+        setRefObj(message); 
+        
+
     }
   };
 
@@ -55,6 +90,7 @@ function GamePlay() {
         <Canvas
           antialias={false}
           style={{ width: "100%", height: "100%" }}
+          onClick={handleClick}
         // onCreated={({ gl, scene }) => {
         //   scene.fog = new THREE.Fog(fogColor, fogNear, fogFar);
         //   gl.setClearColor(scene.fog.color);
@@ -62,7 +98,8 @@ function GamePlay() {
         >
           <axesHelper scale={[2, 2, 2]} position={[0, 0, 0]} />
 
-          <Camera lerping={lerping} setLerping={setLerping} refTargetObject={refObj}></Camera>
+         
+          <Camera  refTargetObject={refObj} mode={mode} posRelative={posCameraRelative} zoom = {zoom}></Camera>
           <ambientLight intensity={0.5} />
           <directionalLight intensity={0.5} />
 
