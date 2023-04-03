@@ -5,8 +5,17 @@ import Intro from "../../components/scene/Intro";
 import Scene1 from "../../components/scene/Scene1";
 import DialogueBox from "../../components/DialogueBoxV2";
 import InteractionChoices from "../../components/InteractionChoice";
-import InfoBox from "../../components/InfoBox";
+import InfoBox from '../../components/InfoBox';
+import { Physics, Debug, RigidBody } from "@react-three/rapier";
+import { KeyboardControls } from "@react-three/drei";
 import OptionTextBox from "../../components/DialogueInteractionChoice";
+
+
+
+//TODO 1 -Thomas - 2021-03-28 - Add LOD (Level Of Detail) - Display the appropriate level of detail based on the distance between the camera and the model to reduce the GPU workload.
+//TODO 2 -Thomas - 2021-03-28 - Add Occlusion Frustum - Display the occlusion frustum based on the view camera versus the world, remove if camera don't see him.
+//TODO 3 -Thomas - 2021-03-28 - Modify pixel ratio. Gain 10 fps when using low resolution.
+//TODO 4 -Thomas - 2021-03-28 - Desactivate AntiAliasing. Hard graphic downgrade. gain 20/30 fps when using low resolution.
 
 function GamePlay() {
   const [showElement, ShowElementAction] = useState(false);
