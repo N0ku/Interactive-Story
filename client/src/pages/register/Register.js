@@ -54,7 +54,7 @@ function Register() {
     };
 
     try {
-      const response = await axios.post("http://localhost:5050/users", newUser);
+      await axios.post("http://localhost:5050/users", newUser);
       toast.success("Votre compte a été créé avec succès !");
       setEmail("");
       setUsername("");
