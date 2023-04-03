@@ -1,24 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import BaseballBat from "../../components/BaseballBat.js";
 import Camera from "../../components/Camera";
 import { Sky } from "@react-three/drei";
-import Apocalyptic from "../../components/Apocalyptic.js";
 import KickAnim from "../../3dcomponent/Kick_anim.js";
 import RockyGround from "../../3dcomponent/Rocky_ground";
-import Buildings from "../../3dcomponent/Game_ready_city_buildings";
-import Wall from "../../3dcomponent/Wall";
-function Intro() {
+import * as THREE from "three";
+
+function Intro({ onSceneComplete }) {
   const [lerping, setLerping] = useState(false);
   const [refObj, setRefObj] = useState(null);
-  const [currentAnimationIndex, setCurrentAnimationIndex] = useState(11);
+  const [currentAnimationIndex, setCurrentAnimationIndex] = useState(14);
   const [message, setMessage] = useState("");
-  // const [inView, setInView] = useState(false); // Set State false to disable inView.
+  const [isSceneComplete, setIsSceneComplete] = useState(false);
+
+  const path = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(0, -0.01, -2),
+    new THREE.Vector3(0, -0.01, 2),
+    new THREE.Vector3(4, -0.01, 5),
+    new THREE.Vector3(7, -0.01, 11),
+  ]);
   const handleMessage = (messageFromChild) => {
     setMessage(messageFromChild);
     if (message != null) {
       setRefObj(message);
     }
   };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsSceneComplete(true);
+    }, 10000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (isSceneComplete) {
+      onSceneComplete(true);
+    }
+  }, [isSceneComplete, onSceneComplete]);
 
   return (
     <>
@@ -26,12 +44,12 @@ function Intro() {
         lerping={lerping}
         setLerping={setLerping}
         refTargetObject={refObj}
-      ></Camera>
+      />
       <ambientLight intensity={0.5} />
       <directionalLight intensity={0.5} />
 
       {/* MAP ELEMENTS - START */}
-      <group position={[0, -5, 0]}>
+      {/* <group position={[0, -5, 0]}>
         <Apocalyptic />
       </group>
       <group scale={250} position={[100, 125, -100]}>
@@ -41,7 +59,7 @@ function Intro() {
         scale={7}
         rotation={[0, (-90 * Math.PI) / 180, 0]}
         position={[135, -20, -850]}
-      />
+      /> */}
       {/* MAP ELEMENTS - END */}
 
       {/* SPECIALS OBJECTS - START */}
@@ -59,6 +77,7 @@ function Intro() {
       {/* MAIN CHARACTER */}
       <group scale={20}>
         <KickAnim
+          path={path}
           animationIndex={currentAnimationIndex}
           onSend={handleMessage}
         />

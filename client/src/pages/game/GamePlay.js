@@ -5,10 +5,17 @@ import { Canvas } from "react-three-fiber";
 
 function GamePlay() {
   const [currentScene, setCurrentScene] = useState("Intro");
+  const [sceneFinished, setSceneFinished] = useState(false);
+
   function handleSceneChange(scene) {
-    console.log(scene);
     setCurrentScene(scene);
+    setSceneFinished(false); // Remettre la valeur de la state à false lorsque vous changez de scène
   }
+
+  function handleIntroFinish() {
+    setSceneFinished(true); // Mettre la valeur de la state à true lorsque la scène est terminée
+  }
+
   var choicesIntro = [{ id: 1, label: "Scene 1", scene: "Scene1" }];
   var choices = [{ id: 1, label: "Intro", scene: "Intro" }];
 
@@ -17,7 +24,7 @@ function GamePlay() {
   let questionCurrentScene;
   switch (currentScene) {
     case "Intro":
-      sceneToRender = <Intro />;
+      sceneToRender = <Intro onSceneComplete={handleIntroFinish} />;
       choiceCurrentScene = choicesIntro;
       questionCurrentScene = "Aller à la scene 1";
       break;
@@ -27,28 +34,33 @@ function GamePlay() {
       questionCurrentScene = "Aller à l'intro";
       break;
     default:
-      sceneToRender = <Intro />;
+      sceneToRender = <Intro onSceneComplete={handleIntroFinish} />;
       choiceCurrentScene = choicesIntro;
       questionCurrentScene = "Aller à la scene 1";
   }
+
+  // Afficher le bouton seulement lorsque la scène est terminée
+  const nextButton = sceneFinished && (
+    <div className="boxButton">
+      {questionCurrentScene}
+      {choiceCurrentScene.map((choice) => (
+        <button
+          key={choice.id}
+          className="buttonChoice"
+          onClick={() => {
+            handleSceneChange(choice.scene);
+          }}
+        >
+          {choice.label}
+        </button>
+      ))}
+    </div>
+  );
+
   return (
     <div className="canvas-container">
-      {" "}
       <Canvas style={{ width: "100%", height: "100%" }}>{sceneToRender}</Canvas>
-      <div className="boxButton">
-        {questionCurrentScene}
-        {choiceCurrentScene.map((choice) => (
-          <button
-            key={choice.id}
-            className="buttonChoice"
-            onClick={() => {
-              handleSceneChange(choice.scene);
-            }}
-          >
-            {choice.label}
-          </button>
-        ))}
-      </div>
+      {nextButton}
     </div>
   );
 }
