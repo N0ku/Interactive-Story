@@ -8,7 +8,7 @@ import * as THREE from "three";
 
 
 
-export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
+export default function Camera({ refTargetObject, mode, posRelative, zoom,refObjectRotation }) {
     const camera = useRef();
     const orbit = useRef();
     const [to, setTo] = useState(new Vector3(10, 10, 10));
@@ -36,6 +36,8 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
         }
       return dir;
     }
+
+    
   
     useFrame(({camera},delta )=> {
         var modeCamera;
@@ -47,15 +49,17 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
         var a = 1
         switch(modeCamera){
             case 'followObjectAbsolu':
+                
                 if(targetObject == null){
                     setTargetObject(refTargetObject)
                     return
                 }                 
-                if ( ifFixed && refTargetObject.current.position != undefined) {
+                if ( ifFixed && refTargetObject.current.position != undefined && refObjectRotation != null) {
                     var thirdPersonPosition = [];
                     thirdPersonPosition.concat(posRelative)
-                    var bodyAnim = refTargetObject.current.children[0].children[0].children[0]
-                    var posY = bodyAnim.rotation.y
+                    
+                    var posY = refObjectRotation[1]
+                    console.log(posY)
                     
 
                     let position = new THREE.Vector3(0,0,0);
@@ -101,12 +105,14 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
                 }
                 break;
             case 'followObject':
+              
                 if(targetObject == null){
                     setTargetObject(refTargetObject)
                     return
                 }
     
                 if ( ifFixed && refTargetObject.current.position != undefined) {
+                
                     const thirdPersonPosition = posRelative
     
                     let position = new THREE.Vector3(0,0,0);
@@ -135,6 +141,7 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
                 camera.lookAt(new THREE.Vector3(positionFixe.x, positionFixe.y, positionFixe.z))
                 break;
             case 'fixeCameraFollowObject':
+                console.log(posRelative)
                 let positionFixed = new THREE.Vector3(0,0,0);
                 if(refTargetObject != null){
                     positionFixed.setFromMatrixPosition(refTargetObject.current.matrixWorld)
@@ -142,6 +149,7 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
                     positionFixed.set(new THREE.Vector3(0,0,0))
                 }
                 camera.position.copy(posRelative)
+                console.log(camera.position)
                 camera.lookAt(new THREE.Vector3(positionFixed.x, positionFixed.y, positionFixed.z))
                 break;
 
@@ -157,7 +165,7 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom }) {
                 ref={camera}
                 aspect={scene.innerWidth /scene.innerHeight}
                 fov={50}
-                far={500}
+                far={800}
                 zoom={zoom}     
             > 
             </PerspectiveCamera>

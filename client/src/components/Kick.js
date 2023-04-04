@@ -9,8 +9,7 @@ function Kick(props) {
   const { nodes, materials } = useGLTF("/kick.glb");
   const [advance, setAdvance] = useState(true)
   const [lastPosition, setLastPosition] = useState();
-  const prevPosition = useRef([0, -0.01, -2]);
-  const rotateQuarternion = useRef(new THREE.Quaternion())
+
   
   const [rotation, setRotation] = useState( [0, 0, 0]);
 
@@ -49,7 +48,7 @@ function Kick(props) {
     const nPosition = path.getPointAt(((time +0.01) % path.getLength()) / path.getLength()); 
     const angleY = Math.atan2(nPosition.x - position.x,nPosition.z - position.z);
        
-    setRotation([0, angleY, 0 ] ) 
+    setRotation([Math.PI/2, angleY*2, Math.PI/2 ] ) 
     props.onSend(group);
       if(lastPosition != null){
          
@@ -65,9 +64,9 @@ function Kick(props) {
     <group ref={group}  onChange={handleChange}    position={positionObj}  >
       <group  {...props} dispose={null}  >
         <group name="Scene">
-          <group name="Armature"  rotation={rotation} scale={0.01} >
-            <primitive object={nodes.mixamorigHips} rotation={[0,Math.PI*2,0]} /> 
-            <skinnedMesh
+        <group name="Armature"  rotation={rotation} scale={0.01} >
+            <primitive object={nodes.mixamorigHips}  /> 
+            <skinnedMesh 
               name="Ch03"
               geometry={nodes.Ch03.geometry}
               material={materials.Ch03_Body}
