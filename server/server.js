@@ -141,9 +141,9 @@ app.get("/users/:username/scores", (req, res) => {
     });
 });
 
-app.get("/chapter/:name", async (req, res) => {
+app.get("/chapter/:number", async (req, res) => {
   try {
-    const chapter = await Chapter.findOne({ name: req.params.name });
+    const chapter = await Chapter.findOne({ number: req.params.number });
     if (!chapter) {
       return res.status(404).send("Chapitre non trouvé");
     }
@@ -154,11 +154,9 @@ app.get("/chapter/:name", async (req, res) => {
   }
 });
 
-
 app.post("/chapter", async (req, res) => {
   try {
     const chapterData = req.body;
-
 
     // Créer une nouvelle instance de modèle Chapter en utilisant les données envoyées dans la requête
     const newChapter = new Chapter(chapterData);

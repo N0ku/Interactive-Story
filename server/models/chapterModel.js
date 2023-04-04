@@ -57,6 +57,7 @@ const chapterSchema = new Schema({
   Chapter: {
     Scene: sceneSchema,
   },
+  number: Number,
 });
 
 module.exports = mongoose.model("Chapter", chapterSchema);
