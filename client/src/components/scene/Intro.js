@@ -84,6 +84,7 @@ function Intro({ onSceneComplete, handleClick  }) {
       if (messageFromChild.current.position.x == 10 && p <= -25.71 && p >= -25.75) {
         setAdvance(false)
         setObjPath(pathObject)
+         onSceneComplete(true);
         handleCamera({
           mode: "fixeCameraFollowObject",
           pos: new THREE.Vector3(430,250, -437),
@@ -97,19 +98,7 @@ function Intro({ onSceneComplete, handleClick  }) {
      
     }
   };
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsSceneComplete(true);
-    }, 10000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (isSceneComplete) {
-      onSceneComplete(true);
-    }
-  }, [isSceneComplete, onSceneComplete]);
-
+  
   return (
     <>
       <Camera
