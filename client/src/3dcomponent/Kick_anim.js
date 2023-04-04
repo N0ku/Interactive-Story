@@ -13,7 +13,7 @@ function Kick(props) {
   const [advance, setAdvance] = useState(true);
   const [lastPosition, setLastPosition] = useState();
   const [rotation, setRotation] = useState([0, 0, 0]);
-
+console.log(actions);
   useEffect(() => {
     actions[names[props.animationIndex]].reset().fadeIn(0.5).play();
     //actions[names[props.animationIndex]].reset().fadeIn(0.25).play();
@@ -113,4 +113,4 @@ function Kick(props) {
 }
 export default Kick;
 
-useGLTF.preload("/kick_anim.glb");
+useGLTF.preload("/kick_anim3.glb");

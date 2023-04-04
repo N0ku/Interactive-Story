@@ -10,7 +10,7 @@ import RockyGround from "../../3dcomponent/Rocky_ground";
 import * as THREE from "three";
 import InvisibleCube from "../../components/InvisibleCube.js";
 
-function Intro({ onSceneComplete }) {
+function Intro({ onSceneComplete, handleClick  }) {
   const [lerping, setLerping] = useState(false);
   const [refObj, setRefObj] = useState(null);
   const [currentAnimationIndex, setCurrentAnimationIndex] = useState(14);
@@ -124,7 +124,7 @@ function Intro({ onSceneComplete }) {
           animationIndex={currentAnimationIndex}
           onSend={handleMessage}
           sendRotate={handleMessage}
-          // onClick={handleClick}
+          onClick={handleClick}
           s={handleMessage}
         />
         {/* <Kick onSend={handleMessage}></Kick> */}

@@ -10,7 +10,7 @@ import Apocalyptic from "../../components/Apocalyptic.js";
 import * as THREE from "three";
 import { Debug } from "@react-three/rapier";
 
-function Scene1({ onSceneComplete }) {
+function Scene1({ onSceneComplete, handleClick }) {
   const [lerping, setLerping] = useState(false);
   const [refObj, setRefObj] = useState(null);
   const [currentAnimationIndex, setCurrentAnimationIndex] = useState(11);
@@ -82,6 +82,7 @@ function Scene1({ onSceneComplete }) {
           path={path}
           animationIndex={currentAnimationIndex}
           onSend={handleMessage}
+          onClick={handleClick}
         />
       </group>
 
