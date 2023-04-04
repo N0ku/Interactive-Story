@@ -8,4 +8,4 @@ const chapterSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('Chapter', sceneSchema);
+module.exports = mongoose.model('Chapter', chapterSchema);

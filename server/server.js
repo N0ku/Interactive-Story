@@ -7,6 +7,7 @@ const User = require("./models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
+const Chapter = require("./models/chapterModel")
 
 mongoose.connect(mongoString, {
   useNewUrlParser: true,
@@ -60,6 +61,28 @@ app.post("/authenticate", async (req, res) => {
   const options = { expiresIn: "1h" };
   const token = jwt.sign({ userId: user._id }, secretKey, options);
   res.send({ token });
+});
+
+
+app.get("/chapters", async (req, res) => {
+  try {
+    const chapters = await Chapter.find();
+    res.json(chapters);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+app.post("/chapters", async (req, res) => {
+  try {
+    let { chapter } = req.body;
+    const chapterCreate = new Chapter({ chapter });
+    await chapterCreate.save();
+    res.status(201).json(chapterCreate);
+  } catch (error) {
+    res.status(500).send(error);
+  }
 });
 
 
