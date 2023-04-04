@@ -30,14 +30,6 @@ function GamePlay() {
   function handleIntroFinish() {
     setSceneFinished(true); // Mettre la valeur de la state à true lorsque la scène est terminée
   }
-  const handleClick = () => {
-    ShowElementAction(!showElement);
-    console.log(showElement);
-  };
-
-  const handleReturnClick = (value) => {
-    ShowElementAction(value);
-  };
 
   var choicesIntro = [{ id: 1, label: "Scene 1", scene: "Scene1" }];
   var choices = [{ id: 1, label: "Intro", scene: "Intro" }];
@@ -88,8 +80,9 @@ function GamePlay() {
             { name: "right", keys: ["KeyD"] },
           ]}
         >
-          <Canvas style={{ width: "100%", height: "100%" }} onClick={handleClick}>
+          <Canvas style={{ width: "100%", height: "100%" }}>
             <Physics
+              interpolate={false}
               gravity={[0, -9.82, 0]}
             // timeStep={1 / 60}
             //

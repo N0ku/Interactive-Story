@@ -6,9 +6,8 @@ import { RigidBody } from '@react-three/rapier';
 function Apocalyptic(props) {
   const { nodes, materials } = useGLTF("/apocalyptic_city.glb");
   return (
-    <RigidBody type="fixed" colliders="trimesh" receiveShadow>
-      <group {...props} dispose={null}>
-        <group rotation={[-Math.PI / 2, 0, 0]}>
+    <group rotation={[-Math.PI / 2, 0, 0]}>
+          <RigidBody type="fixed" colliders="trimesh" receiveShadow>
           <mesh
             geometry={nodes.Object_2.geometry}
             material={materials["02___Default"]}
@@ -117,9 +116,8 @@ function Apocalyptic(props) {
             geometry={nodes.Object_28.geometry}
             material={materials.wire_228184153}
           />
-        </group>
-      </group>
     </RigidBody>
+        </group>
   );
 }
 useGLTF.preload('/apocalyptic_city.glb')

@@ -31,14 +31,6 @@ function Kick(props) {
     }
   }, [props.animationIndex, actions, names, group, modelHeight, nodes.Ch03]);
 
-  const handleClick = (e) => {
-    console.log('Click');
-    e.stopPropagation(); // stops the event from bubbling up
-    props.onClick(); // Send to parent element have click event, for example, 
-    // when the user clicks on the button, the parent element will call this function 
-    // (Allows you to modify the interior of the children and the child elements of the parents)
-  };
-
   useCursor(hovered);
 
 
@@ -70,7 +62,6 @@ function Kick(props) {
     const { left, right, forward, backward } = getKeys();
 
     const impulseStrength = 30 * delta;
-    const torqueStrength = 0.2 * delta;
 
     if (body.current) {
       if (forward) {
@@ -113,17 +104,11 @@ function Kick(props) {
       restitution={0.2}
       friction={1}
       linearDamping={0.5}
-      angularDamping={0.5}> 
+      angularDamping={0.5}
+      name="MC"
+    > 
       <group ref={group} position={positionObj}  >
         <group  {...props} dispose={null}  >
-          {boxHelper && (
-            <primitive
-              object={boxHelper}
-              onClick={handleClick}
-              onPointerOver={() => hoverAction(true)}
-              onPointerOut={() => hoverAction(false)}
-            />
-          )}
           <group name="Scene">
           <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
               <primitive object={nodes.mixamorigHips} />

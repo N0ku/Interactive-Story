@@ -12,9 +12,10 @@ import { useGLTF } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
 
 
-function RockyGround(props) {
+function InvisibleGround(props) {
   const { nodes, materials } = useGLTF('/rocky_ground.glb')
   return (
+      <RigidBody type="fixed" colliders="cuboid" receiveShadow>
     <group {...props} dispose={null}>
       <group position={[0.65, 0, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <mesh geometry={nodes.Plane001__0.geometry} material={materials['Scene_-_Root']} />
@@ -36,8 +37,9 @@ function RockyGround(props) {
         <mesh geometry={nodes.Plane001__0_16.geometry} material={materials['Scene_-_Root']} />
       </group>
       </group>
+    </RigidBody>
   )
 }
 
 useGLTF.preload('/rocky_ground.glb')
-export default RockyGround;
+export default InvisibleGround;
