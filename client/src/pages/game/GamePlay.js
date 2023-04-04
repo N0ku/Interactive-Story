@@ -56,7 +56,11 @@ function GamePlay() {
   switch (currentScene) {
     case "Intro":
       sceneToRender = (
-        <Intro onSceneComplete={handleIntroFinish} handleClick={handleClick} />
+        <Intro
+          onSceneComplete={handleIntroFinish}
+          handleClick={handleClick}
+          chapterNumber={1}
+        />
       );
       choiceCurrentScene = choicesIntro;
       questionCurrentScene = "Aller à la scene 1";
