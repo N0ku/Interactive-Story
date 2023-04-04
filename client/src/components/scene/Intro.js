@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {useFrame} from "@react-three/fiber"
 import BaseballBat from "../../components/BaseballBat.js";
 import Camera from "../../components/Camera";
 import { Sky } from "@react-three/drei";
@@ -8,6 +9,8 @@ import Buildings from "../../3dcomponent/Game_ready_city_buildings";
 import Wall from "../../3dcomponent/Wall";
 import RockyGround from "../../3dcomponent/Rocky_ground";
 import * as THREE from "three";
+import axios from "axios";
+
 import InvisibleCube from "../../components/InvisibleCube.js";
 
 function Intro({ onSceneComplete, handleClick  }) {
@@ -17,9 +20,139 @@ function Intro({ onSceneComplete, handleClick  }) {
   const [refObjRotation, setRefObjRotation] = useState(null);
   const [isSceneComplete, setIsSceneComplete] = useState(false);
   const [objtPath, setObjPath] = useState();
+
+  const [cubePath, setCubePath] = useState();
   const [advance, setAdvance] = useState(true);
+  const [planNumber, setPlanNumber] = useState(0);
+  const [oldPlanNumber, setOldPlanNumber ]= useState(-1)
+  const [plan, setPlan ]= useState()
+const [speed,setSpeed] = useState(1)
+
+
+  const[jsonData, setJsonData] = useState({
+    "Chapter 1": {
+        "Scene 1": {
+            "Talks": {
+                "talk 1": {
+                    "option1": "Dialogue 1.1",
+                    "option2": "Dialogue 1.2",
+                    "option3": "Dialogue 1.3",
+                    "option4": "Dialogue 1.4"
+                },
+                "talk 2": {
+                    "option1": "Dialogue 2.1",
+                    "option2": "Dialogue 2.2",
+                    "option3": "Dialogue 2.3",
+                    "option4": "Dialogue 2.4"
+                }
+            },
+            "Actions": {
+                "Baseball Bat": {
+                    "observe": true,
+                    "interact": false,
+                    "fight": true
+                },
+                "VitrineMagasin": {
+                    "observe": true,
+                    "interact": true,
+                    "fight": false
+                },
+                "Car": {
+                    "observe": true,
+                    "interact": true,
+                    "fight": false
+                }
+            },
+            "Dialogs": [
+                "Hello",
+                "ça va",
+                "bien merci",
+                "blabla.."
+            ],
+            "Plan": [
+                {
+                    "followObject" : "Michelle",
+                    "timeToStop" : 40,
+                    "camera" :  {
+                        "mode": "followObject",
+                        "pos": [
+                            0,
+                            2,
+                            10
+                        ],
+                        "zoom": 1
+                    },
+                    "path":  {"animIndex":20,"pos":[[-10,0,10],[10,0,10],[10,0,15] ],"speed":1}
+                },
+                {
+                  "followObject" : "Cube",
+                    "timeToStop" : 120,
+                    "camera" :  {
+                        "mode": "followObjectAbsolu",
+                        "pos": [0, 2, -6],
+                        "zoom": 1
+                    },
+                    "path":  {"animIndex":20,"pos":[[10,0,10],[10,2,-50],[30,2,-50], [30,2,-50]],"speed":1}
+                }
+            ],
+
+            "Camera": [
+                {
+                    "mode": "fixeCamera",
+                    "pos": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "zoom": 1
+                },
+                {
+                    "mode": "followCamera",
+                    "pos": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "zoom": 1
+                }
+            ],
+            "Paths": [
+               {"animIndex":20,"pos":[0,0,0],"speed":1},
+               {"animIndex":19,"pos":[0,0,0],"speed":1}
+            ]
+        }
+    }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
+  
+  /* axios.get('chapter1.json').then(response => {
+    const data = response.data;
+    setJsonData(data)
+    console.log(data);
+  })
+  .catch(error => {
+    console.error(error);
+  }); */
+
   var posC = [
     { mode: "followObject", pos: new THREE.Vector3(0, 2, 4), zoom: 2 },
     { mode: "followObject", pos: new THREE.Vector3(0, 2, 0), zoom: 1 },
@@ -38,7 +171,6 @@ function Intro({ onSceneComplete, handleClick  }) {
   );
   const [zoom, setZoom] = useState(posC[2].zoom);
   const [mode, setMode] = useState(posC[2].mode);
-  const [message, setMessage] = useState("");
 
   const pathObject = new THREE.CatmullRomCurve3([
     new THREE.Vector3(5, 5, -27),
@@ -58,32 +190,57 @@ function Intro({ onSceneComplete, handleClick  }) {
     setZoom(param.zoom);
     setMode(param.mode);
   }
-
-  function handleClicked() {
-    if (increment < posC.length - 1) {
-      setIncrement(increment + 1);
-      console.log(increment);
-    } else {
-      setIncrement(0);
-      console.log(increment);
-    }
-
-    setPosCameraRelative(posC[increment].pos);
-    setZoom(posC[increment].zoom);
-    setMode(posC[increment].mode);
-  }
-
+  useFrame((state, delta) => {
+    const time = state.clock.getElapsedTime();
+          if(jsonData == null){
+            return
+          }
+          var totalPlan = jsonData["Chapter 1"]["Scene 1"].Plan.length
+          var plan = jsonData["Chapter 1"]["Scene 1"].Plan[planNumber]
+          if(planNumber != oldPlanNumber && plan.path.pos != undefined){
+          
+            var brutPath = plan.path.pos
+            const points = [];
+            brutPath.forEach(x =>{
+              var a = new THREE.Vector3(x[0], x[1], x[2])
+              points.push(a)
+            })
+            const goodPath = new THREE.CatmullRomCurve3(points);
+            
+            if(plan.followObject == "Michelle"){
+              setObjPath(goodPath)
+            }else{
+              setCubePath(goodPath)
+            }
+            var posRelative = new THREE.Vector3(plan.camera.pos[0], plan.camera.pos[1],plan.camera.pos[2])
+            setPosCameraRelative(posRelative);
+            setZoom(plan.camera.zoom);
+            setMode(plan.camera.mode);
+            setSpeed(plan.path.speed)
+               
+          }
+          
+          if(time >= plan.timeToStop){
+            if(planNumber != totalPlan){
+              setAdvance(false)
+              setOldPlanNumber(planNumber)
+              setPlanNumber(planNumber + 1)
+              return
+            }
+          }
+          
+        
+  })
 
   const handleMessage = (messageFromChild) => {
     
     
     if (messageFromChild.current) {
       var p = Math.trunc(messageFromChild.current.position.z * 100) / 100;
-
       setRefObj(messageFromChild);
       var p = Math.trunc(messageFromChild.current.position.z * 100) / 100;
       if (messageFromChild.current.position.x == 10 && p <= -25.71 && p >= -25.75) {
-        setAdvance(false)
+        
         setObjPath(pathObject)
          onSceneComplete(true);
         handleCamera({
@@ -147,8 +304,9 @@ function Intro({ onSceneComplete, handleClick  }) {
           onSend={handleMessage}
           sendRotate={handleMessage}
           onClick={handleClick}
-          path={path}
+          path={objtPath}
           advance = {advance}
+          speed = {speed}
         />
         {/* <Kick onSend={handleMessage}></Kick> */}
       </group>
@@ -156,7 +314,9 @@ function Intro({ onSceneComplete, handleClick  }) {
         <InvisibleCube
           onSend={handleMessage}
           sendRotate={handleMessage}
-          path={objtPath}
+          path={cubePath}
+          speed = {speed}
+
         ></InvisibleCube>
       
       </group>

@@ -56,6 +56,7 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom,refObj
                 }                 
                 if ( ifFixed && refTargetObject.current.position != undefined && refObjectRotation != null) {
                     var thirdPersonPosition = [];
+                    console.log(posRelative)
                     thirdPersonPosition.concat(posRelative)
                     
                     var posY = refObjectRotation[1]
@@ -70,26 +71,27 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom,refObj
         
                     var dir = onAxeMove(posY)
                     if(dir == 'devant'){
-                        thirdPersonPosition[0] = posRelative[0]
-                        thirdPersonPosition[1] = posRelative[1]
-                        thirdPersonPosition[2] = posRelative[2]
+                        thirdPersonPosition[0] = posRelative.x
+                        thirdPersonPosition[1] = posRelative.y
+                        thirdPersonPosition[2] = posRelative.z
                         a = 1
                     }else if(dir =='derriere'){
-                        thirdPersonPosition[0] = posRelative[0]
-                        thirdPersonPosition[1] = posRelative[1]
-                        thirdPersonPosition[2] = posRelative[2]
+                        thirdPersonPosition[0] = posRelative.x
+                        thirdPersonPosition[1] = posRelative.y
+                        thirdPersonPosition[2] = posRelative.z
                         a = -1
                     }else if(dir == 'gauche'){
-                        thirdPersonPosition[0] = posRelative[2]
-                        thirdPersonPosition[1] = posRelative[1]
-                        thirdPersonPosition[2] = posRelative[0]
+                        thirdPersonPosition[0] = posRelative.z
+                        thirdPersonPosition[1] = posRelative.y
+                        thirdPersonPosition[2] = posRelative.x
                         a = 1
                     }else if(dir == 'droite'){
-                        thirdPersonPosition[0] = posRelative[2]
-                        thirdPersonPosition[1] = posRelative[1]
-                        thirdPersonPosition[2] = posRelative[0]
+                        thirdPersonPosition[0] = posRelative.z
+                        thirdPersonPosition[1] = posRelative.y
+                        thirdPersonPosition[2] = posRelative.x
                         a = -1
                     }
+                    console.log(thirdPersonPosition)
                     let wDir =new THREE.Vector3(0,0,0)
                     wDir.applyQuaternion(quaternion)
                     wDir.normalize()
@@ -100,6 +102,8 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom,refObj
                     ) 
                     wDir.add(new Vector3(0, 0.2, 0));
                     camera.position.copy(cameraPos)
+                    console.log(position)
+                    console.log(camera.position)
                     camera.lookAt(new THREE.Vector3(position.x, position.y + (refTargetObject.current.parent.scale.y /2) , position.z))
                 
                 }
@@ -141,7 +145,7 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom,refObj
                 camera.lookAt(new THREE.Vector3(positionFixe.x, positionFixe.y, positionFixe.z))
                 break;
             case 'fixeCameraFollowObject':
-                console.log(posRelative)
+            
                 let positionFixed = new THREE.Vector3(0,0,0);
                 if(refTargetObject != null){
                     positionFixed.setFromMatrixPosition(refTargetObject.current.matrixWorld)
@@ -149,7 +153,7 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom,refObj
                     positionFixed.set(new THREE.Vector3(0,0,0))
                 }
                 camera.position.copy(posRelative)
-                console.log(camera.position)
+              
                 camera.lookAt(new THREE.Vector3(positionFixed.x, positionFixed.y, positionFixed.z))
                 break;
 

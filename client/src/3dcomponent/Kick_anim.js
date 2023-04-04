@@ -16,7 +16,7 @@ function Kick(props) {
   const[advancePath,setAdvancePath] = useState(true);
   const [animChoice, setAnimChoice] = useState()
 
-console.log(actions);
+
   useEffect(() => {
     actions[names[props.animationIndex]].reset().fadeIn(0.5).play();
    
@@ -35,7 +35,7 @@ console.log(actions);
   }, [props.animationIndex, actions, names, group, modelHeight, nodes.Ch03]);
 
   const handleClick = (e) => {
-    console.log("Click");
+    
     e.stopPropagation(); // stops the event from bubbling up
     props.onClick(); // Send to parent element have click event, for example,
   
@@ -48,6 +48,7 @@ console.log(actions);
 
   useFrame((state, delta) => {
     var path = props.path
+    console.log(path)
     if(path == undefined || path == null){
       setAdvancePath(false)
   }else{
@@ -55,7 +56,7 @@ console.log(actions);
   }
   if(props.advance == false){
     setAdvance(false)
-    console.log('zer')
+    
     actions[names[props.animationIndex]].reset().fadeIn(0.5).play();
   }else{
     setAdvance(true)
@@ -64,11 +65,12 @@ console.log(actions);
   }
     if (advance && advancePath) {
       setLastPosition(path.getPointAt(1));
+      var speed = props.speed != undefined ? props.speed : 1;
       const time = state.clock.getElapsedTime();
-      const position = path.getPointAt((time % path.getLength()) / path.getLength());
+      const position = path.getPointAt((time *speed % path.getLength()) / path.getLength());
       setPositionObj([position.x, position.y, position.z]);
       const nPosition = path.getPointAt(
-        ((time + 0.01) % path.getLength()) / path.getLength()
+        ((time + 0.01) * speed % path.getLength()) / path.getLength()
       );
       const angleY = Math.atan2(
         nPosition.x - position.x,
@@ -77,7 +79,12 @@ console.log(actions);
       setRotation([0, angleY, 0]);
       props.onSend(group);
       props.sendRotate(rotation);
-      if (lastPosition != null) {
+      if (lastPosition != null ) {
+       
+        if(Math.trunc(position.x) == Math.trunc(lastPosition.x) - 1  ){
+          console.log('dddddd')
+          setAdvance(false)
+        }
       }
     }
   });

@@ -28,11 +28,12 @@ function InvisibleCube(props) {
    
      if (advance && advancePath) { 
       const time = state.clock.getElapsedTime();
-      
+      var speed = props.speed != undefined ? props.speed : 1;
 
-    const position = path.getPointAt(((time) % path.getLength()) / path.getLength());
+
+    const position = path.getPointAt(((time) * speed % path.getLength()) / path.getLength());
     setPositionObj([position.x, position.y, position.z])
-    const nPosition = path.getPointAt(((time +0.01) % path.getLength()) / path.getLength()); 
+    const nPosition = path.getPointAt(((time +0.01) * speed % path.getLength()) / path.getLength()); 
     const angleY = Math.atan2(nPosition.x - position.x,nPosition.z - position.z); 
     setRotation([0, angleY, 0] ) 
     props.onSend(meshRef);
@@ -45,7 +46,7 @@ function InvisibleCube(props) {
  });
 
   return (
-    <mesh ref={meshRef} position={positionObj} visible={false}>
+    <mesh ref={meshRef} position={positionObj} >
       <boxBufferGeometry args={[1, 1, 1]} />
       <meshBasicMaterial color="white" opacity={0} transparent />
     </mesh>

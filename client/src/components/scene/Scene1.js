@@ -65,7 +65,7 @@ function Scene1({ onSceneComplete, handleClick }) {
       <group scale={250} position={[100, 125, -100]}>
         <Buildings />
       </group>
-      <Debug />
+      
       <Wall
         scale={7}
         rotation={[0, (-90 * Math.PI) / 180, 0]}
