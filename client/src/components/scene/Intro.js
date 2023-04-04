@@ -4,9 +4,6 @@ import BaseballBat from "../../components/BaseballBat.js";
 import Camera from "../../components/Camera";
 import { Sky } from "@react-three/drei";
 import KickAnim from "../../3dcomponent/Kick_anim.js";
-import Apocalyptic from "../../components/Apocalyptic.js";
-import Buildings from "../../3dcomponent/Game_ready_city_buildings";
-import Wall from "../../3dcomponent/Wall";
 import RockyGround from "../../3dcomponent/Rocky_ground";
 import * as THREE from "three";
 import axios from "axios";
@@ -298,29 +295,8 @@ const [speed,setSpeed] = useState(1)
 
         </group>
       {/* MAIN CHARACTER */}
-      <group scale={20}>
-        <KickAnim
-          animationIndex={currentAnimationIndex}
-          onSend={handleMessage}
-          sendRotate={handleMessage}
-          onClick={handleClick}
-          path={objtPath}
-          advance = {advance}
-          speed = {speed}
-        />
-        {/* <Kick onSend={handleMessage}></Kick> */}
       </group>
-      <group scale={20}>
-        <InvisibleCube
-          onSend={handleMessage}
-          sendRotate={handleMessage}
-          path={cubePath}
-          speed = {speed}
-
-        ></InvisibleCube>
-      
-      </group>
-
+      <Thomas/>
       {/* ENVIRONNMENT - START */}
       <RockyGround scale={10} position={[-200, -20, -300]} />
       <RockyGround scale={10} position={[1200, -20, -300]} />

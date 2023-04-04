@@ -77,15 +77,13 @@ function Scene1({ onSceneComplete, handleClick }) {
       {/* MAP ELEMENTS - END */}
 
       {/* MAIN CHARACTER */}
-      <group position={[0, 10, 0]}>
-        <KickAnim
+      <group >
+        {/* <KickAnim
           path={path}
           animationIndex={currentAnimationIndex}
           onSend={handleMessage}
-          onClick={handleClick}
-        />
       </group>
-
+      <AndreV2/>
       {/* ENVIRONNMENT - START */}
       <RockyGround scale={10} position={[-200, -20, -300]} />
       <RockyGround scale={10} position={[1200, -20, -300]} />
