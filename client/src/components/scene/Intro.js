@@ -3,6 +3,8 @@ import BaseballBat from "../../components/BaseballBat.js";
 import Camera from "../../components/Camera";
 import { Sky } from "@react-three/drei";
 import KickAnim from "../../3dcomponent/Kick_anim.js";
+import Thomas from "../../3dcomponent/Thomas.js";
+
 import RockyGround from "../../3dcomponent/Rocky_ground";
 import * as THREE from "three";
 
@@ -75,14 +77,15 @@ function Intro({ onSceneComplete }) {
       {/* SPECIALS OBJECTS - END */}
 
       {/* MAIN CHARACTER */}
-      <group scale={20}>
-        <KickAnim
+      <group >
+        {/* <KickAnim
           path={path}
           animationIndex={currentAnimationIndex}
           onSend={handleMessage}
-        />
+        /> */}
+       
       </group>
-
+      <Thomas/>
       {/* ENVIRONNMENT - START */}
       <RockyGround scale={10} position={[-200, -20, -300]} />
       <RockyGround scale={10} position={[1200, -20, -300]} />

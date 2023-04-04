@@ -9,43 +9,47 @@ Title: Game Ready City Buildings
 
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
+import { RigidBody } from "@react-three/rapier";
+
 
 function Buildings(props) {
   const { nodes, materials } = useGLTF('/game_ready_city_buildings.glb')
   return (
-    <group {...props} dispose={null}>
-      <group rotation={[-Math.PI / 2, 0, 0]}>
-        <group rotation={[Math.PI / 2, 0, 0]}>
-          <mesh geometry={nodes.Object_4.geometry} material={materials.Atlas} position={[0.02, -0.2, -0.49]} scale={0.28} />
-          <mesh geometry={nodes.Object_6.geometry} material={materials.Atlas} position={[0.02, 0.02, -0.49]} scale={0.28} />
-          <mesh geometry={nodes.Object_8.geometry} material={materials.Atlas} position={[0.02, 0.02, -0.49]} scale={0.28} />
-          <mesh geometry={nodes.Object_10.geometry} material={materials.Atlas} position={[-0.72, 2.62, -2.36]} />
-          <mesh geometry={nodes.Object_12.geometry} material={materials.Atlas} position={[-0.72, 2.37, -2.36]} />
-          <mesh geometry={nodes.Object_14.geometry} material={materials.Atlas} position={[-0.72, 1.53, -2.36]} />
-          <mesh geometry={nodes.Object_16.geometry} material={materials.Atlas} position={[-0.72, 0.64, -2.36]} />
-          <mesh geometry={nodes.Object_18.geometry} material={materials.Atlas} position={[-0.01, 0.03, -2.16]} scale={0.03} />
-          <mesh geometry={nodes.Object_20.geometry} material={materials.Atlas} position={[-0.72, -0.27, -2.36]} />
-          <mesh geometry={nodes.Object_22.geometry} material={materials.Atlas} position={[-0.72, -0.04, -2.36]} />
-          <mesh geometry={nodes.Object_24.geometry} material={materials.Atlas} position={[0.05, 2.52, -1.96]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
-          <mesh geometry={nodes.Object_26.geometry} material={materials.Atlas} position={[-1.54, 2.52, -2.77]} rotation={[Math.PI / 2, 0, 1.57]} />
-          <mesh geometry={nodes.Object_28.geometry} material={materials.Atlas} position={[-1.53, 0.09, -2.77]} rotation={[Math.PI / 2, 0, Math.PI / 2]} />
-          <mesh geometry={nodes.Object_30.geometry} material={materials.Atlas} position={[-0.2, 2.52, -2.97]} rotation={[Math.PI / 2, 0, Math.PI]} />
-          <mesh geometry={nodes.Object_32.geometry} material={materials.Atlas} position={[-1.44, 0.01, -2.34]} rotation={[Math.PI / 2, 0, Math.PI / 2]} />
-          <mesh geometry={nodes.Object_34.geometry} material={materials.Atlas} position={[-0.22, -0.13, -1.71]} rotation={[Math.PI / 2, 0, 0]} />
-          <mesh geometry={nodes.Object_36.geometry} material={materials.Atlas} position={[-0.6, -0.13, -1.71]} rotation={[Math.PI / 2, 0, 0]} />
-          <mesh geometry={nodes.Object_38.geometry} material={materials.Atlas} position={[-0.97, -0.13, -1.71]} rotation={[Math.PI / 2, 0, 0]} />
-          <mesh geometry={nodes.Object_40.geometry} material={materials.Atlas} position={[-1.35, -0.13, -1.71]} rotation={[Math.PI / 2, 0, 0]} />
-          <mesh geometry={nodes.Object_42.geometry} material={materials.Atlas} position={[-1.35, -0.13, -3.01]} rotation={[Math.PI / 2, 0, Math.PI]} />
-          <mesh geometry={nodes.Object_44.geometry} material={materials.Atlas} position={[-0.97, -0.13, -3.01]} rotation={[Math.PI / 2, 0, Math.PI]} />
-          <mesh geometry={nodes.Object_46.geometry} material={materials.Atlas} position={[-0.22, -0.13, -3.01]} rotation={[Math.PI / 2, 0, Math.PI]} />
-          <mesh geometry={nodes.Object_48.geometry} material={materials.Atlas} position={[-1.33, 2.52, -1.73]} rotation={[Math.PI / 2, 0, 0]} />
-          <mesh geometry={nodes.Object_50.geometry} material={materials.Atlas} position={[-0.12, 0.01, -2.38]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
-          <mesh geometry={nodes.Object_52.geometry} material={materials.Atlas} position={[-0.6, -0.13, -3.01]} rotation={[Math.PI / 2, 0, Math.PI]} />
-          <mesh geometry={nodes.Object_54.geometry} material={materials.Atlas} position={[-0.12, 0.01, -0.79]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
-          <mesh geometry={nodes.Object_56.geometry} material={materials.Atlas} position={[-0.12, 0.01, -0.79]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
+    <RigidBody type="fixed" colliders="trimesh" receiveShadow>
+      <group {...props} dispose={null}>
+        <group rotation={[-Math.PI / 2, 0, 0]}>
+          <group rotation={[Math.PI / 2, 0, 0]}>
+            <mesh geometry={nodes.Object_4.geometry} material={materials.Atlas} position={[0.02, -0.2, -0.49]} scale={0.28} />
+            <mesh geometry={nodes.Object_6.geometry} material={materials.Atlas} position={[0.02, 0.02, -0.49]} scale={0.28} />
+            <mesh geometry={nodes.Object_8.geometry} material={materials.Atlas} position={[0.02, 0.02, -0.49]} scale={0.28} />
+            <mesh geometry={nodes.Object_10.geometry} material={materials.Atlas} position={[-0.72, 2.62, -2.36]} />
+            <mesh geometry={nodes.Object_12.geometry} material={materials.Atlas} position={[-0.72, 2.37, -2.36]} />
+            <mesh geometry={nodes.Object_14.geometry} material={materials.Atlas} position={[-0.72, 1.53, -2.36]} />
+            <mesh geometry={nodes.Object_16.geometry} material={materials.Atlas} position={[-0.72, 0.64, -2.36]} />
+            <mesh geometry={nodes.Object_18.geometry} material={materials.Atlas} position={[-0.01, 0.03, -2.16]} scale={0.03} />
+            <mesh geometry={nodes.Object_20.geometry} material={materials.Atlas} position={[-0.72, -0.27, -2.36]} />
+            <mesh geometry={nodes.Object_22.geometry} material={materials.Atlas} position={[-0.72, -0.04, -2.36]} />
+            <mesh geometry={nodes.Object_24.geometry} material={materials.Atlas} position={[0.05, 2.52, -1.96]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
+            <mesh geometry={nodes.Object_26.geometry} material={materials.Atlas} position={[-1.54, 2.52, -2.77]} rotation={[Math.PI / 2, 0, 1.57]} />
+            <mesh geometry={nodes.Object_28.geometry} material={materials.Atlas} position={[-1.53, 0.09, -2.77]} rotation={[Math.PI / 2, 0, Math.PI / 2]} />
+            <mesh geometry={nodes.Object_30.geometry} material={materials.Atlas} position={[-0.2, 2.52, -2.97]} rotation={[Math.PI / 2, 0, Math.PI]} />
+            <mesh geometry={nodes.Object_32.geometry} material={materials.Atlas} position={[-1.44, 0.01, -2.34]} rotation={[Math.PI / 2, 0, Math.PI / 2]} />
+            <mesh geometry={nodes.Object_34.geometry} material={materials.Atlas} position={[-0.22, -0.13, -1.71]} rotation={[Math.PI / 2, 0, 0]} />
+            <mesh geometry={nodes.Object_36.geometry} material={materials.Atlas} position={[-0.6, -0.13, -1.71]} rotation={[Math.PI / 2, 0, 0]} />
+            <mesh geometry={nodes.Object_38.geometry} material={materials.Atlas} position={[-0.97, -0.13, -1.71]} rotation={[Math.PI / 2, 0, 0]} />
+            <mesh geometry={nodes.Object_40.geometry} material={materials.Atlas} position={[-1.35, -0.13, -1.71]} rotation={[Math.PI / 2, 0, 0]} />
+            <mesh geometry={nodes.Object_42.geometry} material={materials.Atlas} position={[-1.35, -0.13, -3.01]} rotation={[Math.PI / 2, 0, Math.PI]} />
+            <mesh geometry={nodes.Object_44.geometry} material={materials.Atlas} position={[-0.97, -0.13, -3.01]} rotation={[Math.PI / 2, 0, Math.PI]} />
+            <mesh geometry={nodes.Object_46.geometry} material={materials.Atlas} position={[-0.22, -0.13, -3.01]} rotation={[Math.PI / 2, 0, Math.PI]} />
+            <mesh geometry={nodes.Object_48.geometry} material={materials.Atlas} position={[-1.33, 2.52, -1.73]} rotation={[Math.PI / 2, 0, 0]} />
+            <mesh geometry={nodes.Object_50.geometry} material={materials.Atlas} position={[-0.12, 0.01, -2.38]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
+            <mesh geometry={nodes.Object_52.geometry} material={materials.Atlas} position={[-0.6, -0.13, -3.01]} rotation={[Math.PI / 2, 0, Math.PI]} />
+            <mesh geometry={nodes.Object_54.geometry} material={materials.Atlas} position={[-0.12, 0.01, -0.79]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
+            <mesh geometry={nodes.Object_56.geometry} material={materials.Atlas} position={[-0.12, 0.01, -0.79]} rotation={[Math.PI / 2, 0, -Math.PI / 2]} />
+          </group>
         </group>
       </group>
-    </group>
+    </RigidBody>
   )
 }
 
