@@ -15,7 +15,7 @@ import { RigidBody } from "@react-three/rapier";
 function Buildings(props) {
   const { nodes, materials } = useGLTF('/game_ready_city_buildings.glb')
   return (
-    <RigidBody type="fixed" colliders="trimesh" receiveShadow>
+    <RigidBody type="fixed" colliders="trimesh" name="buildings" receiveShadow>
       <group {...props} dispose={null}>
         <group rotation={[-Math.PI / 2, 0, 0]}>
           <group rotation={[Math.PI / 2, 0, 0]}>

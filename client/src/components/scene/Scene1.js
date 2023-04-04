@@ -66,15 +66,15 @@ function Scene1({ onSceneComplete }) {
 
       <RigidBody
         position={[0, 0, 0]} colliders="trimesh" onCollisionEnter={({ manifold, target, other }) => {
-           console.log(
+          console.log(
             "Collision at world position ",
             manifold.solverContactPoint(0)
           );
 
           if (other.rigidBodyObject) {
             console.log(other.rigidBodyObject);
-          } 
-          if (!isIn && other.rigidBodyObject.name === 'MC' ) {
+          }
+          if (!isIn && other.rigidBodyObject.name === 'MC') {
             setIn(true)
             console.log("IN NOW");
           }
@@ -90,7 +90,7 @@ function Scene1({ onSceneComplete }) {
       <group scale={250} position={[100, 125, -100]}>
         <Buildings />
       </group>
-      <Debug/>
+      <Debug />
       <Wall
         scale={7}
         rotation={[0, (-90 * Math.PI) / 180, 0]}
@@ -113,7 +113,7 @@ function Scene1({ onSceneComplete }) {
       {/* ENVIRONNMENT - START */}
       <RockyGround scale={10} position={[-200, -20, -300]} />
       <RockyGround scale={10} position={[1200, -20, -300]} />
-      <InvisibleGround scale={10} position={[0,0,0]} />
+      <InvisibleGround scale={10} position={[0, 0, 0]} />
       <Sky
         distance={35000}
         sunPosition={[5, 1, 8]}

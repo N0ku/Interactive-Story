@@ -14,15 +14,15 @@ import { RigidBody } from '@react-three/rapier'
 function Wall(props) {
   const { nodes, materials } = useGLTF('/wall.glb')
   return (
+      <RigidBody colliders="trimesh" name="wall">
     <group {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
-      <RigidBody colliders="trimesh">
         <mesh geometry={nodes.Object_2.geometry} material={materials['batiment6_lowpoly.002']} />
         <mesh geometry={nodes.Object_3.geometry} material={materials['batiment6_lowpoly.002']} />
         <mesh geometry={nodes.Object_4.geometry} material={materials['batiment6_lowpoly.002']} />
-    </RigidBody>
       </group>
     </group>
+    </RigidBody>
   )
 }
 

@@ -7,7 +7,7 @@ function Apocalyptic(props) {
   const { nodes, materials } = useGLTF("/apocalyptic_city.glb");
   return (
     <group rotation={[-Math.PI / 2, 0, 0]}>
-          <RigidBody type="fixed" colliders="trimesh" receiveShadow>
+          <RigidBody type="fixed" colliders="trimesh" name="city">
           <mesh
             geometry={nodes.Object_2.geometry}
             material={materials["02___Default"]}

@@ -15,7 +15,7 @@ import { RigidBody } from '@react-three/rapier'
 function InvisibleGround(props) {
   const { nodes, materials } = useGLTF('/rocky_ground.glb')
   return (
-      <RigidBody type="fixed" colliders="cuboid" receiveShadow>
+      <RigidBody type="fixed" colliders="cuboid" name="invisible-ground" receiveShadow>
     <group {...props} dispose={null}>
       <group position={[0.65, 0, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <mesh geometry={nodes.Plane001__0.geometry} material={materials['Scene_-_Root']} />
