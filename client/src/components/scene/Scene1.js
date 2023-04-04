@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Camera from "../../components/Camera";
 import { OrbitControls } from "@react-three/drei";
 import { Sky } from "@react-three/drei";
@@ -8,9 +8,8 @@ import Buildings from "../../3dcomponent/Game_ready_city_buildings";
 import Wall from "../../3dcomponent/Wall";
 import Apocalyptic from "../../components/Apocalyptic.js";
 import * as THREE from "three";
-import { Debug } from "@react-three/rapier";
-import InvisibleGround from "../../3dcomponent/Invisible_ground";
-import { RigidBody } from "@react-three/rapier";
+import { Debug } from "@react-three/cannon";
+import { BoxTrigger } from "../../components/EventBoxes";
 
 function Scene1({ onSceneComplete }) {
   const [lerping, setLerping] = useState(false);
@@ -19,6 +18,7 @@ function Scene1({ onSceneComplete }) {
   const [message, setMessage] = useState("");
   const [isSceneComplete, setIsSceneComplete] = useState(false);
   const [isIn, setIn] = useState(false);
+  const playerRef = useRef();
   // const [inView, setInView] = useState(false); // Set State false to disable inView.
 
   const path = new THREE.CatmullRomCurve3([
@@ -64,33 +64,13 @@ function Scene1({ onSceneComplete }) {
       <ambientLight intensity={0.5} />
       <directionalLight intensity={0.5} />
 
-      <RigidBody
-        position={[0, 0, 0]} colliders="trimesh" onCollisionEnter={({ manifold, target, other }) => {
-          console.log(
-            "Collision at world position ",
-            manifold.solverContactPoint(0)
-          );
-
-          if (other.rigidBodyObject) {
-            console.log(other.rigidBodyObject);
-          }
-          if (!isIn && other.rigidBodyObject.name === 'MC') {
-            setIn(true)
-            console.log("IN NOW");
-          }
-        }}
-      >
-        <mesh castShadow position={[370, 0, -520]}>
-          <boxGeometry args={[500, 200, 850]} />
-          <meshStandardMaterial color="blue" />
-        </mesh>
-      </RigidBody>
+      <Debug/>
 
       {/* MAP ELEMENTS - START */}
       <group scale={250} position={[100, 125, -100]}>
         <Buildings />
       </group>
-      <Debug />
+
       <Wall
         scale={7}
         rotation={[0, (-90 * Math.PI) / 180, 0]}
@@ -102,7 +82,7 @@ function Scene1({ onSceneComplete }) {
       {/* MAP ELEMENTS - END */}
 
       {/* MAIN CHARACTER */}
-      <group position={[0, 20, 0]} scale={20}>
+      <group position={[0, 0, 0]} scale={20} ref={playerRef}>
         <KickAnim
           path={path}
           animationIndex={currentAnimationIndex}
@@ -110,10 +90,17 @@ function Scene1({ onSceneComplete }) {
         />
       </group>
 
+      <BoxTrigger
+        args={[10, 10, 10]}
+        position={[20, 20, 20]}
+        onCollide={() => {
+          console.log("HEY")
+        }}
+      />
+
       {/* ENVIRONNMENT - START */}
       <RockyGround scale={10} position={[-200, -20, -300]} />
       <RockyGround scale={10} position={[1200, -20, -300]} />
-      <InvisibleGround scale={10} position={[0, 0, 0]} />
       <Sky
         distance={35000}
         sunPosition={[5, 1, 8]}

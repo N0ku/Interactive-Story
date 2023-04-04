@@ -9,13 +9,11 @@ Title: Game Ready City Buildings
 
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
-import { RigidBody } from "@react-three/rapier";
 
 
 function Buildings(props) {
   const { nodes, materials } = useGLTF('/game_ready_city_buildings.glb')
   return (
-    <RigidBody type="fixed" colliders="trimesh" name="buildings" receiveShadow>
       <group {...props} dispose={null}>
         <group rotation={[-Math.PI / 2, 0, 0]}>
           <group rotation={[Math.PI / 2, 0, 0]}>
@@ -49,7 +47,6 @@ function Buildings(props) {
           </group>
         </group>
       </group>
-    </RigidBody>
   )
 }
 

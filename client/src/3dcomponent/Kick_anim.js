@@ -1,22 +1,41 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useGLTF, useAnimations, useCursor, useKeyboardControls } from "@react-three/drei";
+import { useGLTF, useAnimations, useCursor } from "@react-three/drei";
 import * as THREE from "three";
-import { useFrame, useThree } from "react-three-fiber";
-import { RigidBody } from "@react-three/rapier";
-import { folder, useControls } from "leva";
+import { useFrame } from "react-three-fiber";
+import { useControls } from "../components/Controls";
 
 function Kick(props) {
   const group = useRef();
-  const body = useRef();
   const { nodes, materials, animations } = useGLTF("/kick_anim3.glb");
   const { actions, names } = useAnimations(animations, group)
   const [boxHelper, setBoxHelper] = useState(null);
   const [hovered, hoverAction] = useState(false);
-  const [subscribeKeys, getKeys] = useKeyboardControls(); // see: https://github.com/pmndrs/drei#keyboardcontrols
   const modelHeight = -1; // Substract the height of the model from the floor
+  const { forward, backward, left, right, shift } = useControls();
 
+  const currentAnimation = useRef();
+
+  /*   actions[names[props.animationIndex]].reset().fadeIn(0.25).play(); */
   useEffect(() => {
-    actions[names[props.animationIndex]].reset().fadeIn(0.25).play();
+     let action;
+    if (forward || backward || left || right) {
+      action = "kick_walk"
+      if (shift) {
+        action = "kick_running"
+      }
+    }
+    else {
+      action = "kick_idle"
+    }
+    // the ? verify if the object is undefined or null
+    if (currentAnimation.current !== action) {
+      const nextAnimation = actions[action];
+      const current = actions[currentAnimation.current];
+      current?.fadeOut(0.2);
+      nextAnimation?.reset().fadeIn(0.2).play();
+      currentAnimation.current = action
+    } 
+
     if (group.current) {
       const box = new THREE.Box3().setFromObject(nodes.Ch03); // Calcal the hard box of model based on skeleton.
       const center = box.getCenter(new THREE.Vector3());
@@ -29,7 +48,7 @@ function Kick(props) {
       hitbox.position.y -= (modelHeight - modelHeight); // Shit counter Shit... Center the hitbox in the middle of the model..
       setBoxHelper(new THREE.BoxHelper(hitbox, 0xff0000)); // Color red because i like red...
     }
-  }, [props.animationIndex, actions, names, group, modelHeight, nodes.Ch03]);
+  }, [props.animationIndex, actions, names, group, modelHeight, nodes.Ch03, forward, backward, left, right, shift]);
 
   useCursor(hovered);
 
@@ -59,70 +78,25 @@ function Kick(props) {
       setPositionObj([position.x, position.y, position.z])
       props.onSend(group);
     } */
-    const { left, right, forward, backward } = getKeys();
-
-    const impulseStrength = 30 * delta;
-
-    if (body.current) {
-      if (forward) {
-        let pos = body.current.translation();
-        pos.z -= impulseStrength;
-
-        body.current.setTranslation(pos, true);
-      }
-
-      if (backward) {
-        let pos = body.current.translation();
-        pos.z += impulseStrength;
-
-        body.current.setTranslation(pos, true);
-
-      }
-
-      if (right) {
-        let pos = body.current.translation();
-        pos.x += impulseStrength;
-
-        body.current.setTranslation(pos, true);
-
-      }
-
-      if (left) {
-        let pos = body.current.translation();
-        pos.x -= impulseStrength;
-
-        body.current.setTranslation(pos, true);
-
-      }
-    }
 
   });
 
   return (
-     <RigidBody ref={body}
-      colliders="cuboid"
-      restitution={0.2}
-      friction={1}
-      linearDamping={0.5}
-      angularDamping={0.5}
-      name="MC"
-    > 
-      <group ref={group} position={positionObj}  >
-        <group  {...props} dispose={null}  >
-          <group name="Scene">
+    <group ref={group} position={positionObj}  >
+      <group  {...props} dispose={null}  >
+        <group name="Scene">
           <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
-              <primitive object={nodes.mixamorigHips} />
-              <skinnedMesh
-                name="Ch03"
-                geometry={nodes.Ch03.geometry}
-                material={materials.Ch03_Body}
-                skeleton={nodes.Ch03.skeleton}
-              />
-            </group>
+            <primitive object={nodes.mixamorigHips} />
+            <skinnedMesh
+              name="Ch03"
+              geometry={nodes.Ch03.geometry}
+              material={materials.Ch03_Body}
+              skeleton={nodes.Ch03.skeleton}
+            />
           </group>
         </group>
       </group>
-     </RigidBody> 
+    </group>
   );
 }
 export default Kick;

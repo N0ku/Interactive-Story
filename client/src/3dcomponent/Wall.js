@@ -9,12 +9,10 @@ Title: Building scan No. 6
 
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
-import { RigidBody } from '@react-three/rapier'
 
 function Wall(props) {
   const { nodes, materials } = useGLTF('/wall.glb')
   return (
-      <RigidBody colliders="trimesh" name="wall">
     <group {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <mesh geometry={nodes.Object_2.geometry} material={materials['batiment6_lowpoly.002']} />
@@ -22,7 +20,6 @@ function Wall(props) {
         <mesh geometry={nodes.Object_4.geometry} material={materials['batiment6_lowpoly.002']} />
       </group>
     </group>
-    </RigidBody>
   )
 }
 

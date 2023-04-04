@@ -1,13 +1,11 @@
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
-import { RigidBody } from '@react-three/rapier';
 
 
 function Apocalyptic(props) {
   const { nodes, materials } = useGLTF("/apocalyptic_city.glb");
   return (
     <group rotation={[-Math.PI / 2, 0, 0]}>
-          <RigidBody type="fixed" colliders="trimesh" name="city">
           <mesh
             geometry={nodes.Object_2.geometry}
             material={materials["02___Default"]}
@@ -116,7 +114,6 @@ function Apocalyptic(props) {
             geometry={nodes.Object_28.geometry}
             material={materials.wire_228184153}
           />
-    </RigidBody>
         </group>
   );
 }
