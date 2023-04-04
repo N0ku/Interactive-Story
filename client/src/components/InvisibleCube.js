@@ -18,11 +18,7 @@ function InvisibleCube(props) {
     var path = props.path
   
 
-    if(path == undefined || path == null){
-        setAdvance(false)
-    }else{
-        setAdvance(true)
-    }
+   
      if (advance) { 
       const time = state.clock.getElapsedTime();
       

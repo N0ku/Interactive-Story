@@ -5,7 +5,7 @@ import { useFrame } from "react-three-fiber";
 
 function Kick(props) {
   const group = useRef();
-  const { nodes, materials, animations } = useGLTF("/kick_anim.glb");
+  const { nodes, materials, animations } = useGLTF("/kick_anim3.glb");
   const { actions, names } = useAnimations(animations, group);
   const [boxHelper, setBoxHelper] = useState(null);
   const [hovered, hoverAction] = useState(false);
@@ -43,18 +43,22 @@ console.log(actions);
   useCursor(hovered);
 
   const [positionObj, setPositionObj] = useState([0, -0.01, -2]);
-  const path = new THREE.CatmullRomCurve3([
-    new THREE.Vector3(0, 1, 0),
-    new THREE.Vector3(0, 1, 12),
-    new THREE.Vector3(10, 1, 12),
-    new THREE.Vector3(10, 1, 0),
-    new THREE.Vector3(10, 1, -30),
-  ]);
+ 
 
   useFrame((state, delta) => {
-    setLastPosition(path.getPointAt(1));
+    console.log(advance)
+    var path = props.path
+    if(path == undefined || path == null){
+      setAdvance(false)
+      
+  }else{
+      setAdvance(true)
+      
+  }
+    
 
     if (advance) {
+      setLastPosition(path.getPointAt(1));
       /* const time = state.clock.elapsedTime % path.getLength();
       const position = path.ge tPoint(time/12); */
 
@@ -64,8 +68,11 @@ console.log(actions);
         (time % path.getLength()) / path.getLength()
       );
       var p = Math.trunc(position.z * 100) / 100;
-
+        console.log(p)
       if (position.x == 10 && p <= -9.71 && p >= -9.73) {
+        setAdvance(false)
+        console.log('zer')
+        return
       }
 
       setPositionObj([position.x, position.y, position.z]);

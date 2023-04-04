@@ -36,9 +36,10 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom,refObj
         }
       return dir;
     }
+
+    
   
     useFrame(({camera},delta )=> {
-       
         var modeCamera;
         if(mode == undefined){
             return
@@ -56,8 +57,7 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom,refObj
                 if ( ifFixed && refTargetObject.current.position != undefined) {
                     var thirdPersonPosition = [];
                     thirdPersonPosition.concat(posRelative)
-                    var bodyAnim = refTargetObject.current
-                    console.log(bodyAnim)
+                    
                     var posY = refObjectRotation[1]
                     console.log(posY)
                     

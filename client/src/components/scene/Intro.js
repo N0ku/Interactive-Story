@@ -13,7 +13,7 @@ import InvisibleCube from "../../components/InvisibleCube.js";
 function Intro({ onSceneComplete, handleClick  }) {
   const [lerping, setLerping] = useState(false);
   const [refObj, setRefObj] = useState(null);
-  const [currentAnimationIndex, setCurrentAnimationIndex] = useState(14);
+  const [currentAnimationIndex, setCurrentAnimationIndex] = useState(20);
   const [refObjRotation, setRefObjRotation] = useState(null);
   const [isSceneComplete, setIsSceneComplete] = useState(false);
 
@@ -31,16 +31,30 @@ function Intro({ onSceneComplete, handleClick  }) {
 
   const [increment, setIncrement] = useState(0);
   const [posCameraRelative, setPosCameraRelative] = useState(
-    posC[increment].pos
+    posC[2].pos
   );
-  const [zoom, setZoom] = useState(posC[increment].zoom);
-  const [mode, setMode] = useState(posC[increment].mode);
+  const [zoom, setZoom] = useState(posC[2].zoom);
+  const [mode, setMode] = useState(posC[2].mode);
   const [message, setMessage] = useState("");
 
   const pathObject = new THREE.CatmullRomCurve3([
     new THREE.Vector3(0, 0, 0),
     new THREE.Vector3(0, 0, 0),
   ]);
+
+  const path = new THREE.CatmullRomCurve3([
+    new THREE.Vector3(0, 1, 0),
+    new THREE.Vector3(0, 1, 12),
+    new THREE.Vector3(10, 1, 12),
+    new THREE.Vector3(10, 1, 0),
+    new THREE.Vector3(10, 1, -30),
+  ]);
+
+  const handleCamera = (param) => {
+    setPosCameraRelative(param.pos);
+    setZoom(param.zoom);
+    setMode(param.mode);
+  }
 
   function handleClicked() {
     if (increment < posC.length - 1) {
@@ -55,6 +69,8 @@ function Intro({ onSceneComplete, handleClick  }) {
     setZoom(posC[increment].zoom);
     setMode(posC[increment].mode);
   }
+
+
   const handleMessage = (messageFromChild) => {
     console.log(messageFromChild);
 
@@ -65,6 +81,7 @@ function Intro({ onSceneComplete, handleClick  }) {
       setRefObj(messageFromChild);
     } else {
       setRefObjRotation(messageFromChild);
+     
     }
   };
   useEffect(() => {
@@ -84,7 +101,7 @@ function Intro({ onSceneComplete, handleClick  }) {
     <>
       <Camera
         refTargetObject={refObj}
-        refObjectRotation={setRefObjRotation}
+        refObjectRotation={refObjRotation}
         mode={mode}
         posRelative={posCameraRelative}
         zoom={zoom}
@@ -126,6 +143,7 @@ function Intro({ onSceneComplete, handleClick  }) {
           sendRotate={handleMessage}
           onClick={handleClick}
           s={handleMessage}
+          path={path}
         />
         {/* <Kick onSend={handleMessage}></Kick> */}
       </group>
