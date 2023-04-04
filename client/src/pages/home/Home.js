@@ -31,6 +31,7 @@ function Home() {
                     <button className="connect-button" onClick={() => navigate('/connexion')}>Connexion</button>
                     }
                 </div>
+            
             </body>
         </div>
     )
