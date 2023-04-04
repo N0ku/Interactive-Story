@@ -10,9 +10,16 @@ function Kick(props) {
   const [boxHelper, setBoxHelper] = useState(null);
   const [hovered, hoverAction] = useState(false);
   const modelHeight = -1; // Substract the height of the model from the floor
+  const [advance, setAdvance] = useState(true);
+  const [lastPosition, setLastPosition] = useState();
+  const [rotation, setRotation] = useState( [0, 0, 0]);
+
+
+  
 
   useEffect(() => {
-    actions[names[props.animationIndex]].reset().fadeIn(0.25).play();
+    actions[names[props.animationIndex]].reset().fadeIn(0.5).play();
+    //actions[names[props.animationIndex]].reset().fadeIn(0.25).play();
     if (group.current) {
       console.log("Coucou");
       const box = new THREE.Box3().setFromObject(nodes.Ch03); // Calcal the hard box of model based on skeleton. 
@@ -39,40 +46,58 @@ function Kick(props) {
   useCursor(hovered);
 
 
-  var advance = true
-
   const [positionObj, setPositionObj] = useState([0, -0.01, -2])
   const path = new THREE.CatmullRomCurve3([
-    new THREE.Vector3(0, -0.01, -2),
-    new THREE.Vector3(0, -0.01, 2),
-
-
-    new THREE.Vector3(4, -0.01, 5),
-
-    new THREE.Vector3(7, -0.01, 11)
+    new THREE.Vector3(0, 1, 0),
+    new THREE.Vector3(0, 1, 12),
+    new THREE.Vector3(10, 1, 12),
+    new THREE.Vector3(10, 1, 0),
+    new THREE.Vector3(10, 1, -30),
+    
 
 
   ]);
 
   useFrame((state, delta) => {
+    setLastPosition(path.getPointAt(1));
 
-    if (advance) {
+    
+     if (advance) {
+     
+      
+      /* const time = state.clock.elapsedTime % path.getLength();
+      const position = path.ge tPoint(time/12); */
+     
       const time = state.clock.getElapsedTime();
-      const position = path.getPointAt(((time) % path.getLength()) / path.getLength());
-      /*  console.log('x: ', position.x)
-       console.log('y: ', position.y)
-       console.log('z: ', Math.trunc(position.z)) */
-      setPositionObj([position.x, position.y, position.z])
-      props.onSend(group);
-    }
+      
 
-  });
+      const position = path.getPointAt(((time) % path.getLength()) / path.getLength());
+      var p = Math.trunc(position.z*100)/100;
+  
+      if(position.x==10 && (p <= -9.71 && p >= -9.73 )){
+        
+      }
+   
+ 
+    setPositionObj([position.x, position.y, position.z])
+    const nPosition = path.getPointAt(((time +0.01) % path.getLength()) / path.getLength()); 
+    const angleY = Math.atan2(nPosition.x - position.x,nPosition.z - position.z);
+       
+    setRotation([0, angleY, 0] ) 
+    props.onSend(group);
+    props.sendRotate(rotation);
+      if(lastPosition != null){
+         
+      }
+  }
+ 
+ });
 
   return (
-    <group ref={group} position={positionObj}  >
+    <group ref={group} rotation={rotation}  position={positionObj}  >
       <group  {...props} dispose={null}  >
           {boxHelper && (
-          <primitive
+          <primitive 
             object={boxHelper}
             onClick={handleClick}
             onPointerOver={() => hoverAction(true)}
@@ -80,9 +105,9 @@ function Kick(props) {
           />
         )}
         <group name="Scene">
-          <group name="Armature" rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
-            <primitive object={nodes.mixamorigHips} />
-            <skinnedMesh
+          <group name="Armature"  rotation={[Math.PI / 2, 0, 0]} scale={0.01}  >
+            <primitive object={nodes.mixamorigHips}    />
+            <skinnedMesh 
               name="Ch03"
               geometry={nodes.Ch03.geometry}
               material={materials.Ch03_Body}
