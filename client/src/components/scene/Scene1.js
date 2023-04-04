@@ -10,7 +10,7 @@ import Apocalyptic from "../../components/Apocalyptic.js";
 import * as THREE from "three";
 import { Debug } from "@react-three/rapier";
 
-function Scene1({ onSceneComplete }) {
+function Scene1({ onSceneComplete, handleClick }) {
   const [lerping, setLerping] = useState(false);
   const [refObj, setRefObj] = useState(null);
   const [currentAnimationIndex, setCurrentAnimationIndex] = useState(11);
@@ -65,7 +65,7 @@ function Scene1({ onSceneComplete }) {
       <group scale={250} position={[100, 125, -100]}>
         <Buildings />
       </group>
-      <Debug />
+      
       <Wall
         scale={7}
         rotation={[0, (-90 * Math.PI) / 180, 0]}
@@ -82,8 +82,6 @@ function Scene1({ onSceneComplete }) {
           path={path}
           animationIndex={currentAnimationIndex}
           onSend={handleMessage}
-        /> */}
-       
       </group>
       <AndreV2/>
       {/* ENVIRONNMENT - START */}

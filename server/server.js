@@ -4,6 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const mongoString = process.env.DATABASE_URL;
 const User = require("./models/user");
+const Chapter = require("./models/chapterModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
@@ -62,7 +63,6 @@ app.post("/authenticate", async (req, res) => {
   res.send({ token });
 });
 
-
 app.get("/protected-resource", async (req, res) => {
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(" ")[1];
@@ -113,21 +113,21 @@ app.post("/users", async (req, res) => {
 });
 
 // Route pour ajouter un nouveau score pour un utilisateur
-app.post('/users/:username/scores', (req, res) => {
+app.post("/users/:username/scores", (req, res) => {
   const username = req.params.username;
   const newScore = req.body;
 
   User.updateOne({ username: username }, { $push: { scores: newScore } })
     .then(() => {
-      res.status(200).json({ message: 'Score ajouté avec succès' });
+      res.status(200).json({ message: "Score ajouté avec succès" });
     })
     .catch((error) => {
-      res.status(400).json({ error: 'Erreur lors de l\'ajout du score' });
+      res.status(400).json({ error: "Erreur lors de l'ajout du score" });
     });
 });
 
 // Route pour récupérer tous les scores d'un utilisateur
-app.get('/users/:username/scores', (req, res) => {
+app.get("/users/:username/scores", (req, res) => {
   const username = req.params.username;
 
   User.findOne({ username: username })
@@ -135,8 +135,41 @@ app.get('/users/:username/scores', (req, res) => {
       res.status(200).json(user.scores);
     })
     .catch((error) => {
-      res.status(400).json({ error: 'Erreur lors de la récupération des scores' });
+      res
+        .status(400)
+        .json({ error: "Erreur lors de la récupération des scores" });
     });
+});
+
+app.get("/chapter/:number", async (req, res) => {
+  try {
+    const chapter = await Chapter.findOne({ number: req.params.number });
+    if (!chapter) {
+      return res.status(404).send("Chapitre non trouvé");
+    }
+    res.json(chapter);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Erreur serveur");
+  }
+});
+
+app.post("/chapter", async (req, res) => {
+  try {
+    const chapterData = req.body;
+
+    // Créer une nouvelle instance de modèle Chapter en utilisant les données envoyées dans la requête
+    const newChapter = new Chapter(chapterData);
+    console.log(newChapter);
+    // Enregistrer le nouveau chapitre dans la base de données
+    await newChapter.save();
+
+    // Retourner le nouveau chapitre avec le code HTTP 201 (Created)
+    res.status(201).json(newChapter);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Erreur serveur");
+  }
 });
 
 app.listen(5050, () => {
