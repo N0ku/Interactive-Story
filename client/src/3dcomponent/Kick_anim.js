@@ -13,9 +13,17 @@ function Kick(props) {
   const [advance, setAdvance] = useState(true);
   const [lastPosition, setLastPosition] = useState();
   const [rotation, setRotation] = useState([0, 0, 0]);
+  const[advancePath,setAdvancePath] = useState(true);
+
 console.log(actions);
   useEffect(() => {
-    actions[names[props.animationIndex]].reset().fadeIn(0.5).play();
+    if(advance && advancePath){
+      actions[names[props.animationIndex]].reset().fadeIn(0.5).play();
+    }else{
+      actions[names[1]].reset().fadeIn(0.5).play();
+
+    }
+    //actions[names[props.animationIndex]].reset().fadeIn(0.5).play();
     //actions[names[props.animationIndex]].reset().fadeIn(0.25).play();
     if (group.current) {
       console.log("Coucou");
@@ -43,21 +51,21 @@ console.log(actions);
   useCursor(hovered);
 
   const [positionObj, setPositionObj] = useState([0, -0.01, -2]);
- 
+
 
   useFrame((state, delta) => {
     console.log(advance)
     var path = props.path
     if(path == undefined || path == null){
-      setAdvance(false)
+      setAdvancePath(false)
       
   }else{
-      setAdvance(true)
+      setAdvancePath(true)
       
   }
     
 
-    if (advance) {
+    if (advance && advancePath) {
       setLastPosition(path.getPointAt(1));
       /* const time = state.clock.elapsedTime % path.getLength();
       const position = path.ge tPoint(time/12); */
