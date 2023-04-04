@@ -10,8 +10,6 @@ import Apocalyptic from "../../components/Apocalyptic.js";
 import * as THREE from "three";
 import { Debug } from "@react-three/rapier";
 
-
-
 function Scene1({ onSceneComplete }) {
   const [lerping, setLerping] = useState(false);
   const [refObj, setRefObj] = useState(null);
