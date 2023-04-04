@@ -14,19 +14,18 @@ function Kick(props) {
   const [lastPosition, setLastPosition] = useState();
   const [rotation, setRotation] = useState([0, 0, 0]);
   const[advancePath,setAdvancePath] = useState(true);
+  const [animChoice, setAnimChoice] = useState()
 
 console.log(actions);
   useEffect(() => {
+    setAnimChoice(props.animationIndex)
     if(advance && advancePath){
       actions[names[props.animationIndex]].reset().fadeIn(0.5).play();
     }else{
+      
       actions[names[1]].reset().fadeIn(0.5).play();
-
     }
-    //actions[names[props.animationIndex]].reset().fadeIn(0.5).play();
-    //actions[names[props.animationIndex]].reset().fadeIn(0.25).play();
     if (group.current) {
-      console.log("Coucou");
       const box = new THREE.Box3().setFromObject(nodes.Ch03); // Calcal the hard box of model based on skeleton.
       const center = box.getCenter(new THREE.Vector3());
       const size = box.getSize(new THREE.Vector3());
@@ -44,8 +43,7 @@ console.log(actions);
     console.log("Click");
     e.stopPropagation(); // stops the event from bubbling up
     props.onClick(); // Send to parent element have click event, for example,
-    // when the user clicks on the button, the parent element will call this function
-    // (Allows you to modify the interior of the children and the child elements of the parents)
+  
   };
 
   useCursor(hovered);
@@ -54,14 +52,11 @@ console.log(actions);
 
 
   useFrame((state, delta) => {
-    console.log(advance)
     var path = props.path
     if(path == undefined || path == null){
       setAdvancePath(false)
-      
   }else{
       setAdvancePath(true)
-      
   }
     
 
@@ -76,13 +71,12 @@ console.log(actions);
         (time % path.getLength()) / path.getLength()
       );
       var p = Math.trunc(position.z * 100) / 100;
-        console.log(p)
-      if (position.x == 10 && p <= -9.71 && p >= -9.73) {
+      if (position.x == 10 && p <= -25.71 && p >= -25.73) {
         setAdvance(false)
-        console.log('zer')
+        actions[names[2]].reset().fadeIn(0.5).play();
         return
+        
       }
-
       setPositionObj([position.x, position.y, position.z]);
       const nPosition = path.getPointAt(
         ((time + 0.01) % path.getLength()) / path.getLength()
@@ -91,7 +85,6 @@ console.log(actions);
         nPosition.x - position.x,
         nPosition.z - position.z
       );
-
       setRotation([0, angleY, 0]);
       props.onSend(group);
       props.sendRotate(rotation);
