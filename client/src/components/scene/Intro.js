@@ -16,6 +16,8 @@ function Intro({ onSceneComplete, handleClick  }) {
   const [currentAnimationIndex, setCurrentAnimationIndex] = useState(20);
   const [refObjRotation, setRefObjRotation] = useState(null);
   const [isSceneComplete, setIsSceneComplete] = useState(false);
+  const [objtPath, setObjPath] = useState();
+  const [advance, setAdvance] = useState(true);
 
   var posC = [
     { mode: "followObject", pos: new THREE.Vector3(0, 2, 4), zoom: 2 },
@@ -38,8 +40,8 @@ function Intro({ onSceneComplete, handleClick  }) {
   const [message, setMessage] = useState("");
 
   const pathObject = new THREE.CatmullRomCurve3([
-    new THREE.Vector3(0, 0, 0),
-    new THREE.Vector3(0, 0, 0),
+    new THREE.Vector3(5, 5, -27),
+    new THREE.Vector3(5, 5, -37),
   ]);
 
   const path = new THREE.CatmullRomCurve3([
@@ -72,14 +74,25 @@ function Intro({ onSceneComplete, handleClick  }) {
 
 
   const handleMessage = (messageFromChild) => {
-    console.log(messageFromChild);
-
-    if (messageFromChild == true) {
-      console.log(messageFromChild instanceof Boolean);
-    }
+    
+    
     if (messageFromChild.current) {
+      var p = Math.trunc(messageFromChild.current.position.z * 100) / 100;
+
       setRefObj(messageFromChild);
+      var p = Math.trunc(messageFromChild.current.position.z * 100) / 100;
+      if (messageFromChild.current.position.x == 10 && p <= -25.71 && p >= -25.75) {
+        setAdvance(false)
+        setObjPath(pathObject)
+        handleCamera({
+          mode: "fixeCameraFollowObject",
+          pos: new THREE.Vector3(430,250, -437),
+          zoom: 1,
+        })
+        
+      }
     } else {
+      console.log(messageFromChild)
       setRefObjRotation(messageFromChild);
      
     }
@@ -134,7 +147,9 @@ function Intro({ onSceneComplete, handleClick  }) {
         ]}
       />
       {/* SPECIALS OBJECTS - END */}
+        <group scale={20}>
 
+        </group>
       {/* MAIN CHARACTER */}
       <group scale={20}>
         <KickAnim
@@ -142,19 +157,19 @@ function Intro({ onSceneComplete, handleClick  }) {
           onSend={handleMessage}
           sendRotate={handleMessage}
           onClick={handleClick}
-          s={handleMessage}
           path={path}
+          advance = {advance}
         />
         {/* <Kick onSend={handleMessage}></Kick> */}
       </group>
-      {/* <group scale={20}>
+      <group scale={20}>
         <InvisibleCube
           onSend={handleMessage}
           sendRotate={handleMessage}
-          path={pathObject}
+          path={objtPath}
         ></InvisibleCube>
       
-      </group> */}
+      </group>
 
       {/* ENVIRONNMENT - START */}
       <RockyGround scale={10} position={[-200, -20, -300]} />

@@ -54,7 +54,7 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom,refObj
                     setTargetObject(refTargetObject)
                     return
                 }                 
-                if ( ifFixed && refTargetObject.current.position != undefined) {
+                if ( ifFixed && refTargetObject.current.position != undefined && refObjectRotation != null) {
                     var thirdPersonPosition = [];
                     thirdPersonPosition.concat(posRelative)
                     
@@ -148,7 +148,8 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom,refObj
                 }else{
                     positionFixed.set(new THREE.Vector3(0,0,0))
                 }
-                camera.position.copy(new THREE.Vector3(10, 1, -9))
+                camera.position.copy(posRelative)
+                console.log(camera.position)
                 camera.lookAt(new THREE.Vector3(positionFixed.x, positionFixed.y, positionFixed.z))
                 break;
 
@@ -164,7 +165,7 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom,refObj
                 ref={camera}
                 aspect={scene.innerWidth /scene.innerHeight}
                 fov={50}
-                far={500}
+                far={800}
                 zoom={zoom}     
             > 
             </PerspectiveCamera>

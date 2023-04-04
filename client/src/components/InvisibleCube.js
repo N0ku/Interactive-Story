@@ -11,15 +11,22 @@ function InvisibleCube(props) {
   const [positionObj, setPositionObj] = useState([0, 0, 0])
  
   const [advance, setAdvance] = useState(true);
+  const[advancePath,setAdvancePath] = useState(true);
+
   const [lastPosition, setLastPosition] = useState();
   const [rotation, setRotation] = useState( [0, 0, 0]);
   
   useFrame((state, delta) => {
     var path = props.path
+    if(path == undefined || path == null){
+      setAdvancePath(false)
+  }else{
+      setAdvancePath(true)
+  }
   
 
    
-     if (advance) { 
+     if (advance && advancePath) { 
       const time = state.clock.getElapsedTime();
       
 

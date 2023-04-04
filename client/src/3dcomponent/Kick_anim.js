@@ -18,13 +18,8 @@ function Kick(props) {
 
 console.log(actions);
   useEffect(() => {
-    setAnimChoice(props.animationIndex)
-    if(advance && advancePath){
-      actions[names[props.animationIndex]].reset().fadeIn(0.5).play();
-    }else{
-      
-      actions[names[1]].reset().fadeIn(0.5).play();
-    }
+    actions[names[props.animationIndex]].reset().fadeIn(0.5).play();
+   
     if (group.current) {
       const box = new THREE.Box3().setFromObject(nodes.Ch03); // Calcal the hard box of model based on skeleton.
       const center = box.getCenter(new THREE.Vector3());
@@ -58,25 +53,19 @@ console.log(actions);
   }else{
       setAdvancePath(true)
   }
+  if(props.advance == false){
+    setAdvance(false)
+    console.log('zer')
+    actions[names[props.animationIndex]].reset().fadeIn(0.5).play();
+  }else{
+    setAdvance(true)
+    actions[names[2]].reset().fadeIn(0.5).play();
     
-
+  }
     if (advance && advancePath) {
       setLastPosition(path.getPointAt(1));
-      /* const time = state.clock.elapsedTime % path.getLength();
-      const position = path.ge tPoint(time/12); */
-
       const time = state.clock.getElapsedTime();
-
-      const position = path.getPointAt(
-        (time % path.getLength()) / path.getLength()
-      );
-      var p = Math.trunc(position.z * 100) / 100;
-      if (position.x == 10 && p <= -25.71 && p >= -25.73) {
-        setAdvance(false)
-        actions[names[2]].reset().fadeIn(0.5).play();
-        return
-        
-      }
+      const position = path.getPointAt((time % path.getLength()) / path.getLength());
       setPositionObj([position.x, position.y, position.z]);
       const nPosition = path.getPointAt(
         ((time + 0.01) % path.getLength()) / path.getLength()
