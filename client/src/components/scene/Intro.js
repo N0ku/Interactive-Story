@@ -19,6 +19,7 @@ function Intro({ onSceneComplete, handleClick  }) {
   const [objtPath, setObjPath] = useState();
   const [advance, setAdvance] = useState(true);
 
+  
   var posC = [
     { mode: "followObject", pos: new THREE.Vector3(0, 2, 4), zoom: 2 },
     { mode: "followObject", pos: new THREE.Vector3(0, 2, 0), zoom: 1 },
