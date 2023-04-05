@@ -87,50 +87,30 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
   };
   useFrame((state, delta) => {
     const time = state.clock.getElapsedTime();
-    if (scene == null) {
+    if (!scene) return;
+    const totalPlan = plan.length;
+    const plans = plan[planNumber];
+    if (plans === undefined || plans === null) {
       return;
     }
-    console.log(plan);
-    var totalPlan = plan[0].length;
-    console.log(plan[0].length)
-   var plans = plan[0][planNumber]
-    console.log(plan)
-    console.log(plans)
-    if (planNumber != oldPlanNumber && plans.path.pos != undefined) {
-      var brutPath = plans.path.pos;
-      console.log(brutPath)
-      const points = [];
-      brutPath.forEach((x) => {
-        var a = new THREE.Vector3(x[0], x[1], x[2]);
-        points.push(a);
-      });
-      const goodPath = new THREE.CatmullRomCurve3(points);
-      console.log(goodPath)
-      if (plans.followObject == "Michelle") {
-        setObjPath(goodPath);
-      } else if (plans.followObject == "Cube") {
-        setCubePath(goodPath);
-      }else {
-        console.log("rien")
-      }
-      var posRelative = new THREE.Vector3(
-        plans.camera.pos[0],
-        plans.camera.pos[1],
-        plans.camera.pos[2]
+    if (planNumber !== oldPlanNumber && plans.path.pos) {
+      const points = plans.path.pos.map(
+        (p) => new THREE.Vector3(p[0], p[1], p[2])
       );
-      setPosCameraRelative(posRelative);
+      const goodPath = new THREE.CatmullRomCurve3(points);
+      if (plans.followObject === "Michelle") setObjPath(goodPath);
+      else if (plans.followObject === "Cube") setCubePath(goodPath);
+      else console.log("rien");
+      setPosCameraRelative(new THREE.Vector3(...plans.camera.pos));
       setZoom(plans.camera.zoom);
       setMode(plans.camera.mode);
       setSpeed(plans.path.speed);
     }
 
-    if (time >= plans.timeToStop) {
-      if (planNumber != totalPlan) {
-        setAdvance(false);
-        setOldPlanNumber(planNumber);
-        setPlanNumber(planNumber + 1);
-        return;
-      }
+    if (time >= plans.timeToStop && planNumber !== totalPlan) {
+      setAdvance(false);
+      setOldPlanNumber(planNumber);
+      setPlanNumber(planNumber + 1);
     }
   });
 
