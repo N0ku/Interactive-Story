@@ -1,0 +1,67 @@
+{
+    "Chapter 2": {
+        "Scene 1": {
+            "Talks": {
+                "talk 1": {
+                    "option1": "Dialogue 1.1",
+                    "option2": "Dialogue 1.2",
+                    "option3": "Dialogue 1.3",
+                    "option4": "Dialogue 1.4"
+                },
+                "talk 2": {
+                    "option1": "Dialogue 2.1",
+                    "option2": "Dialogue 2.2",
+                    "option3": "Dialogue 2.3",
+                    "option4": "Dialogue 2.4"
+                }
+            },
+            "Actions": {
+                "Baseball Bat": {
+                    "observe": true,
+                    "interact": false,
+                    "fight": true
+                },
+                "VitrineMagasin": {
+                    "observe": true,
+                    "interact": true,
+                    "fight": false
+                },
+                "Car": {
+                    "observe": true,
+                    "interact": true,
+                    "fight": false
+                }
+            },
+            "Dialogs": [
+                "Hello",
+                "ça va",
+                "bien merci",
+                "blabla.."
+            ],
+            "Camera": [
+                [
+                    0,
+                    0,
+                    0
+                ],
+                [
+                    0,
+                    0,
+                    20
+                ]
+            ],
+            "Paths": [
+                [
+                    0,
+                    0,
+                    0
+                ],
+                [
+                    0,
+                    0,
+                    0
+                ]
+            ]
+        }
+    }
+}

@@ -1,0 +1,98 @@
+{
+    "Chapter 1": {
+        "Scene 1": {
+            "Talks": {
+                "talk 1": {
+                    "option1": "Dialogue 1.1",
+                    "option2": "Dialogue 1.2",
+                    "option3": "Dialogue 1.3",
+                    "option4": "Dialogue 1.4"
+                },
+                "talk 2": {
+                    "option1": "Dialogue 2.1",
+                    "option2": "Dialogue 2.2",
+                    "option3": "Dialogue 2.3",
+                    "option4": "Dialogue 2.4"
+                }
+            },
+            "Actions": {
+                "Baseball Bat": {
+                    "observe": true,
+                    "interact": false,
+                    "fight": true
+                },
+                "VitrineMagasin": {
+                    "observe": true,
+                    "interact": true,
+                    "fight": false
+                },
+                "Car": {
+                    "observe": true,
+                    "interact": true,
+                    "fight": false
+                }
+            },
+            "Dialogs": [
+                "Hello",
+                "ça va",
+                "bien merci",
+                "blabla.."
+            ],
+            "Plan": [
+                {
+                    
+                    "timeToStop" : 10,
+                    "camera" :  {
+                        "mode": "followObject",
+                        "pos": [
+                            0,
+                            2,
+                            10
+                        ],
+                        "zoom": 1
+                    },
+                    "path":  {"animIndex":20,"pos":[[-10,0,10],[10,0,10] ],"speed":1}
+                },
+                {
+        
+                    "timeToStop" : 10,
+                    "camera" :  {
+                        "mode": "fixeCamera",
+                        "pos": [
+                            0,
+                            0,
+                            0
+                        ],
+                        "zoom": 1
+                    },
+                    "path":  {"animIndex":20,"pos":[0,0,0],"speed":1}
+                }
+            ],
+
+            "Camera": [
+                {
+                    "mode": "fixeCamera",
+                    "pos": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "zoom": 1
+                },
+                {
+                    "mode": "followCamera",
+                    "pos": [
+                        0,
+                        0,
+                        0
+                    ],
+                    "zoom": 1
+                }
+            ],
+            "Paths": [
+               {"animIndex":20,"pos":[0,0,0],"speed":1},
+               {"animIndex":19,"pos":[0,0,0],"speed":1}
+            ]
+        }
+    }
+}

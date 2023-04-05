@@ -6,6 +6,7 @@ import Register from "./pages/register/Register";
 import Example from "./pages/example/Example";
 import Game from "./pages/game/GamePlay";
 import { NotFound } from "./pages/notfound";
+
 function RoutesProvider() {
   return (
     <BrowserRouter>
