@@ -1,21 +1,18 @@
 import React from 'react';
 import { Canvas} from 'react-three-fiber';
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls,Html,Loader } from "@react-three/drei";
 
 import Forest from "../Forest"
 import Test1 from "../Anime_starry_night"
-import MotelObj from "../MotelProjet"
 import MotelObjAdvanced from "../MotelProjetAdvanced"
 import InfiniteGround from "../InfiniteGround"
-
-
-
-
-
+import Zombie from "../ZombieMaleArchetype"
+import Andre from "../Andre"
 
 
 
 function Motel() {
+    const animationIndices = [0, 1];
     return (
         <div className="App">
         <div className="canvas-container">
@@ -40,6 +37,8 @@ function Motel() {
         <Forest position={[65,-0.1,-160]} scale={5.5}/>
         <Forest position={[65,-0.1,-210]} scale={5.5}/>
         <Forest position={[65,-0.1,-210]} scale={5.5}/>
+        <Zombie position={[10,1,0]}  />
+        <Andre  position={[11,1,0]} animationIndex={4} />
         <OrbitControls
                 enableDamping
                 dampingFactor={0.1}
@@ -75,11 +74,12 @@ function Motel() {
        intensity={0.01}
        position={[0, 50, 0]}
       />
-
+  
       
 
        
       </Canvas>
+      <Loader />
         </div>
       </div>
     );
