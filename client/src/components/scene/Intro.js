@@ -10,6 +10,7 @@ import Wall from "../../3dcomponent/Wall";
 import RockyGround from "../../3dcomponent/Rocky_ground";
 import * as THREE from "three";
 import axios from "axios";
+import { SceneDTO } from "../../dto/SceneDto.js";
 
 import InvisibleCube from "../../components/InvisibleCube.js";
 
@@ -25,17 +26,28 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
   const [advance, setAdvance] = useState(true);
   const [planNumber, setPlanNumber] = useState(0);
   const [oldPlanNumber, setOldPlanNumber] = useState(-1);
-  const [plan, setPlan] = useState();
   const [speed, setSpeed] = useState(1);
-  const [jsonData, setJsonData] = useState({});
+  const [scene, setScene] = useState([]);
+  const [actions, setActions] = useState([]);
+  const [camera, setCamera] = useState([]);
+  const [dialogs, setDialogs] = useState([]);
+  const [paths, setPaths] = useState([]);
+  const [plan, setPlan] = useState([]);
   useEffect(() => {
     async function fetchChapter() {
       try {
         const response = await axios.get(
           `http://localhost:5050/chapter/${chapterNumber}`
         );
-        console.log(response.data);
-        setJsonData(response.data);
+        const scenes = response.data.Chapter.Scene.map(
+          (sceneData) => new SceneDTO(sceneData)
+        );
+        setScene(scenes[0]);
+        setActions(scenes.map((scene) => scene.action));
+        setCamera(scenes.map((scene) => scene.camera));
+        setDialogs(scenes.map((scene) => scene.dialogs));
+        setPaths(scenes.map((scene) => scene.paths));
+        setPlan(scenes.map((scene) => scene.plan));
       } catch (error) {
         console.error(error);
       }
@@ -65,14 +77,6 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
     new THREE.Vector3(5, 5, -37),
   ]);
 
-  const path = new THREE.CatmullRomCurve3([
-    new THREE.Vector3(0, 1, 0),
-    new THREE.Vector3(0, 1, 12),
-    new THREE.Vector3(10, 1, 12),
-    new THREE.Vector3(10, 1, 0),
-    new THREE.Vector3(10, 1, -30),
-  ]);
-
   const handleCamera = (param) => {
     setPosCameraRelative(param.pos);
     setZoom(param.zoom);
@@ -80,13 +84,13 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
   };
   useFrame((state, delta) => {
     const time = state.clock.getElapsedTime();
-    if (jsonData == null) {
+    if (scene == null) {
       return;
     }
-    var totalPlan = jsonData["Chapter"]["Scene"].Plan.length;
-    var plan = jsonData["Chapter"]["Scene"].Plan[planNumber];
-    if (planNumber != oldPlanNumber && plan.path.pos != undefined) {
-      var brutPath = plan.path.pos;
+    console.log(plan);
+    var totalPlan = plan.length;
+    if (planNumber != oldPlanNumber && paths.pos != undefined) {
+      var brutPath = paths.pos;
       const points = [];
       brutPath.forEach((x) => {
         var a = new THREE.Vector3(x[0], x[1], x[2]);
@@ -189,7 +193,7 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
           onSend={handleMessage}
           sendRotate={handleMessage}
           onClick={handleClick}
-          path={objtPath}
+          path={paths[0]}
           advance={advance}
           speed={speed}
         />
