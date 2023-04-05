@@ -99,7 +99,6 @@ const pointLight = new PointLight(0xffffff, 1, 100);
       setSpeed(plans.path.speed);
     }
   
-    console.log(plans.timeToStop)
     if (time >= plans.timeToStop && planNumber !== totalPlan) {
       if (plans.followObject === "Andre") {
         setAdvance(false);
@@ -112,7 +111,6 @@ const pointLight = new PointLight(0xffffff, 1, 100);
       setPlanNumber(planNumber + 1);
       
       if(totalPlan - 1 === planNumber ){
-        console.log('fini')
         onSceneComplete(true);
       }
     }

@@ -18,7 +18,6 @@ export function CharaMove(props) {
 
 
   useFrame(() => {
-    console.log(actions._clip)
     const clip = actions.play.getClip(); // Get the animation clip
     clip.loop = THREE.LoopOnce; // Set the animation to play only once
 
@@ -42,7 +41,6 @@ export function CharaMove(props) {
     };
   }, [actions]);
  
-  console.log(actions)
   
   return (
     <group ref={group} {...props} dispose={null}>

@@ -14,7 +14,7 @@ import Andre from "../Andre"
 function Scene1({ onSceneComplete, handleClick, chapterNumber }) {
   const [lerping, setLerping] = useState(false);
   const [refObj, setRefObj] = useState(null);
-  const [currentAnimationIndex, setCurrentAnimationIndex] = useState(20);
+  const [currentAnimationIndex, setCurrentAnimationIndex] = useState(10);
   const [refObjRotation, setRefObjRotation] = useState(null);
   const [isSceneComplete, setIsSceneComplete] = useState(false);
   const [objtPath, setObjPath] = useState(null);
@@ -95,7 +95,8 @@ function Scene1({ onSceneComplete, handleClick, chapterNumber }) {
       setSpeed(plans.path.speed);
     }
   
-    console.log(plans.timeToStop)
+    console.log(time)
+    console.log(plan.timeToStop)
     if (time >= plans.timeToStop && planNumber !== totalPlan) {
       if (plans.followObject === "Andre") {
         setAdvance(true);
@@ -135,7 +136,7 @@ function Scene1({ onSceneComplete, handleClick, chapterNumber }) {
 <MotelObjAdvanced/>
         <Test1/>
       {/* MAIN CHARACTER */}
-        <Andre  animationIndex={1}
+        <Andre  animationIndex={currentAnimationIndex}
           onSend={handleMessage}
           sendRotate={handleMessage}
           onClick={handleClick}

@@ -13,21 +13,15 @@ import OptionTextBox from "../../components/DialogueInteractionChoice";
 
 function GamePlay() {
   const [showElement, ShowElementAction] = useState(false);
-  const [currentScene, setCurrentScene] = useState("Scene1");
+  const [currentScene, setCurrentScene] = useState("Intro");
   const [sceneFinished, setSceneFinished] = useState(false);
   const [dialogueFinished, setDialogueFinished] = useState(false);
   const [infoFinished, setInfoFinished] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentIndexInfo, setCurrentIndexInfo] = useState(0);
 
-  const texts = [
-    "",
-    "Voici Michelle, une des dernières rescapés de la catastrophe qui à transformer 80% de la population en zombie.Michelle erre depuis des jours sans but précis. A la recherche de ce qu'il reste de l'humanité.",
-    "Après avoir fui une horde de zombie qui la poursuit depuis plusieurs jours, elle cherche désespérément de quoi se nourrir.",
-    "Notre héroine est confronté à un obstacle de taille une immense porte qui semble être la depuis un moment.",
-    "Face à cette situation que faire?",
-  ];
-  const infos = ["", "QuelquePart dans San Diego", ""];
+ 
+  
 
   function handleSceneChange(scene) {
     setCurrentScene(scene);
@@ -62,11 +56,13 @@ function GamePlay() {
   };
 
   var choicesIntro = [{ id: 1, label: "Continuer", scene: "Scene1" }];
-  var choices = [{ id: 1, label: "Intro", scene: "Intro" }];
+  var choices = [{ id: 1, label: "A suivre", scene: "Intro" }];
 
   let sceneToRender;
   let choiceCurrentScene = [];
   let questionCurrentScene;
+  let texts;
+  let infos;
   switch (currentScene) {
     case "Intro":
       sceneToRender = (
@@ -79,22 +75,45 @@ function GamePlay() {
 
       );
       choiceCurrentScene = choicesIntro;
+        texts = [
+    "",
+    "Voici Michelle, une des dernières rescapés de la catastrophe qui à transformer 80% de la population en zombie.Michelle erre depuis des jours sans but précis. A la recherche de ce qu'il reste de l'humanité.",
+    "Après avoir fui une horde de zombie qui la poursuit depuis plusieurs jours, elle cherche désespérément de quoi se nourrir.",
+    "Notre héroine est confronté à un obstacle de taille une immense porte qui semble être la depuis un moment.",
+    "Face à cette situation que faire?",
+  ];
+   infos = ["", "QuelquePart dans San Diego", ""];
       break;
     case "Scene1":
       sceneToRender = (
         <Scene1 onSceneComplete={handleIntroFinish} 
           chapterNumber={2} />
       );
+      texts = [
+    "",
+    "Voici André, une second rescapés de la catastrophe qui est parvenu à atteindre ce motel abandonné",
+    "",
+    "Face à cette situation que faire?L'explorer ou continue son chemin",
+  ];
+   infos = ["", "Près d'un motel", ""];
       choiceCurrentScene = choices;
       break;
-    case "Scene2":
-      sceneToRender = (
-        <Scene2 onSceneComplete={handleIntroFinish} 
-          chapterNumber={3} />
-      );
-      choiceCurrentScene = choices;
-      break;
+  //   case "Scene2":
+  //     sceneToRender = (
+  //       <Scene2 onSceneComplete={handleIntroFinish} 
+  //         chapterNumber={3} />
+  //     );
+  //     choiceCurrentScene = choices;
+  //     texts = [
+  //   "",
+  //   "Voici André, une second rescapés de la catastrophe qui est parvenu à atteindre ce motel abandonné",
+  //   "",
+  //   "Face à cette situation que faire?L'explorer ou continue son chemin",
+  // ];
+  //  infos = ["", "Près d'un motel", ""];
+  //     break;
     default:
+      break;
   }
 
   // Afficher le bouton seulement lorsque la scène est terminée
@@ -158,7 +177,7 @@ function GamePlay() {
                 <DialogueBox
                   key={index}
                   text={text}
-                  speed={30}
+                  speed={10}
                   onInfoComplete={handleDialogueFinish}
                 />
               );

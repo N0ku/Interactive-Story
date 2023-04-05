@@ -33,7 +33,6 @@ function Kick(props) {
   }, [props.animationIndex, actions, names, group, modelHeight, nodes.Ch03]);
 
   const handleClick = (e) => {
-    console.log('Click');
     e.stopPropagation(); // stops the event from bubbling up
     props.onClick(); // Send to parent element have click event, for example, 
     // when the user clicks on the button, the parent element will call this function 
