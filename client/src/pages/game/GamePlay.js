@@ -53,7 +53,7 @@ function GamePlay() {
   }
   const handleClick = () => {
     ShowElementAction(!showElement);
-    console.log(showElement);
+   
   };
 
   const handleReturnClick = (value) => {
@@ -69,18 +69,20 @@ function GamePlay() {
   switch (currentScene) {
     case "Intro":
       sceneToRender = (
+
         <Intro
           onSceneComplete={handleIntroFinish}
           handleClick={handleClick}
           chapterNumber={1}
         />
+
       );
       choiceCurrentScene = choicesIntro;
       questionCurrentScene = "Aller à la scene 1";
       break;
     case "Scene1":
       sceneToRender = (
-        <Scene1 onSceneComplete={handleIntroFinish} handleClick={handleClick} />
+        <Scene1 onSceneComplete={handleIntroFinish}  />
       );
       choiceCurrentScene = choices;
       questionCurrentScene = "Aller à l'intro";
@@ -119,7 +121,7 @@ function GamePlay() {
         >
           <Canvas
             style={{ width: "100%", height: "100%" }}
-            onClick={handleClick}
+          
           >
             <Physics
               gravity={[0, -9.82, 0]}

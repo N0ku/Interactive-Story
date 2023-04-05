@@ -12,7 +12,7 @@ function InfiniteGround() {
     <Plane
       args={[10000, 10000]}
       rotation={[-Math.PI / 2, 0, 0]}
-      position={[0, -20, 0]}
+      position={[0,-0.30, 0]}
     >
       <meshStandardMaterial map={texture} />
     </Plane>

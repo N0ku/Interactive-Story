@@ -81,12 +81,6 @@ useFrame((state, delta) => {
   props.onSend(group);
   props.sendRotate(rotation);
 
-  if (
-    lastPosition &&
-    Math.trunc(position.x) === Math.trunc(lastPosition.x) - 1
-  ) {
-    setAdvance(false);
-  }
 
   setLastPosition(position);
 });

@@ -5,6 +5,8 @@ import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Example from "./pages/example/Example";
 import Game from "./pages/game/GamePlay";
+import Motel from "./components/scene/Motel";
+
 function RoutesProvider() {
   return (
     <BrowserRouter>
@@ -14,6 +16,8 @@ function RoutesProvider() {
         <Route path="/inscription" element={<Register />} />
         <Route path="/exemple" element={<Example />} />
         <Route path="/game" element={<Game />} />
+        <Route path="/motel" element={<Motel />} />
+
         {/* EXAMPLES */}
       </Routes>
     </BrowserRouter>
