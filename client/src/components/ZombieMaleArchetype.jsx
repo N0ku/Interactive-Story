@@ -26,6 +26,7 @@ import { useGLTF, useAnimations } from '@react-three/drei'
   )
 }
 
-useGLTF.preload('/ZombieMaleArchetype.glb')
+
 
 export default Zombie;
+useGLTF.preload('/ZombieMaleArchetype.glb')

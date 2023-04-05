@@ -8,6 +8,10 @@ import MotelObjAdvanced from "../MotelProjetAdvanced"
 import InfiniteGround from "../InfiniteGround"
 import Zombie from "../ZombieMaleArchetype"
 import Andre from "../Andre"
+import PositionedSound from "../audio-component/audio-component"
+import OST from "../../assets/audios/OST.mp3"
+import ZombieCry from "../../assets/audios/zombie-moans-29924.mp3"
+
 
 
 
@@ -17,6 +21,9 @@ function Motel() {
         <div className="App">
         <div className="canvas-container">
         <Canvas>
+        <PositionedSound audioUrl={OST} distance={10} position={[0, 0, 0]} />
+        <PositionedSound audioUrl={ZombieCry} distance={1} position={[10000, 100, 100000]} />
+            
         <MotelObjAdvanced/>
         <Test1/>
         <InfiniteGround position={[0,50,0]}/>
@@ -38,14 +45,22 @@ function Motel() {
         <Forest position={[65,-0.1,-210]} scale={5.5}/>
         <Forest position={[65,-0.1,-210]} scale={5.5}/>
         <Zombie position={[10,1,0]}  />
-        <Andre  position={[11,1,0]} animationIndex={4} />
-        <OrbitControls
+        <Andre position={[11, 1, 0]} animationIndex={4} />
+         <perspectiveCamera
+        fov={75}
+        aspect={window.innerWidth / window.innerHeight}
+        near={0.1}
+        far={1000}
+        position={[10, 10, 10]}
+        />
+        
+        {/* <OrbitControls
                 enableDamping
                 dampingFactor={0.1}
                 rotateSpeed={0.5} // Speed Rotation
                 minPolarAngle={Math.PI / 6} // Limit angle in down direction
                 maxPolarAngle={Math.PI / 2}
-              />
+              /> */}
         <pointLight position={[10, 10, 0]} intensity={0.05} color={0x0040ff} castShadow  />
         {/* <pointLight position={[1, 3, -3]} intensity={0.03} color={0x80ff80 } /> */}
         <rectAreaLight
@@ -67,8 +82,7 @@ function Motel() {
         <sphereBufferGeometry args={[0.10, 0.10, 0.10]} />
         <meshBasicMaterial color="red" />
       </mesh>
-      
-        <hemisphereLight
+      <hemisphereLight
        skyColor="#02040a"
        groundColor="#000000"
        intensity={0.01}

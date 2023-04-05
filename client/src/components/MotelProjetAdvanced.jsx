@@ -602,6 +602,7 @@ import { useGLTF } from '@react-three/drei'
   )
 }
 
-useGLTF.preload('/MotelProjetAdvanced.glb')
+
 
 export default MotelObjAdvanced;
+useGLTF.preload('/MotelProjetAdvanced.glb')

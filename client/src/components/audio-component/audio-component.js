@@ -1,53 +1,90 @@
-import { useFrame } from 'react-three-fiber';
-import { PositionalAudio, Vector3, Raycaster } from 'three';
-import { useState, useEffect, useRef } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
+import { Canvas, extend, useThree ,useFrame} from 'react-three-fiber';
+import { AudioListener, AudioLoader, PositionalAudio } from 'three';
 
-function AudioComp({ target, currentCamera }) {
-    const [audioSource, setAudioSource] = useState(null);
-    const audioRef = useRef(null);
-    const raycaster = new Raycaster();
-    const { camera } = currentCamera;
 
-    useEffect(() => {
-        const loadAudio = async () => {
-            const audioContext = new AudioContext();
-            const response = await fetch('./../../assets/audios/zombie-attack-6419.mp3');
-            const arrayBuffer = await response.arrayBuffer();
-            const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-            const source = new PositionalAudio(audioContext);
-            source.setBuffer(audioBuffer);
-            source.setRefDistance(10);
-            setAudioSource(source);
-        };
-        loadAudio();
-    }, []);
 
-    useFrame(() => {
-        if (audioSource && audioRef.current) {
-            raycaster.setFromCamera(new Vector3(0, 0, 0), camera);
-            const intersects = raycaster.intersectObject(target, true);
 
-            if (intersects.length > 0) {
-                // Set audio position and direction based on target mesh position and camera direction
-                audioSource.setDirection(camera.getWorldDirection(new Vector3()));
-                audioSource.setPosition(target.position.x, target.position.y, target.position.z);
-                audioRef.current.play();
-            } else {
-                audioRef.current.pause();
-            }
-        }
+
+// Étendre React Three Fiber pour utiliser PositionalAudio
+extend({ PositionalAudio });
+
+const PositionalAudioComponent = ({ url, distance = 1, position }) => {
+  const sound = useRef();
+  const { camera, scene } = useThree();
+  const listener = new AudioListener();
+  camera.add(listener);
+
+  const playAudio = useCallback(() => {
+    if (sound.current) {
+      sound.current.context.resume();
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('click', playAudio);
+    window.addEventListener('touchstart', playAudio);
+
+    return () => {
+      window.removeEventListener('click', playAudio);
+      window.removeEventListener('touchstart', playAudio);
+    };
+  }, [playAudio]);
+
+  useEffect(() => {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const audioElement = new Audio(url);
+    const audioNode = audioContext.createMediaElementSource(audioElement);
+    const pannerNode = new PannerNode(audioContext, {
+      panningModel: 'HRTF',
+      distanceModel: 'exponential',
+      refDistance: distance,
+      maxDistance: 10000,
+      rolloffFactor: 1,
     });
 
-    return (
-        <>
-            {audioSource && (
-                <group>
-                    <mesh ref={target} />
-                    <primitive object={audioSource} ref={audioRef} />
-                </group>
-            )}
-        </>
-    );
-}
+    audioNode.connect(pannerNode);
+    pannerNode.connect(audioContext.destination);
+    audioElement.play();
 
-export default AudioComp;
+    sound.current = pannerNode;
+
+    return () => {
+      audioElement.pause();
+      audioNode.disconnect();
+      pannerNode.disconnect();
+    };
+  }, [url, distance]);
+
+  useFrame(() => {
+    if (sound.current) {
+      sound.current.setPosition(scene.position.x, scene.position.y, scene.position.z);
+    }
+  });
+
+  return null;
+};
+
+
+
+// Créer un composant Scene pour configurer l'environnement 3D
+const Scene = ({ audioUrl, distance, position }) => {
+  return (
+    <group>
+      <mesh>
+        <boxBufferGeometry args={[10, 10, 10]} />
+        <meshStandardMaterial color={'orange'} opacity={0.1} transparent />
+        <PositionalAudioComponent url={audioUrl} distance={distance} position={position} />
+      </mesh>
+    </group>
+  );
+};
+
+// Créer le composant App qui rend les composants Canvas et Scene
+const PositionedSound = ({ audioUrl, distance, position }) => {
+  return (
+    <Scene audioUrl={audioUrl} distance={distance} position={position} />
+  );
+};
+
+export default PositionedSound;
