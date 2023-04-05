@@ -43,39 +43,40 @@ function Kick(props) {
   const hitbox = useRef();
   const { nodes, materials, animations } = useGLTF("/kick_anim3.glb");
   const { actions, names } = useAnimations(animations, group)
-  const [boxHelper, setBoxHelper] = useState(null);
   const [hovered, hoverAction] = useState(false);
   const modelHeight = -1; // Substract the height of the model from the floor
   const { forward, backward, left, right, shift } = useControls();
-  
+
   const currentAnimation = useRef();
   const controlRef = useRef();
   const camera = useThree((state) => state.camera)
-  
+
   
 
   const updateCameraTarget = (moveX, moveZ) => {
     camera.position.x += moveX;
     camera.position.z += moveZ;
-    
+
     cameraTarget.x = group.current.position.x;
     cameraTarget.y = group.current.position.y + 2;
     cameraTarget.z = group.current.position.z;
-    
+
     if (controlRef.current) controlRef.current.target = cameraTarget;
   }
-  
-  function PlayerBox({ args, onCollide }) {
-    const [ref] = useBox(() => ({ isTrigger: true, args, onCollide }))
-    
+  function PlayerBox({ args }) {
+    const [ref, api] = useBox(() => ({
+      args,
+      onCollide: () => console.log("collision detected"), // add a collision event
+    }));
+
     return (
       <group ref={ref}>
         <mesh>
-          <boxBufferGeometry args={args} />
-          <meshStandardMaterial wireframe color="green" />
+          <boxGeometry args={args} />
+          <meshStandardMaterial wireframe color="red" />
         </mesh>
       </group>
-    )
+    );
   }
   /*   actions[names[props.animationIndex]].reset().fadeIn(0.25).play(); */
   useEffect(() => {
@@ -145,8 +146,6 @@ function Kick(props) {
       group.current.position.x += moveX;
       group.current.position.z += moveZ;
       updateCameraTarget(moveX, moveZ);
-/*       console.log(hitbox.current);
-      hitbox.current.position.copy(group.current.position); */
     }
   });
 
@@ -154,9 +153,10 @@ function Kick(props) {
     <>
       <OrbitControls ref={controlRef} />
       <group ref={group}>
+        <PlayerBox args={[2, 3, 1]} />
         <group {...props} dispose={null}>
           <group name="Scene">
-            <group name="Armature" rotation={[Math.PI / 2, 0, 180 * Math.PI / 180 ]} scale={0.01}>
+            <group name="Armature" rotation={[Math.PI / 2, 0, 180 * Math.PI / 180]} scale={0.01}>
               <primitive object={nodes.mixamorigHips} />
               <skinnedMesh
                 name="Ch03"
@@ -167,7 +167,6 @@ function Kick(props) {
           </group>
         </group>
       </group>
-      <PlayerBox args={[2, 3, 1]} ref={hitbox} />
     </>
   );
 }

@@ -18,3 +18,4 @@ export function BaseballBat(props) {
 }
 
 export default BaseballBat;
+useGLTF.preload('/lucille_3d_model.glb')

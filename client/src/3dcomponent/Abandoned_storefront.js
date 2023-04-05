@@ -34,5 +34,5 @@ function StoreAbandonned(props) {
   )
 }
 
-useGLTF.preload('/abandoned_storefront.glb')
 export default StoreAbandonned;
+useGLTF.preload('/abandoned_storefront.glb')

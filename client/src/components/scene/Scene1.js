@@ -8,8 +8,7 @@ import Buildings from "../../3dcomponent/Game_ready_city_buildings";
 import Wall from "../../3dcomponent/Wall";
 import Apocalyptic from "../../components/Apocalyptic.js";
 import * as THREE from "three";
-import { Debug } from "@react-three/cannon";
-import { BoxTrigger } from "../../components/EventBoxes";
+import { Debug,useBox } from "@react-three/cannon";
 
 function Scene1({ onSceneComplete }) {
   const [lerping, setLerping] = useState(false);
@@ -46,6 +45,15 @@ function Scene1({ onSceneComplete }) {
     }
   }, [isSceneComplete, onSceneComplete]);
 
+  function BoxTrigger({ args, onCollide}) {
+    const [ref] = useBox(() => ({ args, isTrigger: true, onCollide }), useRef())
+    return (
+      <mesh {...{ ref }}>
+        <boxBufferGeometry args={args} />
+        <meshStandardMaterial wireframe color="green" />
+      </mesh>
+    )
+  }
   return (
     <>
       {/*       <Camera
@@ -97,6 +105,7 @@ function Scene1({ onSceneComplete }) {
           console.log("HEY")
         }}
       />
+
 
       {/* ENVIRONNMENT - START */}
       <RockyGround scale={10} position={[-200, -20, -300]} />

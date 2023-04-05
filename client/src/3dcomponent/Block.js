@@ -19,5 +19,5 @@ function Block(props) {
   )
 }
 
-useGLTF.preload('/concrete_scan_no._3.glb')
 export default Block;
+useGLTF.preload('/concrete_scan_no._3.glb')

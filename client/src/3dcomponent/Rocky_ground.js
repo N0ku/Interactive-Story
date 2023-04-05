@@ -38,5 +38,5 @@ function RockyGround(props) {
   )
 }
 
-useGLTF.preload('/rocky_ground.glb')
 export default RockyGround;
+useGLTF.preload('/rocky_ground.glb')

@@ -117,5 +117,5 @@ function Apocalyptic(props) {
         </group>
   );
 }
-useGLTF.preload('/apocalyptic_city.glb')
 export default Apocalyptic;
+useGLTF.preload('/apocalyptic_city.glb')

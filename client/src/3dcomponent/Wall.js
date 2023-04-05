@@ -23,5 +23,5 @@ function Wall(props) {
   )
 }
 
-useGLTF.preload('/wall.glb')
 export default Wall;
+useGLTF.preload('/wall.glb')
