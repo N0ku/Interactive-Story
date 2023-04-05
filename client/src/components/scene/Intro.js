@@ -47,13 +47,16 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
         setCamera(scenes.map((scene) => scene.camera));
         setDialogs(scenes.map((scene) => scene.dialogs));
         setPaths(scenes.map((scene) => scene.paths));
-        setPlan(scenes.map((scene) => scene.plan));
+        setPlan(scenes[0].plan);
       } catch (error) {
         console.error(error);
       }
     }
     fetchChapter();
   }, [chapterNumber]);
+  console.log(plan);
+  console.log(paths);
+  console.log(dialogs);
 
   var posC = [
     { mode: "followObject", pos: new THREE.Vector3(0, 2, 4), zoom: 2 },
