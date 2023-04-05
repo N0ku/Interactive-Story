@@ -1,10 +1,6 @@
-import download from "./../../assets/img/dl.png";
-
-import insta from "./../../assets/img/insta2.png";
-import twitter from "./../../assets/img/twitter.png";
-import github from "./../../assets/img/git3.png";
+import sourceVid from "../../assets/abandonne-115473.mp4"
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 
 import "./Home.scss";
 
@@ -25,55 +21,42 @@ function Home() {
   }
 
   return (
-    <div className="BackgroundHome">
-      <div className="Buttons">
+    <div className="home-content">
+      <Link className="github-link" to="https://github.com/N0ku/Interactive-Story">GitHub</Link>
+      <video autoPlay muted loop>
+        <source src={sourceVid} type="video/mp4"/>
+      </video>
+      <div className="text-content">
+      <h1>Interactive <br /> Story</h1>
+      <div className="buttons">
         {connected ? (
           <>
-            <button className="neon-box-1" onClick={() => navigate("/game")}>
+            <button  onClick={() => navigate("/game")}>
               JOUER
             </button>
-            <button className="neon-box-1">PARAMETRES</button>
-            <button className="neon-box-1" onClick={disconnect}>
+            <button  onClick={disconnect}>
               DECONNEXION
             </button>
           </>
         ) : (
           <>
             <button
-              className="neon-box-1"
+              
+              onClick={() => navigate("/inscription")}
+            >
+              INSCRIPTION
+            </button>
+            <button
+              
               onClick={() => navigate("/connexion")}
             >
               CONNEXION
             </button>
-            <button className="neon-box-1">PARAMETRES</button>
           </>
         )}
       </div>
-
-      <div className="Button-dl">
-        <img className="Logo-dl" src={download} alt="Logo Téléchargement"></img>
-      </div>
-
-      <div className="Buttons-social-network">
-        <a
-          href="https://trello.com/invite/b/Z5Uj1Wo2/ATTI86f7a114fc65e46f804484c4a18b71a57255ED39/interactive-story"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <img className="Logo-twitter" src={twitter} alt="Logo Twitter"></img>
-        </a>
-        <a
-          href="https://github.com/N0ku/Interactive-Story"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <img className="Logo-git" src={github} alt="Logo GitHub"></img>
-        </a>
-        <a href="https://google.com" target="_blank" rel="noreferrer">
-          <img className="Logo-insta" src={insta} alt="Logo Instagram"></img>
-        </a>
-      </div>
     </div>
+      </div>
   );
 }
 export default Home;

@@ -2,124 +2,75 @@
 @tailwind components;
 @tailwind utilities;
 
-/** LES LOGOS **/
-.BackgroundHome {
-  background-image: url(https://i.ytimg.com/vi/3dKvgcahCAI/maxresdefault.jpg);
-  background-repeat: no-repeat;
-  height: 100vh;
-  background-position: center;
-  background-size: cover;
-}
-.Logo-dl {
-  height: 80px;
-  width: 300px;
+@font-face {
+  font-family: "post-apo";
+  src: url("../../assets/Scorchedearth-4Ljp.otf");
 }
 
-.Logo-insta {
-  height: 50px;
-  width: 100px;
+* {
+  padding: 0;
+  margin: 0;
 }
 
-.Logo-twitter {
-  height: 60px;
-  width: 70px;
+.github-link{
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: white;
+  font-size: 15px;
+  z-index: 100;
+  font-weight: bold;
+  transition: all 500ms ease-in-out;
+}
+.github-link:hover{
+  color: blue;
 }
 
-.Logo-git {
-  height: 60px;
-  width: 70px;
-}
-
-/**LES BOUTONS**/
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-button {
-  all: unset;
-  cursor: pointer;
+.home-content {
+  width: 100%;
+  height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 4px;
-  text-transform: uppercase;
-  font-size: 1.25rem;
-  padding: 10px 20px;
-  margin: 1rem;
-}
-.Buttons {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.Buttons-social-network {
-  position: absolute;
+  video{
+      position: fixed;
   right: 0;
   bottom: 0;
-  display: flex;
-}
-
-.Button-dl {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.neon-box-1 {
-  background: linear-gradient(to right, #0ff 0%, 50%, #f0f 100%);
-  width: 300px;
-  height: 30px;
-}
-
-.neon-box-1:hover {
-  animation: neon-box-1 2s infinite alternate linear;
-}
-
-@keyframes neon-box-1 {
-  from {
-    box-shadow: 2px 0 6px rgba(255, 0, 255, 0.7),
-      -2px 0 6px rgba(0, 255, 255, 0.7), 5px 0 10px rgba(255, 0, 255, 0.7),
-      -5px 0 10px rgba(0, 255, 255, 0.7);
+  min-width: 100%;
+  min-height: 100%;
+  }
+  .text-content{
+     position: absolute;
+     z-index: 100;
+  }
+  h1{
+    color: rgb(0, 0, 0);
+    font-size: 80px;
+    font-family: "post-apo",sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 100px;
   }
 
-  to {
-    box-shadow: 10px 0 20px rgba(255, 0, 255, 0.7),
-      -10px 0 20px rgba(0, 255, 255, 0.7), 15px 0 30px rgba(255, 0, 255, 0.7),
-      -15px 0 30px rgba(0, 255, 255, 0.7);
+  .buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    button{
+      margin:10px 0px;
+      background-color: rgba(95, 93, 93, 0.837);
+      padding:10px 40px;
+      border-radius: 5px;
+      transition: all 500ms ease-in-out;
+      color:grey;
+    }
+    button:hover{
+      background-color: white;
+      color:black;
+    }
   }
 }
 
-/***************DROP-SHADOW******************/
-.neon-drop-1 {
-  background: linear-gradient(to right, #0ff 0%, 50%, #f0f 100%);
-}
-
-.neon-drop-1::after {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-}
-
-.neon-drop-1:hover::after {
-  background: inherit;
-  filter: blur(10px);
-  animation: neon-drop 2s infinite alternate linear;
-}
-
-@keyframes neon-drop {
-  from {
-    transform: scalex(1) scaleY(1.09);
-  }
-
-  to {
-    transform: scalex(1.15) scaleY(1.25);
-  }
-}
