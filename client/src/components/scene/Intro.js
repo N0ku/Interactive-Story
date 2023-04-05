@@ -13,6 +13,10 @@ import InvisibleCube from "../../components/InvisibleCube.js";
 import Apocalyptic from "../Apocalyptic.js";
 import Buildings from "../../3dcomponent/Game_ready_city_buildings.js";
 
+import PositionedSound from "../audio-component/audio-component"
+import OST from "../../assets/audios/OST.mp3"
+import ZombieCry from "../../assets/audios/zombie-moans-29924.mp3"
+
 function Intro({ onSceneComplete, handleClick, chapterNumber }) {
   const [lerping, setLerping] = useState(false);
   const [refObj, setRefObj] = useState(null);
@@ -176,7 +180,8 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
       {/* SPECIALS OBJECTS - END */}
       <group scale={20}></group>
       {/* MAIN CHARACTER */}
-
+        <PositionedSound audioUrl={OST} distance={10} position={[0, 0, 0]} />
+        <PositionedSound audioUrl={ZombieCry} distance={1} position={[10000, 100, 100000]} />
       <group scale={20}>
         <KickAnim
           animationIndex={currentAnimationIndex}
