@@ -39,7 +39,7 @@ function Login() {
   return (
     <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
       <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
-        <h1 className="text-3xl font-semibold text-center text-purple-700 underline">
+        <h1 className="text-3xl font-semibold text-center text-black-700 underline">
           Connexion
         </h1>
         <form className="mt-6" onSubmit={loginUser}>
@@ -67,17 +67,17 @@ function Login() {
             <input
               id="password"
               type="password"
-              className="block w-full px-4 py-2 mt-2 text-purple-700 bg-white border rounded-md focus:border-purple-400 focus:ring-purple-300 focus:outline-none focus:ring focus:ring-opacity-40"
+              className="block w-full px-4 py-2 mt-2 text-grey-700 bg-white border rounded-md focus:border-purple-400 focus:ring-black-300 focus:outline-none focus:ring focus:ring-opacity-40"
               required
             />
           </div>
-          <Link to="#" className="text-xs text-purple-600 hover:underline">
+          <Link to="#" className="text-xs text-grey-600 hover:underline">
             Mot de passe oublié?
           </Link>
           <div className="mt-6">
             <button
               type="submit"
-              className="px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
+              className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
             >
               Connexion
             </button>
@@ -88,7 +88,7 @@ function Login() {
           Vous n'avez pas de compte?{" "}
           <Link
             to="/inscription"
-            className="font-medium text-purple-600 hover:underline"
+            className="font-medium text-black-600 hover:underline"
           >
             Inscription
           </Link>
