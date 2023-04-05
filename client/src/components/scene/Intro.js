@@ -4,9 +4,6 @@ import BaseballBat from "../../components/BaseballBat.js";
 import Camera from "../../components/Camera";
 import { Sky } from "@react-three/drei";
 import KickAnim from "../../3dcomponent/Kick_anim.js";
-import Apocalyptic from "../../components/Apocalyptic.js";
-import Buildings from "../../3dcomponent/Game_ready_city_buildings";
-import Wall from "../../3dcomponent/Wall";
 import RockyGround from "../../3dcomponent/Rocky_ground";
 import * as THREE from "three";
 import axios from "axios";
@@ -150,17 +147,17 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
       <directionalLight intensity={0.5} />
 
       {/* MAP ELEMENTS - START */}
-      <group position={[0, -5, 0]}>
+      {/* <group position={[0, -5, 0]}>
         <Apocalyptic />
-      </group>
-      <group scale={250} position={[100, 125, -100]}>
+      </group> */}
+      {/* <group scale={250} position={[100, 125, -100]}>
         <Buildings />
-      </group>
-      <Wall
+      </group> */}
+      {/* <Wall
         scale={7}
         rotation={[0, (-90 * Math.PI) / 180, 0]}
         position={[135, -20, -850]}
-      />
+      /> */}
       {/* MAP ELEMENTS - END */}
 
       {/* SPECIALS OBJECTS - START */}
@@ -176,6 +173,7 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
       {/* SPECIALS OBJECTS - END */}
       <group scale={20}></group>
       {/* MAIN CHARACTER */}
+
       <group scale={20}>
         <KickAnim
           animationIndex={currentAnimationIndex}
@@ -198,6 +196,8 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
         ></InvisibleCube>
       </group>
 
+
+      {/* <Thomas/> */}
       {/* ENVIRONNMENT - START */}
       <RockyGround scale={10} position={[-200, -20, -300]} />
       <RockyGround scale={10} position={[1200, -20, -300]} />

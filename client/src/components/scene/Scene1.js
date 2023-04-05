@@ -10,7 +10,7 @@ import Apocalyptic from "../../components/Apocalyptic.js";
 import * as THREE from "three";
 import { Debug } from "@react-three/rapier";
 
-function Scene1({ onSceneComplete, handleClick }) {
+function Scene1({ onSceneComplete }) {
   const [lerping, setLerping] = useState(false);
   const [refObj, setRefObj] = useState(null);
   const [currentAnimationIndex, setCurrentAnimationIndex] = useState(11);
@@ -65,7 +65,7 @@ function Scene1({ onSceneComplete, handleClick }) {
       <group scale={250} position={[100, 125, -100]}>
         <Buildings />
       </group>
-      
+      <Debug />
       <Wall
         scale={7}
         rotation={[0, (-90 * Math.PI) / 180, 0]}
@@ -77,15 +77,14 @@ function Scene1({ onSceneComplete, handleClick }) {
       {/* MAP ELEMENTS - END */}
 
       {/* MAIN CHARACTER */}
-      <group position={[0, 10, 0]}>
-        <KickAnim
+      <group >
+        {/* <KickAnim
           path={path}
           animationIndex={currentAnimationIndex}
           onSend={handleMessage}
-          onClick={handleClick}
-        />
+        /> */}
+       
       </group>
-
       {/* ENVIRONNMENT - START */}
       <RockyGround scale={10} position={[-200, -20, -300]} />
       <RockyGround scale={10} position={[1200, -20, -300]} />
