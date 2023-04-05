@@ -56,7 +56,6 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
     fetchChapter();
   }, [chapterNumber]);
 
-  console.log(currentAnimationIndex);
   const [posCameraRelative, setPosCameraRelative] = useState(null);
   const [zoom, setZoom] = useState(null);
   const [mode, setMode] = useState(null);
@@ -96,7 +95,8 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
       setMode(plans.camera.mode);
       setSpeed(plans.path.speed);
     }
-
+    console.log(time)
+    console.log(plans.timeToStop)
     if (time >= plans.timeToStop && planNumber !== totalPlan) {
       if (plans.followObject === "Michelle") {
         setAdvance(false);
@@ -107,6 +107,11 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
       }
       setOldPlanNumber(planNumber);
       setPlanNumber(planNumber + 1);
+      
+      if(totalPlan - 1 === planNumber ){
+        console.log('fini')
+        onSceneComplete(true);
+      }
     }
   });
   const handleMessage = (messageFromChild) => {
@@ -127,8 +132,7 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
           zoom: 1,
         });
       }
-    } else {
-      // console.log(messageFromChild);
+    } else {  
       setRefObjRotation(messageFromChild);
     }
   };

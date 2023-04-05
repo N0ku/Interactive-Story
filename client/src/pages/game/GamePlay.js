@@ -41,7 +41,7 @@ function GamePlay() {
   }
   const handleClick = () => {
     ShowElementAction(!showElement);
-    console.log(showElement);
+   
   };
 
   const handleReturnClick = (value) => {

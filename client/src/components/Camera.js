@@ -56,11 +56,11 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom,refObj
                 }                 
                 if ( ifFixed && refTargetObject.current.position != undefined && refObjectRotation != null) {
                     var thirdPersonPosition = [];
-                    console.log(posRelative)
+                
                     thirdPersonPosition.concat(posRelative)
                     
                     var posY = refObjectRotation[1]
-                    console.log(posY)
+                  
                     
 
                     let position = new THREE.Vector3(0,0,0);
@@ -91,7 +91,7 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom,refObj
                         thirdPersonPosition[2] = posRelative.x
                         a = -1
                     }
-                    console.log(thirdPersonPosition)
+                   
                     let wDir =new THREE.Vector3(0,0,0)
                     wDir.applyQuaternion(quaternion)
                     wDir.normalize()
@@ -102,8 +102,7 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom,refObj
                     ) 
                     wDir.add(new Vector3(0, 0.2, 0));
                     camera.position.copy(cameraPos)
-                    console.log(position)
-                    console.log(camera.position)
+                   
                     camera.lookAt(new THREE.Vector3(position.x, position.y + (refTargetObject.current.parent.scale.y /2) , position.z))
                 
                 }
