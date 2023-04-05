@@ -3,6 +3,7 @@ import { Canvas } from "react-three-fiber";
 import { Loader } from "@react-three/drei";
 import Intro from "../../components/scene/Intro";
 import Scene1 from "../../components/scene/Scene1";
+import Scene2 from "../../components/scene/Scene2";
 import DialogueBox from "../../components/DialogueBoxV2";
 import InteractionChoices from "../../components/InteractionChoice";
 import InfoBox from "../../components/InfoBox";
@@ -12,7 +13,7 @@ import OptionTextBox from "../../components/DialogueInteractionChoice";
 
 function GamePlay() {
   const [showElement, ShowElementAction] = useState(false);
-  const [currentScene, setCurrentScene] = useState("Intro");
+  const [currentScene, setCurrentScene] = useState("Scene1");
   const [sceneFinished, setSceneFinished] = useState(false);
   const [dialogueFinished, setDialogueFinished] = useState(false);
   const [infoFinished, setInfoFinished] = useState(false);
@@ -60,7 +61,7 @@ function GamePlay() {
     ShowElementAction(value);
   };
 
-  var choicesIntro = [{ id: 1, label: "Scene 1", scene: "Scene1" }];
+  var choicesIntro = [{ id: 1, label: "Continuer", scene: "Scene1" }];
   var choices = [{ id: 1, label: "Intro", scene: "Intro" }];
 
   let sceneToRender;
@@ -78,14 +79,20 @@ function GamePlay() {
 
       );
       choiceCurrentScene = choicesIntro;
-      questionCurrentScene = "Aller à la scene 1";
       break;
     case "Scene1":
       sceneToRender = (
-        <Scene1 onSceneComplete={handleIntroFinish}  />
+        <Scene1 onSceneComplete={handleIntroFinish} 
+          chapterNumber={2} />
       );
       choiceCurrentScene = choices;
-      questionCurrentScene = "Aller à l'intro";
+      break;
+    case "Scene2":
+      sceneToRender = (
+        <Scene2 onSceneComplete={handleIntroFinish} 
+          chapterNumber={3} />
+      );
+      choiceCurrentScene = choices;
       break;
     default:
   }
@@ -93,7 +100,6 @@ function GamePlay() {
   // Afficher le bouton seulement lorsque la scène est terminée
   const nextButton = sceneFinished && (
     <div className="boxButton">
-      {questionCurrentScene}
       {choiceCurrentScene.map((choice) => (
         <button
           key={choice.id}

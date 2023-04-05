@@ -16,7 +16,7 @@ function InvisibleCube(props) {
 
   useFrame((state, delta) => {
     const { path, speed, onSend, sendRotate } = props;
-
+    console.log(path)
     if (!path) {
       setAdvancePath(false);
       return;

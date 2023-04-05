@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import Camera from "../../components/Camera";
 import * as THREE from "three";
+import { PointLight } from 'three';
+
 import axios from "axios";
 import { SceneDTO } from "../../dto/SceneDto.js";
 import InvisibleCube from "../../components/InvisibleCube.js";
@@ -9,6 +11,7 @@ import Forest from "../Forest"
 import Test1 from "../Anime_starry_night"
 import MotelObjAdvanced from "../MotelProjetAdvanced"
 import InfiniteGround from "../InfiniteGround"
+import Zombie from "../ZombieMaleArchetype"
 import Andre from "../Andre"
 
 function Scene1({ onSceneComplete, handleClick, chapterNumber }) {
@@ -18,6 +21,7 @@ function Scene1({ onSceneComplete, handleClick, chapterNumber }) {
   const [refObjRotation, setRefObjRotation] = useState(null);
   const [isSceneComplete, setIsSceneComplete] = useState(false);
   const [objtPath, setObjPath] = useState(null);
+const pointLight = new PointLight(0xffffff, 1, 100);
 
 
   const [cubePath, setCubePath] = useState(null);
@@ -73,7 +77,6 @@ function Scene1({ onSceneComplete, handleClick, chapterNumber }) {
     if (!scene) return;
     const totalPlan = plan.length;
     const plans = plan[planNumber];
-    console.log(plans)
     if (plans === undefined || plans === null) {
       return;
     }
@@ -83,6 +86,7 @@ function Scene1({ onSceneComplete, handleClick, chapterNumber }) {
       );
       const goodPath = new THREE.CatmullRomCurve3(points);
       if (plans.followObject === "Andre") {
+        pointLight.position.set(goodPath);
         setObjPath(goodPath);
         setCurrentAnimationIndex(plans.path.animIndex);
       } else if (plans.followObject === "Cube") {
@@ -98,14 +102,15 @@ function Scene1({ onSceneComplete, handleClick, chapterNumber }) {
     console.log(plans.timeToStop)
     if (time >= plans.timeToStop && planNumber !== totalPlan) {
       if (plans.followObject === "Andre") {
-        setAdvance(true);
+        setAdvance(false);
         setAdvanceCube(true);
       } else if (plans.followObject === "Cube") {
         setAdvanceCube(false);
-        setAdvance(false);
+        setAdvance(true);
       }
       setOldPlanNumber(planNumber);
       setPlanNumber(planNumber + 1);
+      
       if(totalPlan - 1 === planNumber ){
         console.log('fini')
         onSceneComplete(true);
@@ -132,9 +137,23 @@ function Scene1({ onSceneComplete, handleClick, chapterNumber }) {
         posRelative={posCameraRelative}
         zoom={zoom}
       />
+     
 <MotelObjAdvanced/>
         <Test1/>
       {/* MAIN CHARACTER */}
+
+      <group scale={20}>
+        {/* <KickAnim
+          animationIndex={currentAnimationIndex}
+          onSend={handleMessage}
+          sendRotate={handleMessage}
+          onClick={handleClick}
+          path={objtPath}
+          advance={advance}
+          speed={speed}
+        /> */}
+        {/* <Kick onSend={handleMessage}></Kick> */}
+      </group>
         <Andre  animationIndex={1}
           onSend={handleMessage}
           sendRotate={handleMessage}
@@ -142,6 +161,7 @@ function Scene1({ onSceneComplete, handleClick, chapterNumber }) {
           path={objtPath}
           advance={advance}
           speed={speed}/>
+           <Zombie position={[10,1,0]}  />
       <group scale={20}>
        
         <InvisibleCube
@@ -175,6 +195,7 @@ function Scene1({ onSceneComplete, handleClick, chapterNumber }) {
         <Forest position={[65,-0.1,-160]} scale={5.5}/>
         <Forest position={[65,-0.1,-210]} scale={5.5}/>
         <Forest position={[65,-0.1,-210]} scale={5.5}/>
+     
       
         <pointLight position={[10, 10, 0]} intensity={0.05} color={0x0040ff} castShadow  />
         {/* <pointLight position={[1, 3, -3]} intensity={0.03} color={0x80ff80 } /> */}
@@ -199,7 +220,7 @@ function Scene1({ onSceneComplete, handleClick, chapterNumber }) {
         <hemisphereLight
        skyColor="#02040a"
        groundColor="#000000"
-       intensity={0.1}
+       intensity={0.01}
        position={[0, 50, 0]}
       />
       {/* ENVIRONNMENT - END */}
