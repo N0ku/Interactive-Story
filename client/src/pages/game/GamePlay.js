@@ -15,13 +15,18 @@ function GamePlay() {
   const [currentScene, setCurrentScene] = useState("Intro");
   const [sceneFinished, setSceneFinished] = useState(false);
   const [dialogueFinished, setDialogueFinished] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [infoFinished, setInfoFinished] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndexInfo, setCurrentIndexInfo] = useState(0);
+
   const texts = [
     "",
-    "Voici Michelle, une des dernières rescapés de la catastrophe qui à transformer la plupart du monde en zombie.Michelle erre depuis des jours sans but précis. A la recherche de ce qu'il reste de l'humanité.",
+    "Voici Michelle, une des dernières rescapés de la catastrophe qui à transformer 80% de la population en zombie.Michelle erre depuis des jours sans but précis. A la recherche de ce qu'il reste de l'humanité.",
     "Après avoir fui une horde de zombie qui la poursuit depuis plusieurs jours, elle cherche désespérément de quoi se nourrir.",
+    "Notre héroine est confronté à un obstacle de taille une immense porte qui semble être la depuis un moment.",
+    "Face à cette situation que faire?",
   ];
+  const infos = ["", "QuelquePart dans San Diego", ""];
 
   function handleSceneChange(scene) {
     setCurrentScene(scene);
@@ -34,10 +39,17 @@ function GamePlay() {
   function handleDialogueFinish() {
     setDialogueFinished(true);
   }
+  function handleInfoFinish() {
+    setInfoFinished(true);
+  }
 
   if (dialogueFinished) {
     setCurrentIndex(currentIndex + 1);
     setDialogueFinished(false);
+  }
+  if (infoFinished) {
+    setCurrentIndexInfo(currentIndexInfo + 1);
+    setInfoFinished(false);
   }
   const handleClick = () => {
     ShowElementAction(!showElement);
@@ -129,7 +141,6 @@ function GamePlay() {
         {/* <OptionTextBox
           buttonTexts={["Banane sa mere", "Bouton 2", "Bouton 3", "Bouton 4"]}
           onButtonClick={(buttonIndex) => {
-            console.log(`Le bouton ${buttonIndex + 1} a été cliqué`);
           }}
           speed={5}
         /> */}
@@ -141,7 +152,7 @@ function GamePlay() {
                 <DialogueBox
                   key={index}
                   text={text}
-                  speed={10}
+                  speed={30}
                   onInfoComplete={handleDialogueFinish}
                 />
               );
@@ -150,7 +161,22 @@ function GamePlay() {
             }
           })}
         </>
-        <InfoBox text="Plan Cinématique" speed={10} />
+        <>
+          {infos.map((info, indexInfo) => {
+            if (indexInfo === currentIndexInfo) {
+              return (
+                <InfoBox
+                  key={indexInfo}
+                  text={info}
+                  speed={5}
+                  onInfoComplete={handleInfoFinish}
+                />
+              );
+            } else {
+              return null;
+            }
+          })}
+        </>
         {nextButton}
         {/* HTML ELEMENT FOR INTERACTION - END */}
       </div>

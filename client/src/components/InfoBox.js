@@ -1,9 +1,8 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
-const InfoBox = ({ text, speed }) => {
-  const infoBoxRef = useRef();
-  const [infoBoxdisplayedText, setDisplayedText] = useState("");
-
+const InfoBox = ({ text, speed, onInfoComplete }) => {
+  const [displayedText, setDisplayedText] = useState("");
+  const [isDialogueFinish, setDialogueFinish] = useState(false);
   useEffect(() => {
     let index = -1; // -1 For take first caracter
     const interval = setInterval(() => {
@@ -12,12 +11,19 @@ const InfoBox = ({ text, speed }) => {
         index++;
         setDisplayedText((prevText) => prevText + text[index]);
       } else {
+        setDialogueFinish(true);
         clearInterval(interval);
       }
     }, 1000 / speed); // 1000/speed = 1 second
 
     return () => clearInterval(interval);
   }, [text, speed]);
+
+  useEffect(() => {
+    if (isDialogueFinish) {
+      onInfoComplete(true);
+    }
+  }, [isDialogueFinish, onInfoComplete]);
   return (
     <div
       style={{
@@ -34,7 +40,7 @@ const InfoBox = ({ text, speed }) => {
         textAlign: "justify",
       }}
     >
-      {infoBoxdisplayedText}
+      {displayedText}
     </div>
   );
 };
