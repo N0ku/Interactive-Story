@@ -20,9 +20,9 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
   const [currentAnimationIndex, setCurrentAnimationIndex] = useState(20);
   const [refObjRotation, setRefObjRotation] = useState(null);
   const [isSceneComplete, setIsSceneComplete] = useState(false);
-  const [objtPath, setObjPath] = useState();
+  const [objtPath, setObjPath] = useState(null);
 
-  const [cubePath, setCubePath] = useState();
+  const [cubePath, setCubePath] = useState(null);
   const [advance, setAdvance] = useState(true);
   const [planNumber, setPlanNumber] = useState(0);
   const [oldPlanNumber, setOldPlanNumber] = useState(-1);
@@ -88,33 +88,40 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
       return;
     }
     console.log(plan);
-    var totalPlan = plan.length;
-    if (planNumber != oldPlanNumber && paths.pos != undefined) {
-      var brutPath = paths.pos;
+    var totalPlan = plan[0].length;
+    console.log(plan[0].length)
+   var plans = plan[0][planNumber]
+    console.log(plan)
+    console.log(plans)
+    if (planNumber != oldPlanNumber && plans.path.pos != undefined) {
+      var brutPath = plans.path.pos;
+      console.log(brutPath)
       const points = [];
       brutPath.forEach((x) => {
         var a = new THREE.Vector3(x[0], x[1], x[2]);
         points.push(a);
       });
       const goodPath = new THREE.CatmullRomCurve3(points);
-
-      if (plan.followObject == "Michelle") {
+      console.log(goodPath)
+      if (plans.followObject == "Michelle") {
         setObjPath(goodPath);
-      } else {
+      } else if (plans.followObject == "Cube") {
         setCubePath(goodPath);
+      }else {
+        console.log("rien")
       }
       var posRelative = new THREE.Vector3(
-        plan.camera.pos[0],
-        plan.camera.pos[1],
-        plan.camera.pos[2]
+        plans.camera.pos[0],
+        plans.camera.pos[1],
+        plans.camera.pos[2]
       );
       setPosCameraRelative(posRelative);
-      setZoom(plan.camera.zoom);
-      setMode(plan.camera.mode);
-      setSpeed(plan.path.speed);
+      setZoom(plans.camera.zoom);
+      setMode(plans.camera.mode);
+      setSpeed(plans.path.speed);
     }
 
-    if (time >= plan.timeToStop) {
+    if (time >= plans.timeToStop) {
       if (planNumber != totalPlan) {
         setAdvance(false);
         setOldPlanNumber(planNumber);
@@ -193,7 +200,7 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
           onSend={handleMessage}
           sendRotate={handleMessage}
           onClick={handleClick}
-          path={paths[0]}
+          path={objtPath}
           advance={advance}
           speed={speed}
         />

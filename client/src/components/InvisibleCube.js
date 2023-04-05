@@ -46,7 +46,7 @@ function InvisibleCube(props) {
  });
 
   return (
-    <mesh ref={meshRef} position={positionObj} >
+    <mesh ref={meshRef} position={positionObj} rotation={rotation}>
       <boxBufferGeometry args={[1, 1, 1]} />
       <meshBasicMaterial color="white" opacity={0} transparent />
     </mesh>
