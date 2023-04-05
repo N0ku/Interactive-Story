@@ -267,17 +267,17 @@ const [speed,setSpeed] = useState(1)
       <directionalLight intensity={0.5} />
 
       {/* MAP ELEMENTS - START */}
-      <group position={[0, -5, 0]}>
+      {/* <group position={[0, -5, 0]}>
         <Apocalyptic />
-      </group>
-      <group scale={250} position={[100, 125, -100]}>
+      </group> */}
+      {/* <group scale={250} position={[100, 125, -100]}>
         <Buildings />
-      </group>
-      <Wall
+      </group> */}
+      {/* <Wall
         scale={7}
         rotation={[0, (-90 * Math.PI) / 180, 0]}
         position={[135, -20, -850]}
-      />
+      /> */}
       {/* MAP ELEMENTS - END */}
 
       {/* SPECIALS OBJECTS - START */}
@@ -295,8 +295,8 @@ const [speed,setSpeed] = useState(1)
 
         </group>
       {/* MAIN CHARACTER */}
-      </group>
-      <Thomas/>
+
+      {/* <Thomas/> */}
       {/* ENVIRONNMENT - START */}
       <RockyGround scale={10} position={[-200, -20, -300]} />
       <RockyGround scale={10} position={[1200, -20, -300]} />
