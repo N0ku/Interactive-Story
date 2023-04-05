@@ -55,7 +55,7 @@ const sceneSchema = new Schema({
 
 const chapterSchema = new Schema({
   Chapter: {
-    Scene: sceneSchema,
+    Scene: [sceneSchema],
   },
   number: Number,
 });
