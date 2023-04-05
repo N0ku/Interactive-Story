@@ -136,7 +136,7 @@ function Scene1({ onSceneComplete, handleClick, chapterNumber }) {
 <MotelObjAdvanced/>
         <Test1/>
       {/* MAIN CHARACTER */}
-        <Andre  animationIndex={currentAnimationIndex}
+        <Andre  animationIndex={10}
           onSend={handleMessage}
           sendRotate={handleMessage}
           onClick={handleClick}
