@@ -18,7 +18,7 @@ function Kick(props) {
   const path = props.path;
   const speed = props.speed !== undefined ? props.speed : 1;
 
-  //console.log(actions);
+  console.log(actions);
 
 
   const handleClick = (e) => {

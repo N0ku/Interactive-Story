@@ -41,13 +41,17 @@ function InvisibleCube(props) {
 
     onSend(meshRef);
     sendRotate(rotation);
-
-    if (
-      lastPosition &&
-      Math.trunc(position.x) === Math.trunc(lastPosition.x) - 1
-    ) {
-      setAdvance(false);
-    }
+//  if (time >= plans.timeToStop && planNumber !== totalPlan) {
+//    setAdvance(false);
+//    setOldPlanNumber(planNumber);
+//    setPlanNumber(planNumber + 1);
+//  }
+    // if (
+    //   lastPosition &&
+    //   Math.trunc(position.x) === Math.trunc(lastPosition.x) - 1
+    // ) {
+    //   setAdvance(false);
+    // }
 
     setLastPosition(position);
   });

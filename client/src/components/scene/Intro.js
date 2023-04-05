@@ -24,6 +24,7 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
 
   const [cubePath, setCubePath] = useState(null);
   const [advance, setAdvance] = useState(true);
+  const [advanceCube, setAdvanceCube] = useState(false);
   const [planNumber, setPlanNumber] = useState(0);
   const [oldPlanNumber, setOldPlanNumber] = useState(-1);
   const [speed, setSpeed] = useState(1);
@@ -54,26 +55,11 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
     }
     fetchChapter();
   }, [chapterNumber]);
-  console.log(plan);
-  console.log(paths);
-  console.log(dialogs);
 
-  var posC = [
-    { mode: "followObject", pos: new THREE.Vector3(0, 2, 4), zoom: 2 },
-    { mode: "followObject", pos: new THREE.Vector3(0, 2, 0), zoom: 1 },
-    { mode: "followObjectAbsolu", pos: [0, 2, -6], zoom: 1 },
-    { mode: "fixeCamera", pos: new THREE.Vector3(160, 225, 70), zoom: 2 },
-    {
-      mode: "fixeCameraFollowObject",
-      pos: new THREE.Vector3(160, 225, 70),
-      zoom: 2,
-    },
-  ];
-
-  const [increment, setIncrement] = useState(0);
-  const [posCameraRelative, setPosCameraRelative] = useState(posC[2].pos);
-  const [zoom, setZoom] = useState(posC[2].zoom);
-  const [mode, setMode] = useState(posC[2].mode);
+  console.log(currentAnimationIndex);
+  const [posCameraRelative, setPosCameraRelative] = useState(null);
+  const [zoom, setZoom] = useState(null);
+  const [mode, setMode] = useState(null);
 
   const pathObject = new THREE.CatmullRomCurve3([
     new THREE.Vector3(5, 5, -27),
@@ -98,9 +84,13 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
         (p) => new THREE.Vector3(p[0], p[1], p[2])
       );
       const goodPath = new THREE.CatmullRomCurve3(points);
-      if (plans.followObject === "Michelle") setObjPath(goodPath);
-      else if (plans.followObject === "Cube") setCubePath(goodPath);
-      else console.log("rien");
+      if (plans.followObject === "Michelle") {
+        setObjPath(goodPath);
+        setCurrentAnimationIndex(plans.path.animIndex);
+      } else if (plans.followObject === "Cube") {
+        setCubePath(goodPath);
+        setCurrentAnimationIndex(plans.path.animIndex);
+      } else;
       setPosCameraRelative(new THREE.Vector3(...plans.camera.pos));
       setZoom(plans.camera.zoom);
       setMode(plans.camera.mode);
@@ -108,12 +98,17 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
     }
 
     if (time >= plans.timeToStop && planNumber !== totalPlan) {
-      setAdvance(false);
+      if (plans.followObject === "Michelle") {
+        setAdvance(false);
+        setAdvanceCube(true);
+      } else if (plans.followObject === "Cube") {
+        setAdvanceCube(false);
+        setAdvance(true);
+      }
       setOldPlanNumber(planNumber);
       setPlanNumber(planNumber + 1);
     }
   });
-
   const handleMessage = (messageFromChild) => {
     if (messageFromChild.current) {
       var p = Math.trunc(messageFromChild.current.position.z * 100) / 100;
@@ -133,7 +128,7 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
         });
       }
     } else {
-      console.log(messageFromChild);
+      // console.log(messageFromChild);
       setRefObjRotation(messageFromChild);
     }
   };
@@ -194,6 +189,7 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
           onSend={handleMessage}
           sendRotate={handleMessage}
           path={cubePath}
+          advanceCube={advanceCube}
           speed={speed}
         ></InvisibleCube>
       </group>

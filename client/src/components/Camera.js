@@ -169,7 +169,7 @@ export default function Camera({ refTargetObject, mode, posRelative, zoom,refObj
                 ref={camera}
                 aspect={scene.innerWidth /scene.innerHeight}
                 fov={50}
-                far={800}
+                far={1800}
                 zoom={zoom}     
             > 
             </PerspectiveCamera>

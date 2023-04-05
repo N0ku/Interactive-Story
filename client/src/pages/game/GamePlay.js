@@ -18,6 +18,7 @@ function GamePlay() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [infoFinished, setInfoFinished] = useState(false);
   const texts = [
+    "",
     "Voici Michelle, une des dernières rescapés de la catastrophe qui à transformer la plupart du monde en zombie.Michelle erre depuis des jours sans but précis. A la recherche de ce qu'il reste de l'humanité.",
     "Après avoir fui une horde de zombie qui la poursuit depuis plusieurs jours, elle cherche désespérément de quoi se nourrir.",
   ];
