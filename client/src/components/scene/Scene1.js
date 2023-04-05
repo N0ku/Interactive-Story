@@ -87,7 +87,6 @@ function Scene1({ onSceneComplete }) {
         /> */}
        
       </group>
-      <AndreV2/>
       {/* ENVIRONNMENT - START */}
       <RockyGround scale={10} position={[-200, -20, -300]} />
       <RockyGround scale={10} position={[1200, -20, -300]} />

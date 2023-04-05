@@ -64,7 +64,7 @@ function Register() {
       setUsername("");
       setPassword("");
       setConfirmPassword("");
-      navigate("/inscription");
+      navigate("/");
     } catch (error) {
       if (error.response.status === 400) {
         const errorMessage = error.response.data.message;
@@ -84,7 +84,7 @@ function Register() {
       <ToastContainer />
       <div className="relative flex flex-col justify-center min-h-screen overflow-hidden">
         <div className="w-full p-6 m-auto bg-white rounded-md shadow-md lg:max-w-xl">
-          <h1 className="text-3xl font-semibold text-center text-purple-700 underline">
+          <h1 className="text-3xl font-semibold text-center text-black-700 underline">
             Inscription
           </h1>
           <form className="mt-6" onSubmit={handleSubmit}>
@@ -157,7 +157,7 @@ function Register() {
             <div className="mt-6">
               <button
                 type="submit"
-                className="px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-purple-700 rounded-md hover:bg-purple-600 focus:outline-none focus:bg-purple-600"
+                className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
               >
                 Enregistrer
               </button>
