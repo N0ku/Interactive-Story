@@ -180,8 +180,8 @@ function Intro({ onSceneComplete, handleClick, chapterNumber }) {
       {/* SPECIALS OBJECTS - END */}
       <group scale={20}></group>
       {/* MAIN CHARACTER */}
-        <PositionedSound audioUrl={OST} distance={10} position={[0, 0, 0]} />
-        <PositionedSound audioUrl={ZombieCry} distance={1} position={[10000, 100, 100000]} />
+        <PositionedSound audioUrl={OST} distance={10000} position={[0, 0, 0]} />
+        <PositionedSound audioUrl={ZombieCry} distance={10000000000000} position={[10000, 100, 100000]} />
       <group scale={20}>
         <KickAnim
           animationIndex={currentAnimationIndex}

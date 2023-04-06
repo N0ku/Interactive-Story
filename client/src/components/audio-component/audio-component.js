@@ -1,67 +1,51 @@
-import React, { useRef, useEffect, useCallback } from 'react';
-import { Canvas, extend, useThree ,useFrame} from 'react-three-fiber';
-import { AudioListener, AudioLoader, PositionalAudio } from 'three';
-
-
-extend({ PositionalAudio });
+import React, { useRef, useEffect, useMemo } from 'react';
+import { useFrame, useThree } from '@react-three/fiber';
+import { AudioListener, PositionalAudio, AudioLoader } from 'three';
 
 const PositionalAudioComponent = ({ url, distance = 1, position }) => {
-  const sound = useRef();
+  const audioRef = useRef();
   const { camera, scene } = useThree();
-  const listener = new AudioListener();
-  camera.add(listener);
 
-  const playAudio = useCallback(() => {
-    if (sound.current) {
-      sound.current.context.resume();
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.setRefDistance(distance);
+      audioRef.current.setDirectionalCone(180, 230, 0.1);
+      audioRef.current.setDistanceModel('exponential');
+      audioRef.current.setMaxDistance(10000);
+      audioRef.current.setRolloffFactor(1);
+      audioRef.current.setVolume(1);
+      audioRef.current.play();
     }
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('click', playAudio);
-    window.addEventListener('touchstart', playAudio);
-
-    return () => {
-      window.removeEventListener('click', playAudio);
-      window.removeEventListener('touchstart', playAudio);
-    };
-  }, [playAudio]);
-
-  useEffect(() => {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const audioElement = new Audio(url);
-    const audioNode = audioContext.createMediaElementSource(audioElement);
-    const pannerNode = new PannerNode(audioContext, {
-      panningModel: 'HRTF',
-      distanceModel: 'exponential',
-      refDistance: distance,
-      maxDistance: 10000,
-      rolloffFactor: 1,
-    });
-       audioNode.connect(pannerNode);
-    pannerNode.connect(audioContext.destination);
-    audioElement.play();
-
-    sound.current = pannerNode;
-
-    return () => {
-      audioElement.pause();
-      audioNode.disconnect();
-      pannerNode.disconnect();
-    };
-  }, [url, distance]);
+  }, [audioRef, distance]);
 
   useFrame(() => {
-    if (sound.current) {
-      sound.current.setPosition(scene.position.x, scene.position.y, scene.position.z);
+    if (audioRef.current) {
+      audioRef.current.position.set(position[0], position[1], position[2]);
     }
   });
 
+  const listener = useMemo(() => new AudioListener(), []);
+  camera.add(listener);
+
+  useEffect(() => {
+    const audioLoader = new AudioLoader();
+    audioLoader.load(url, (buffer) => {
+      const audio = new PositionalAudio(listener);
+      audio.setBuffer(buffer);
+      audioRef.current = audio;
+      scene.add(audio);
+    });
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.dispose();
+        scene.remove(audioRef.current);
+      }
+    };
+  }, [url, listener, scene]);
+
   return null;
 };
-
-
-
 
 const Scene = ({ audioUrl, distance, position }) => {
   return (
@@ -69,12 +53,11 @@ const Scene = ({ audioUrl, distance, position }) => {
       <mesh>
         <boxBufferGeometry args={[10, 10, 10]} />
         <meshStandardMaterial color={'orange'} opacity={0.1} transparent />
-        <PositionalAudioComponent url={audioUrl} distance={distance} position={position} />
       </mesh>
+      <PositionalAudioComponent url={audioUrl} distance={distance} position={position} />
     </group>
   );
 };
-
 
 const PositionedSound = ({ audioUrl, distance, position }) => {
   return (
