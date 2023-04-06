@@ -14,7 +14,7 @@ import Apocalyptic from "../Apocalyptic.js";
 import Buildings from "../../3dcomponent/Game_ready_city_buildings.js";
 
 import PositionedSound from "../audio-component/audio-component"
-import OST from "../../assets/audios/OST.mp3"
+import OST from "../../assets/audios/OST.ogg"
 import ZombieCry from "../../assets/audios/zombie-moans-29924.mp3"
 
 function Intro({ onSceneComplete, handleClick, chapterNumber }) {
