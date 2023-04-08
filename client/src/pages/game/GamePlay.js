@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { Canvas } from "react-three-fiber";
 import { Loader } from "@react-three/drei";
 import Intro from "../../components/scene/Intro";
@@ -71,13 +71,15 @@ function GamePlay() {
   return (
     <div className="App">
       <div className="canvas-container">
-          <Canvas style={{ width: "100%", height: "100%" }}>
-            <Physics gravity={[0, -30, 0]}>
+        <Canvas style={{ width: "100%", height: "100%" }}>
+          <Suspense fallback={null}>
+          <Physics gravity={[0, -30, 0]}>
               {sceneToRender}
-            </Physics>
-          </Canvas>
+          </Physics>
+          </Suspense>
+        </Canvas>
         {/* HTML ELEMENT FOR INTERACTION - START */}
-       {/*  {showElement && (
+        {/*  {showElement && (
           <div className="losange-choices-container">
             <InteractionChoices onReturnClick={handleReturnClick} />
           </div>
@@ -90,7 +92,7 @@ function GamePlay() {
           speed={5}
         /> */}
         <Loader />
-      {/*   <DialogueBox text="ParoleDescriptif" speed={10} />
+        {/*   <DialogueBox text="ParoleDescriptif" speed={10} />
         <InfoBox text="InfoBox" speed={10} /> */}
         {nextButton}
         {/* HTML ELEMENT FOR INTERACTION - END */}

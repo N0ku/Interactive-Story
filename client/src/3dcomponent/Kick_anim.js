@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, Suspense } from "react";
 import { useGLTF, useAnimations, useCursor, OrbitControls, calcPosFromAngles } from "@react-three/drei";
 import * as THREE from "three";
 import { useFrame, useThree } from "react-three-fiber";
@@ -40,18 +40,16 @@ let cameraTarget = new THREE.Vector3();
 
 function Kick(props) {
   const group = useRef();
-  const hitbox = useRef();
   const { nodes, materials, animations } = useGLTF("/kick_anim3.glb");
   const { actions, names } = useAnimations(animations, group)
   const [hovered, hoverAction] = useState(false);
-  const modelHeight = -1; // Substract the height of the model from the floor
   const { forward, backward, left, right, shift } = useControls();
 
   const currentAnimation = useRef();
   const controlRef = useRef();
   const camera = useThree((state) => state.camera)
 
-  
+
 
   const updateCameraTarget = (moveX, moveZ) => {
     camera.position.x += moveX;
@@ -62,21 +60,6 @@ function Kick(props) {
     cameraTarget.z = group.current.position.z;
 
     if (controlRef.current) controlRef.current.target = cameraTarget;
-  }
-  function PlayerBox({ args }) {
-    const [ref, api] = useBox(() => ({
-      args,
-      onCollide: () => console.log("collision detected"), // add a collision event
-    }));
-
-    return (
-      <group ref={ref}>
-        <mesh>
-          <boxGeometry args={args} />
-          <meshStandardMaterial wireframe color="red" />
-        </mesh>
-      </group>
-    );
   }
   /*   actions[names[props.animationIndex]].reset().fadeIn(0.25).play(); */
   useEffect(() => {
@@ -101,20 +84,6 @@ function Kick(props) {
   }, [forward, backward, left, right, shift, actions]);
 
   useCursor(hovered);
-
-
-
-  const [positionObj, setPositionObj] = useState([0, -0.01, -2])
-  const path = new THREE.CatmullRomCurve3([
-    new THREE.Vector3(0, -0.01, -2),
-    new THREE.Vector3(0, -0.01, 2),
-
-    new THREE.Vector3(4, -0.01, 5),
-
-    new THREE.Vector3(7, -0.01, 11)
-
-
-  ]);
 
   useFrame((state, delta) => {
     if (currentAnimation.current === "kick_runInPlace" || currentAnimation.current === "kick_walkInPlace") {
@@ -149,11 +118,35 @@ function Kick(props) {
     }
   });
 
+
+  function PlayerBox(props) {
+    const [ref, api] = useBox(
+      () => ({
+        args: [2, 2, 2], mass: 0, ...props, onCollide: (e) => {
+          if (e.body.name === "Box event") {
+            console.log(e)
+          }
+        }
+      }),
+      useRef
+    )
+    useFrame(() => {
+      let currentPlayerPos = group.current.position;
+        api.position.set(currentPlayerPos.x, currentPlayerPos.y, currentPlayerPos.z)    
+    });
+    return (
+      <mesh ref={ref} name="MC-hitbox">
+        <boxGeometry args={[2, 2, 2]} />
+        <meshNormalMaterial />
+      </mesh>
+    )
+  }
+
   return (
     <>
+      <PlayerBox />
       <OrbitControls ref={controlRef} />
       <group ref={group}>
-        <PlayerBox args={[2, 3, 1]} />
         <group {...props} dispose={null}>
           <group name="Scene">
             <group name="Armature" rotation={[Math.PI / 2, 0, 180 * Math.PI / 180]} scale={0.01}>

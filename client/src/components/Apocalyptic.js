@@ -1,8 +1,7 @@
 import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
-
-function Apocalyptic(props) {
+export function Apocalyptic(props) {
   const { nodes, materials } = useGLTF("/apocalyptic_city.glb");
   return (
     <group rotation={[-Math.PI / 2, 0, 0]}>

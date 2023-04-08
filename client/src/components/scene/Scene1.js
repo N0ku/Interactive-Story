@@ -8,7 +8,9 @@ import Buildings from "../../3dcomponent/Game_ready_city_buildings";
 import Wall from "../../3dcomponent/Wall";
 import Apocalyptic from "../../components/Apocalyptic.js";
 import * as THREE from "three";
-import { Debug,useBox } from "@react-three/cannon";
+import { Debug } from "@react-three/cannon";
+import { Plane } from "../../3dcomponent/Invisible_plane";
+import { BoxTrigger } from "../EventBoxes";
 
 function Scene1({ onSceneComplete }) {
   const [lerping, setLerping] = useState(false);
@@ -45,15 +47,6 @@ function Scene1({ onSceneComplete }) {
     }
   }, [isSceneComplete, onSceneComplete]);
 
-  function BoxTrigger({ args, onCollide}) {
-    const [ref] = useBox(() => ({ args, isTrigger: true, onCollide }), useRef())
-    return (
-      <mesh {...{ ref }}>
-        <boxBufferGeometry args={args} />
-        <meshStandardMaterial wireframe color="green" />
-      </mesh>
-    )
-  }
   return (
     <>
       {/*       <Camera
@@ -72,10 +65,8 @@ function Scene1({ onSceneComplete }) {
       <ambientLight intensity={0.5} />
       <directionalLight intensity={0.5} />
 
-      <Debug/>
-
       {/* MAP ELEMENTS - START */}
-      <group scale={250} position={[100, 125, -100]}>
+{/*       <group scale={250} position={[100, 125, -100]}>
         <Buildings />
       </group>
 
@@ -83,33 +74,33 @@ function Scene1({ onSceneComplete }) {
         scale={7}
         rotation={[0, (-90 * Math.PI) / 180, 0]}
         position={[135, -20, -850]}
-      />
-      <group position={[0, -5, 0]}>
-        <Apocalyptic />
-      </group>
+      /> */}
+
+      {/*     <group position={[0, -5, 0]}>
+          <Apocalyptic />
+        </group> */}
       {/* MAP ELEMENTS - END */}
 
       {/* MAIN CHARACTER */}
-      <group position={[0, 0, 0]} scale={20} ref={playerRef}>
-        <KickAnim
-          path={path}
-          animationIndex={currentAnimationIndex}
-          onSend={handleMessage}
-        />
-      </group>
 
-      <BoxTrigger
-        args={[10, 10, 10]}
-        position={[20, 20, 20]}
-        onCollide={() => {
-          console.log("HEY")
-        }}
-      />
+      <Debug>
+
+        <group scale={20} ref={playerRef}>
+          <KickAnim
+            path={path}
+            animationIndex={currentAnimationIndex}
+            onSend={handleMessage}
+          />
+        </group>
+        <Plane rotation={[-Math.PI / 2, 0, 0]} args={[250, 250]} />
+        <BoxTrigger args={[2, 2, 2]} position={[30, 0, 50]} />
+
+      </Debug>
 
 
       {/* ENVIRONNMENT - START */}
-      <RockyGround scale={10} position={[-200, -20, -300]} />
-      <RockyGround scale={10} position={[1200, -20, -300]} />
+{/*       <RockyGround scale={10} position={[-200, -20, -300]} />
+      <RockyGround scale={10} position={[1200, -20, -300]} /> */}
       <Sky
         distance={35000}
         sunPosition={[5, 1, 8]}
